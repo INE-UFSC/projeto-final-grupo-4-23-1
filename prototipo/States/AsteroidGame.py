@@ -1,8 +1,7 @@
 import pygame
 from States.State import State
 from Ship.Ship import Ship
-from Asteroid.Asteroid import Asteroid
-from time import time
+
 class AsteroidGame(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
@@ -11,13 +10,16 @@ class AsteroidGame(State):
         self.__all_sprites = pygame.sprite.Group()
         #adiciona a nave
         self.add_ship()
-        #adiciona asteroid inicial
-        self.all_sprites.add(Asteroid(self))
+
         self.run()
 
     #adiciona a nave
     def add_ship(self):
         ship = Ship(2)
+
+        bullet = Bullet(400, 300, 90, 2, 3)
+
+        self.all_sprites.add(bullet)
         self.all_sprites.add(ship)
     
     def add_asteroid(self):
