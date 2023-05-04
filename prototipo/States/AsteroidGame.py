@@ -1,6 +1,7 @@
 import pygame
 from States.State import State
 from Ship.Ship import Ship
+from Bullet import Bullet
 
 class AsteroidGame(State):
     def __init__(self, state_machine):
@@ -11,11 +12,16 @@ class AsteroidGame(State):
         #adiciona a nave
         self.add_ship()
 
+
         self.run()
 
     #adiciona a nave
     def add_ship(self):
         ship = Ship(2)
+
+        bullet = Bullet(400, 300, 90, 2, 3)
+
+        self.all_sprites.add(bullet)
         self.all_sprites.add(ship)
 
     def run(self):

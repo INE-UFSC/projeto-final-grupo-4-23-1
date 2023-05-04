@@ -1,7 +1,7 @@
 import pygame
 import math
 
-class Bullet:
+class Bullet(pygame.sprite.Sprite):
     def __init__(self, x: int, y: int, direction, speed: float, damage: int):
         super().__init__()
         self.__x = x
@@ -12,6 +12,8 @@ class Bullet:
         self.__alive = True
         self.__lifetime = 5.0  # 5 pra desaparecer
 
+        self.cria_bullet()
+
 
     
     def cria_bullet(self):
@@ -20,21 +22,19 @@ class Bullet:
         #cria o retangulo com base na imagem
         pygame.draw.rect(self.imagem_original, ("yellow"), (0, 0 ,20 ,3))
         #rotaciona a imagem conforma a diracao da nave (dada no init)
-        self.image = pygame.transform.rotate(self.imagem_original, -self.direcao)
+        self.image = pygame.transform.rotate(self.imagem_original, -self.direction)
         #retangulo da bala
         self.rect = self.image.get_rect(center = (self.x, self.y))
 
 
-    
-    def detecta_colisao(self):
+    #def detecta_colisao(self):
         #lista de booleanos quando é detectado colisao entre a bala e o grupo de asteroids
-        hitlist = pygame.sprite.spritecollide(self, self.jogo.todos_asteroids, True)
-        if hitlist:
-            for sprite in hitlist:
-                sprite.hit()
+    #    hitlist = pygame.sprite.spritecollide(self, self.jogo.todos_asteroids, True)
+    #    if hitlist:
+    #        for sprite in hitlist:
+    #            sprite.hit()
 
-            self.kill()
-
+    #        self.kill()
 
 
     def update(self):
@@ -49,8 +49,8 @@ class Bullet:
         elif self.x < 0:
             self.x = screen_width
         # Calcula a nova posição da bala com base na direção e velocidade
-        self.x += self.speed * math.cos(self.direction)
-        self.y += self.speed * math.sin(self.direction)
+        self.x += self.speed * math.cos(math.radians(self.direction))
+        self.y += self.speed * math.sin(math.radians(self.direction))
         # Decrementa o tempo de vida da bala com base no tempo de atualização (assumindo 60 atualizações por segundo)
         self.lifetime -= 1.0 / 60.0  # 60 FPS
         # Verifica se a vida útil da bala acabou
