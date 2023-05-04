@@ -1,22 +1,31 @@
 import pygame
 from States.State import State
 from Ship.Ship import Ship
-
+from Asteroid.Asteroid import Asteroid
+from time import time
 class AsteroidGame(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
-
+        self.__last_asteroid_time = time()
         #grupo com todos os sprites
         self.__all_sprites = pygame.sprite.Group()
         #adiciona a nave
         self.add_ship()
-
+        #adiciona asteroid inicial
+        self.all_sprites.add(Asteroid(self))
         self.run()
 
     #adiciona a nave
     def add_ship(self):
         ship = Ship(2)
         self.all_sprites.add(ship)
+    
+    def add_asteroid(self):
+        current_time = time()
+        if (current_time - self.last_asteroid_time) > 5:
+            asteroid = Asteroid(self)
+            self.all_sprites.add(asteroid)
+            self.__last_asteroid_time = time()
 
     def run(self):
         while (self.playing == True):
@@ -34,7 +43,10 @@ class AsteroidGame(State):
 
             #põe o conteudo da tela
             self.screen_content()
-
+            
+            #adiciona asteroid a cada 5s
+            self.add_asteroid()
+            
             #atualiza todos os sprites(chama o metodo update de todos os sprites do grupo)
             self.update_all_sprites()
 
@@ -54,3 +66,7 @@ class AsteroidGame(State):
     @property
     def all_sprites(self):
         return self.__all_sprites
+    
+    @property
+    def last_asteroid_time(self):
+        return self.__last_asteroid_time
