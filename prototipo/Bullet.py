@@ -39,23 +39,27 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         # Obtém as dimensões da janela do jogo
-        screen_width, screen_height = pygame.display.get_surface().get_size()
+        #screen_width = pygame.display.Info().current_w
+        #screen_height = pygame.display.Info().current_h
 
         # Se a bala saiu da tela pela direita, teletransporta para o lado esquerdo
-        if self.x > screen_width:
-            self.x = 0
+        #if self.x > screen_width:
+        #    self.x = 0
 
         # Se a bala saiu da tela pela esquerda, teletransporta para o lado direito
-        elif self.x < 0:
-            self.x = screen_width
+        #elif self.x < 0:
+        #    self.x = screen_width
+
         # Calcula a nova posição da bala com base na direção e velocidade
-        self.x += self.speed * math.cos(math.radians(self.direction))
-        self.y += self.speed * math.sin(math.radians(self.direction))
+        self.__x += self.speed * math.cos(math.radians(self.direction))
+        self.__y += self.speed * math.sin(math.radians(self.direction))
+
         # Decrementa o tempo de vida da bala com base no tempo de atualização (assumindo 60 atualizações por segundo)
-        self.lifetime -= 1.0 / 60.0  # 60 FPS
+        #self.lifetime -= 1.0 / 60.0  # 60 FPS
+
         # Verifica se a vida útil da bala acabou
-        if self.lifetime <= 0:
-            self.alive = False # define o status da bala como 'morta' quando a vida útil acaba
+        #if self.lifetime <= 0:
+            #self.alive = False # define o status da bala como 'morta' quando a vida útil acaba
     
     @property
     def x(self):
@@ -85,30 +89,3 @@ class Bullet(pygame.sprite.Sprite):
     def lifetime(self):
         return self.__lifetime
 
-    @x.setter
-    def x (self, x):
-        self.__x = x
-    
-    @y.setter
-    def y (self, y):
-        self.__y = y
-    
-    @direction.setter
-    def direction (self, direction):
-        self.__direction = direction
-
-    @speed.setter
-    def speed(self,speed):
-        self.__speed = speed
-    
-    @damage.setter
-    def damage(self, damage):
-        self.__damage = damage
-    
-    @alive.setter
-    def alive(self, alive):
-        self.__alive = alive
-    
-    @lifetime.setter
-    def lifetime(self,lifetime):
-        self.__lifetime = lifetime
