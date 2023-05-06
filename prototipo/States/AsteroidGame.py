@@ -13,11 +13,15 @@ class AsteroidGame(State):
         self.add_ship()
         #adiciona asteroid inicial
         self.all_sprites.add(Asteroid(self))
+
+        #clock
+        self.__ck = pygame.time.Clock()
+
         self.run()
 
     #adiciona a nave
     def add_ship(self):
-        ship = Ship(2)
+        ship = Ship(10)
         self.all_sprites.add(ship)
     
     def add_asteroid(self):
@@ -33,6 +37,9 @@ class AsteroidGame(State):
                 if (event.type == pygame.QUIT):
                     self.nextState("Sair")
 
+            #fps
+            self.ck.tick(60)
+            
             #apagar depois
             keys = pygame.key.get_pressed()
             if keys[pygame.K_1]:
@@ -62,6 +69,10 @@ class AsteroidGame(State):
     def update_all_sprites(self):
         self.all_sprites.update()
         self.all_sprites.draw(self.display)
+
+    @property
+    def ck(self):
+        return self.__ck
 
     @property
     def all_sprites(self):
