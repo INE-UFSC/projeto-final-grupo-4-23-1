@@ -25,8 +25,8 @@ class Ship(pygame.sprite.Sprite):
         self.__direction = -90
         self.__thrust = 0
         self.__rotation = 0
+        self.__inertia_direction = -90
 
-        #carrega imgagem
         self.__load_image = pygame.image.load(pasta+"//ship.png")
         self.__image = self.load_image
 
@@ -39,7 +39,8 @@ class Ship(pygame.sprite.Sprite):
         #tecla W -> aumenta impulso
         if (keys[pygame.K_w]):
             self.__thrust -= self.speed/500
-        
+            self.__inertia_direction = self.direction
+
         #tecla a -> rotaciona no sentido antihorario
         if (keys[pygame.K_a]):
             self.__rotation += (self.speed)/3
@@ -66,12 +67,15 @@ class Ship(pygame.sprite.Sprite):
         self.__thrust /= 1.001
         self.__rotation /= 1.85
 
-        #altera x e y da nave, conforme a inpulso e a diração
-        self.__x += self.thrust * cos(radians(-self.direction))
-        self.__y += self.thrust * sin(radians(-self.direction))
-
         #altera a direção conforme a rotação
         self.__direction += self.rotation
+
+        #altera x e y da nave, conforme a inpulso e a diração
+        self.__x += self.thrust * cos(radians(-self.inertia_direction))
+        self.__y += self.thrust * sin(radians(-self.inertia_direction))
+
+
+
 
     #atualiza imagem, conforme a posição
     def update_position(self):
@@ -99,6 +103,10 @@ class Ship(pygame.sprite.Sprite):
         self.update_thrust_and_rotation()
         self.display_limit()
         self.update_position()
+
+    @property
+    def inertia_direction(self):
+        return self.__inertia_direction
         
     @property 
     def speed(self):
