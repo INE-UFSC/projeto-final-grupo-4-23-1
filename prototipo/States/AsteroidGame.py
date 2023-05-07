@@ -35,7 +35,7 @@ class AsteroidGame(State):
 
     #adiciona a nave
     def add_ship(self):
-        ship = Ship(10)
+        ship = Ship(5)
         self.all_sprites.add(ship)
         self.ship_group.add(ship)
     

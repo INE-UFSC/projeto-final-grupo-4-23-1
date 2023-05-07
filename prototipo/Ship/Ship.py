@@ -22,10 +22,11 @@ class Ship(pygame.sprite.Sprite):
 
         self.__speed = speed
         #direção, impulso e rotação inicial
-        self.__direction = -90
+        self.__direction = 90
         self.__thrust = 0
         self.__rotation = 0
-        self.__inertia_direction = -90
+        self.__dx = 0
+        self.__dy = 0
 
         self.__load_image = pygame.image.load(pasta+"//ship.png")
         self.__image = self.load_image
@@ -38,16 +39,16 @@ class Ship(pygame.sprite.Sprite):
 
         #tecla W -> aumenta impulso
         if (keys[pygame.K_w]):
-            self.__thrust -= self.speed/500
-            self.__inertia_direction = self.direction
+            self.__thrust += self.speed/500
+            self.accelerate()
 
         #tecla a -> rotaciona no sentido antihorario
         if (keys[pygame.K_a]):
-            self.__rotation += (self.speed)/3
+            self.__rotation += (self.speed)/2
 
         #tecla d -> rotaciona no sentido horario
         if (keys[pygame.K_d]):
-            self.__rotation -= (self.speed)/3
+            self.__rotation -= (self.speed)/2
 
         #tecla ESPAÇO -> atira
         if (keys[pygame.K_SPACE]):
@@ -60,11 +61,12 @@ class Ship(pygame.sprite.Sprite):
 
             self.__last_shoot = time()
 
-    #executado quando é detectado colisao 
     def hit(self):
-        print("Bateu")
-        self.kill()
+        print("bateu")
 
+    def accelerate(self):
+        self.__dx += cos(radians(self.direction)) * self.thrust/10
+        self.__dy += sin(radians(-self.direction)) * self.thrust/10
 
     #atualiza o impulso e a rotação
     def update_thrust_and_rotation(self):
@@ -77,15 +79,15 @@ class Ship(pygame.sprite.Sprite):
         self.__direction += self.rotation
 
         #altera x e y da nave, conforme a inpulso e a diração
-        self.__x += self.thrust * cos(radians(-self.inertia_direction))
-        self.__y += self.thrust * sin(radians(-self.inertia_direction))
+        self.__x += self.dx
+        self.__y += self.dy
 
 
 
 
     #atualiza imagem, conforme a posição
     def update_position(self):
-        self.__image = pygame.transform.rotate(self.load_image, self.direction+90)
+        self.__image = pygame.transform.rotate(self.load_image, self.direction-90)
         self.__rect = self.image.get_rect(center = (self.x, self.y))
 
     #teletransporta para o outro lado da tela
@@ -109,6 +111,14 @@ class Ship(pygame.sprite.Sprite):
         self.update_thrust_and_rotation()
         self.display_limit()
         self.update_position()
+
+    @property
+    def dx(self):
+        return self.__dx
+
+    @property
+    def dy(self):
+        return self.__dy
 
     @property
     def inertia_direction(self):
