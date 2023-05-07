@@ -2,6 +2,7 @@ import pygame
 from States.State import State
 from Ship.Ship import Ship
 from Asteroid.Asteroid import Asteroid
+from CollisionManager.CollisionManager import CollisionManager
 from time import time
 class AsteroidGame(State):
     def __init__(self, state_machine):
@@ -14,10 +15,18 @@ class AsteroidGame(State):
 
         #grupo com todos os sprites
         self.__all_sprites = pygame.sprite.Group()
+        #grupo so de asteroids
+        self.__all_asteroids = pygame.sprite.Group()
+        #grupo so da nave (feito para o sistema de colisao)
+        self.__ship_group = pygame.sprite.Group()
+
         #adiciona a nave
         self.add_ship()
+
         #adiciona asteroid inicial
-        self.all_sprites.add(Asteroid(self))
+        asteroid = Asteroid(self)
+        self.all_sprites.add(asteroid)
+        self.all_asteroids.add(asteroid)
 
         #clock
         self.__ck = pygame.time.Clock()
@@ -28,12 +37,15 @@ class AsteroidGame(State):
     def add_ship(self):
         ship = Ship(10)
         self.all_sprites.add(ship)
+        self.ship_group.add(ship)
     
     def add_asteroid(self):
-        current_time = time()
-        if (current_time - self.last_asteroid_time) > 5:
+        if (time() - self.last_asteroid_time) > 5:
             asteroid = Asteroid(self)
+
             self.all_sprites.add(asteroid)
+            self.all_asteroids.add(asteroid)
+
             self.__last_asteroid_time = time()
 
     def run(self):
@@ -48,7 +60,7 @@ class AsteroidGame(State):
             #apagar depois
             keys = pygame.key.get_pressed()
             if keys[pygame.K_1]:
-                self.nextState("MainMenu")
+                self.nextState("Result")
             #apagar depois
 
             pygame.display.update()
@@ -58,11 +70,24 @@ class AsteroidGame(State):
             
             #adiciona asteroid a cada 5s
             self.add_asteroid()
+
+            #colisoes
+            self.collisions()
             
             #atualiza todos os sprites(chama o metodo update de todos os sprites do grupo)
             self.update_all_sprites()
 
             pygame.display.update()
+
+    def collisions(self):
+        collisions = CollisionManager(self.ship_group, self.all_asteroids)
+
+        #colisao ship <-> asteroid
+        if (collisions.collision_asteroid_ship()):
+            self.state_machine.set_alive_time(time() - self.init__time)
+            self.nextState("Result")
+
+
 
     #conteudo da tela
     def screen_content(self):
@@ -75,6 +100,14 @@ class AsteroidGame(State):
     def update_all_sprites(self):
         self.all_sprites.update()
         self.all_sprites.draw(self.display)
+
+    @property
+    def all_asteroids(self):
+        return self.__all_asteroids
+
+    @property
+    def ship_group(self):
+        return self.__ship_group
 
     @property
     def init__time(self):

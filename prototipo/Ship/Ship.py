@@ -60,6 +60,12 @@ class Ship(pygame.sprite.Sprite):
 
             self.__last_shoot = time()
 
+    #executado quando é detectado colisao 
+    def hit(self):
+        print("Bateu")
+        self.kill()
+
+
     #atualiza o impulso e a rotação
     def update_thrust_and_rotation(self):
         #diminui a rotação e o impulso, confor o metodo update é chamado

@@ -70,15 +70,15 @@ class Asteroid(pygame.sprite.Sprite):
         if (self.y  <= 0):
             self.__y = self.display_height-1
     
-    def divide(self):
+    def hit(self):
         print('acertou o asteroid')
-        if self.size > 0:
-            for i in range(self.asteroids_ramaining):
-                asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
-                self.game.all_sprites.add(asteroid)
-                self.game.asteroid_sprites.add(asteroid)
+        #if self.size > 0:
+            #for i in range(self.asteroids_ramaining):
+                #asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
+                #self.game.all_sprites.add(asteroid)
+                #self.game.asteroid_sprites.add(asteroid)
 
-            self.kill()
+        self.kill()
 
     @property 
     def speed(self):
