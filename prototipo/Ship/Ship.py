@@ -23,7 +23,7 @@ class Ship(pygame.sprite.Sprite):
         self.__speed = speed
         #direção, impulso e rotação inicial
         self.__direction = 90
-        self.__thrust = 0
+        self.__thrust = 2
         self.__rotation = 0
         self.__dx = 0
         self.__dy = 0
@@ -72,7 +72,7 @@ class Ship(pygame.sprite.Sprite):
     def update_thrust_and_rotation(self):
         #diminui a rotação e o impulso, confor o metodo update é chamado
         #para dar a sencação de inercia
-        self.__thrust /= 1.001
+        self.__thrust /= 1.01
         self.__rotation /= 1.85
 
         #altera a direção conforme a rotação
