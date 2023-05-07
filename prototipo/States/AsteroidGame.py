@@ -6,7 +6,12 @@ from time import time
 class AsteroidGame(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
+
         self.__last_asteroid_time = time()
+
+        #tempo que começou o jogo
+        self.__init_time = time()
+
         #grupo com todos os sprites
         self.__all_sprites = pygame.sprite.Group()
         #adiciona a nave
@@ -63,12 +68,17 @@ class AsteroidGame(State):
     def screen_content(self):
         self.display.fill("black")
         self.text("ASTEROID GAME", 100, 100, 30)
-        self.text("tecla 1 para mudar de estado", 10, 10, 50)
+        self.text("tecla 1 para mudar de estado", 10, 550, 50)
+        self.text("Você sobreviveu: %.1f " % (time() - self.init__time), 10, 10, 30)
 
     #atualiza todos os sprites
     def update_all_sprites(self):
         self.all_sprites.update()
         self.all_sprites.draw(self.display)
+
+    @property
+    def init__time(self):
+        return self.__init_time
 
     @property
     def ck(self):
