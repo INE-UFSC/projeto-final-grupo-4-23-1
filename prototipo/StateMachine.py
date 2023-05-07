@@ -27,3 +27,4 @@ class StateMachine:
 
             if (self.state == "Sair"):
                 pygame.quit()
+                break
