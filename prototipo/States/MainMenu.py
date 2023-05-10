@@ -1,11 +1,26 @@
 import pygame
+from Button import Button
 from States.State import State
 
 class MainMenu(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
+        self.__all_sprites = pygame.sprite.Group()
 
+        self.create_button()
         self.run()
+
+    def create_button(self):
+        play = Button(250, 150, 'Jogar', self.play)
+        self.all_sprites.add(play)
+        quit = Button(250, 300, 'Sair', self.quit)
+        self.all_sprites.add(quit)
+
+    def play(self):
+        self.nextState("AsteroidGame")
+
+    def quit(self):
+        self.nextState("Sair")
 
     def run(self):
         while (self.playing == True):
@@ -15,17 +30,16 @@ class MainMenu(State):
 
             pygame.display.update()
 
-            #apagar depois
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                self.nextState("AsteroidGame")
-            #apagar depois
-
             self.screen_content()
+
+            self.all_sprites.update()
+            self.all_sprites.draw(self.display)
 
             pygame.display.update()
 
     def screen_content(self):
         self.display.fill("black")
-        self.text("MAIN MENU", 10, 10, 50)
-        self.text("tecla ESPAÇO para mudar de estado", 10, 65, 60)
+
+    @property
+    def all_sprites(self):
+        return self.__all_sprites
