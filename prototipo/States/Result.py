@@ -19,7 +19,7 @@ class Result(State):
 
             #talvez mudar depois
             keys = pygame.key.get_pressed()
-            if (keys[pygame.K_2]):
+            if (keys[pygame.K_SPACE]):
                 self.nextState("MainMenu")
             #talvez mudar deopis1
 
@@ -29,9 +29,8 @@ class Result(State):
 
     def screen_content(self):
         self.display.fill("black")
-        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 300, 300, 50)
-        self.text("RESULT", 10, 10 ,30)
-        self.text("Aperte 2 para sair", 50, 50, 40)
+        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 200, 250, 50)
+        self.text("Aperte ESPAÇO para sair", 275, 300, 30)
 
     @property
     def alive_time(self):
