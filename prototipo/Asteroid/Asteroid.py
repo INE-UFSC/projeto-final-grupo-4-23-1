@@ -19,6 +19,7 @@ class Asteroid(pygame.sprite.Sprite):
         self.start_position(position)
         self.__asteroids_ramaining = 2
         self.__rect = self.image.get_rect(center=(self.x, self.y))
+        self.__mask = pygame.mask.from_surface(self.image)
 
     
     def start_position(self, position):
@@ -56,6 +57,7 @@ class Asteroid(pygame.sprite.Sprite):
     def update_position(self):
         self.__image = pygame.transform.rotate(self.load_image, self.direction+90)
         self.__rect = self.image.get_rect(center = (self.x, self.y))  
+        self.__mask = pygame.mask.from_surface(self.image)
     
     def display_limit(self):
         if (self.x >= self.display_width):
@@ -79,6 +81,10 @@ class Asteroid(pygame.sprite.Sprite):
                 self.game.all_asteroids.add(asteroid)
 
         self.kill()
+
+    @property
+    def mask(self):
+        return self.__mask
 
     @property 
     def speed(self):

@@ -31,6 +31,7 @@ class Ship(pygame.sprite.Sprite):
 
         self.__load_image = pygame.image.load(pasta+"//ship.png")
         self.__image = self.load_image
+        self.__mask = pygame.mask.from_surface(self.image)
 
         #marca o hitbox
         self.__rect = self.image.get_rect(center = (self.x, self.y))
@@ -90,6 +91,7 @@ class Ship(pygame.sprite.Sprite):
     def update_position(self):
         self.__image = pygame.transform.rotate(self.load_image, self.direction-90)
         self.__rect = self.image.get_rect(center = (self.x, self.y))
+        self.__mask = pygame.mask.from_surface(self.image)
 
     #teletransporta para o outro lado da tela
     def display_limit(self):
@@ -112,6 +114,10 @@ class Ship(pygame.sprite.Sprite):
         self.update_thrust_and_rotation()
         self.display_limit()
         self.update_position()
+
+    @property
+    def mask(self):
+        return self.__mask
 
     @property
     def dx(self):

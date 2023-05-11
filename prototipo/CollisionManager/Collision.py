@@ -12,17 +12,22 @@ class Collision:
         collision_dict = pygame.sprite.groupcollide(self.group1, self.group2, False, False)
 
         if (collision_dict):
-            group1 = collision_dict.keys()
-            group2 = collision_dict.values()
+            collision_mask = pygame.sprite.groupcollide(self.group1, self.group2, False, False, pygame.sprite.collide_mask)
 
-            for x1 in group1:
-                x1.hit()
+            if (collision_mask):
+                group1 = collision_dict.keys()
+                group2 = collision_dict.values()
 
-            for g2 in group2:
-                for x2 in g2:
-                    x2.hit()
+                for x1 in group1:
+                    x1.hit()
 
-            return True
+                for g2 in group2:
+                    for x2 in g2:
+                        x2.hit()
+
+                return True
+        else:
+            return False
 
     @property
     def group1(self):
