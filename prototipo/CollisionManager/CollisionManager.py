@@ -17,6 +17,8 @@ class CollisionManager:
     def collision_asteroid_ship(self):
         if (Collision(self.ship_group, self.all_asteroids).detect_collision()):
             return True
+        else:
+            return False
 
     def collision_bullet_ship(self):
         # if (Collision(self.bullet_group, self.all_asteroids).detect_collitsion()):
