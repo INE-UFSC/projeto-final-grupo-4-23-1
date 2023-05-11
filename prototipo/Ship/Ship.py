@@ -6,7 +6,7 @@ from time import time
 pasta = path.dirname(__file__)
 
 class Ship(pygame.sprite.Sprite):
-    def __init__(self, speed):
+    def __init__(self, speed, vel_max):
         super().__init__()
 
         #tempo do ultimo tiro
@@ -21,6 +21,7 @@ class Ship(pygame.sprite.Sprite):
         self.__y = int((self.display_height)/2)
 
         self.__speed = speed
+        self.__vel_max = vel_max
 
         #direção, impulso e rotação inicial
         self.__direction = 90
@@ -70,6 +71,11 @@ class Ship(pygame.sprite.Sprite):
         self.__dx += cos(radians(self.direction)) * self.thrust/8
         self.__dy += sin(radians(-self.direction)) * self.thrust/8
 
+        if (abs(self.dx) > self.vel_max):
+            self.__dx = -self.vel_max if (self.dx < 0) else self.vel_max
+        if (abs(self.dy) >= self.vel_max):
+            self.__dy = -self.vel_max if (self.dy < 0) else self.vel_max
+
     #atualiza o impulso e a rotação
     def update_thrust_and_rotation(self):
         #diminui a rotação e o impulso, confor o metodo update é chamado
@@ -77,12 +83,16 @@ class Ship(pygame.sprite.Sprite):
         self.__thrust /= 1.009
         self.__rotation /= 1.85
 
+        self.__dx /= 1.01
+        self.__dy /= 1.01
+
         #altera a direção conforme a rotação
         self.__direction += self.rotation
 
         #altera x e y da nave, conforme a inpulso e a diração
         self.__x += self.dx
         self.__y += self.dy
+
 
 
 
@@ -114,6 +124,10 @@ class Ship(pygame.sprite.Sprite):
         self.update_thrust_and_rotation()
         self.display_limit()
         self.update_position()
+
+    @property
+    def vel_max(self):
+        return self.__vel_max
 
     @property
     def mask(self):
