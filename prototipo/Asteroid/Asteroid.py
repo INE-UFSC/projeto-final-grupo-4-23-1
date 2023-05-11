@@ -13,7 +13,7 @@ class Asteroid(pygame.sprite.Sprite):
         self.__game = game
         self.__size = size
         self.__direction = randint(0,360)
-        self.__thrust = 6
+        self.__thrust = 5
         self.__load_image = pygame.image.load(pasta+"//asteroid.png")
         self.__image = self.load_image
         self.start_position(position)
@@ -72,11 +72,11 @@ class Asteroid(pygame.sprite.Sprite):
     
     def hit(self):
         print('acertou o asteroid')
-        #if self.size > 0:
-            #for i in range(self.asteroids_ramaining):
-                #asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
-                #self.game.all_sprites.add(asteroid)
-                #self.game.asteroid_sprites.add(asteroid)
+        if self.size > 0:
+            for i in range(self.asteroids_ramaining):
+                asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
+                self.game.all_sprites.add(asteroid)
+                self.game.all_asteroids.add(asteroid)
 
         self.kill()
 
