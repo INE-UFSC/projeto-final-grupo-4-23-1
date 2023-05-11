@@ -39,6 +39,7 @@ class MainMenu(State):
 
     def screen_content(self):
         self.display.fill("black")
+        self.text("-=-=ASTEROIDS=-=-", 230, 30, 50)
 
     @property
     def all_sprites(self):
