@@ -57,12 +57,6 @@ class AsteroidGame(State):
             #fps
             self.ck.tick(60)
             
-            #apagar depois
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_1]:
-                self.nextState("Result")
-            #apagar depois
-
             pygame.display.update()
 
             #põe o conteudo da tela
@@ -87,13 +81,9 @@ class AsteroidGame(State):
             self.state_machine.set_alive_time(time() - self.init__time)
             self.nextState("Result")
 
-
-
     #conteudo da tela
     def screen_content(self):
         self.display.fill("black")
-        self.text("ASTEROID GAME", 100, 100, 30)
-        self.text("tecla 1 para mudar de estado", 10, 550, 50)
         self.text("Você sobreviveu: %.1f " % (time() - self.init__time), 10, 10, 30)
 
     #atualiza todos os sprites
