@@ -4,6 +4,8 @@ from Ship.Ship import Ship
 from Asteroid.Asteroid import Asteroid
 from CollisionManager.CollisionManager import CollisionManager
 from time import time
+from Bullet import Bullet
+
 class AsteroidGame(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
@@ -19,6 +21,8 @@ class AsteroidGame(State):
         self.__all_asteroids = pygame.sprite.Group()
         #grupo so da nave (feito para o sistema de colisao)
         self.__ship_group = pygame.sprite.Group()
+        #grupo bullet
+        self.__bullets_group = pygame.sprite.Group()
 
         #adiciona a nave
         self.add_ship()
@@ -35,9 +39,9 @@ class AsteroidGame(State):
 
     #adiciona a nave
     def add_ship(self):
-        ship = Ship(speed=7, vel_max=10)
-        self.all_sprites.add(ship)
-        self.ship_group.add(ship)
+        self.ship = Ship(speed=7, vel_max=10)
+        self.all_sprites.add(self.ship)
+        self.ship_group.add(self.ship)
     
     def add_asteroid(self):
         if (time() - self.last_asteroid_time) > 5:
@@ -47,6 +51,12 @@ class AsteroidGame(State):
             self.all_asteroids.add(asteroid)
 
             self.__last_asteroid_time = time()
+
+    def add_bullets(self):
+        if self.ship.shoot():
+            bullet = Bullet(self.ship.x, self.ship.y, self.ship.direction, 10, 5)
+            self.all_sprites.add(bullet)
+            self.bullets_group.add(bullet)
 
     def run(self):
         while (self.playing == True):
@@ -70,6 +80,9 @@ class AsteroidGame(State):
             
             #atualiza todos os sprites(chama o metodo update de todos os sprites do grupo)
             self.update_all_sprites()
+            
+            #adicionando bullet
+            self.add_bullets()
 
             pygame.display.update()
 
@@ -114,3 +127,7 @@ class AsteroidGame(State):
     @property
     def last_asteroid_time(self):
         return self.__last_asteroid_time
+    
+    @property
+    def bullets_group(self):
+        return self.__bullets_group

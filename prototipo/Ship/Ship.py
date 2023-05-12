@@ -53,16 +53,20 @@ class Ship(pygame.sprite.Sprite):
         if (keys[pygame.K_d]):
             self.__rotation -= 2.75
 
-        #tecla ESPAÇO -> atira
-        if (keys[pygame.K_SPACE]):
-            self.shoot()
 
     #metodo que chama bulet, com o tempo minimo entre eles de 0.5sec
     def shoot(self):
-        if ((time() - self.last_shoot) > 0.5):
-            print("atira!!")
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
 
-            self.__last_shoot = time()
+            if ((time() - self.last_shoot) > 0.5):
+                self.__last_shoot = time()
+                return True
+            
+            else:
+                return False
+        else:
+            return False
+                
 
     def hit(self):
         print("bateu")
