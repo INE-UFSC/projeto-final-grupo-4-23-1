@@ -87,12 +87,16 @@ class AsteroidGame(State):
             pygame.display.update()
 
     def collisions(self):
-        collisions = CollisionManager(self.ship_group, self.all_asteroids)
+        collisions = CollisionManager(self.ship_group, self.all_asteroids, self.__bullets_group)
 
         #colisao ship <-> asteroid
         if (collisions.collision_asteroid_ship()):
             self.state_machine.set_alive_time(time() - self.init__time)
             self.nextState("Result")
+
+        #colisao bullet <-> asteroid
+        t = collisions.collision_bullet_asteroid()
+            
 
     #conteudo da tela
     def screen_content(self):
