@@ -25,7 +25,6 @@ class Ship(pygame.sprite.Sprite):
         #direção, impulso e rotação inicial
         self.__direction = 90
         self.__thrust = speed
-        self.__rotation = 0
         self.__dx = 0
         self.__dy = 0
 
@@ -45,11 +44,11 @@ class Ship(pygame.sprite.Sprite):
 
         #tecla a -> rotaciona no sentido antihorario
         if (keys[pygame.K_a]):
-            self.__rotation += 2.75
+            self.__direction += 3.75
 
         #tecla d -> rotaciona no sentido horario
         if (keys[pygame.K_d]):
-            self.__rotation -= 2.75
+            self.__direction -= 3.75
 
 
     #metodo que chama bulet, com o tempo minimo entre eles de 0.5sec
@@ -81,22 +80,13 @@ class Ship(pygame.sprite.Sprite):
     #atualiza o impulso e a rotação
     def update_thrust_and_rotation(self):
         #diminui a rotação e o impulso, confor o metodo update é chamado
-        #para dar a sencação de inercia
-        self.__rotation /= 1.85
 
         self.__dx /= 1.01
         self.__dy /= 1.01
 
-        #altera a direção conforme a rotação
-        self.__direction += self.rotation
-
         #altera x e y da nave, conforme a inpulso e a diração
         self.__x += self.dx
         self.__y += self.dy
-
-
-
-
 
     #atualiza imagem, conforme a posição
     def update_position(self):
@@ -165,10 +155,6 @@ class Ship(pygame.sprite.Sprite):
     @property
     def load_image(self):
         return self.__load_image
-
-    @property
-    def rotation(self):
-        return self.__rotation
 
     @property
     def thrust(self):
