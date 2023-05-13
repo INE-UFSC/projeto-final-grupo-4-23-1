@@ -13,14 +13,16 @@ class Asteroid(pygame.sprite.Sprite):
         self.__game = game
         self.__size = size
         self.__direction = randint(0,360)
-        self.__thrust = 5
-        self.__load_image = pygame.image.load(pasta+"//asteroid.png")
+        self.__thrust = randint(3, 5)
+        self.asteroid_size_image()
         self.__image = self.load_image
         self.start_position(position)
         self.__asteroids_ramaining = 2
         self.__rect = self.image.get_rect(center=(self.x, self.y))
         self.__mask = pygame.mask.from_surface(self.image)
 
+    def asteroid_size_image(self):
+        self.__load_image = pygame.image.load(pasta+f"//asteroid_{self.size}.png")
     
     def start_position(self, position):
         if position == None:
