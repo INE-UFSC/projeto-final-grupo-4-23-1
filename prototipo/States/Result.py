@@ -6,6 +6,7 @@ class Result(State):
         super().__init__(state_machine)
 
         self.__alive_time = state_machine.alive_time
+        self.__score = state_machine.score
 
         self.run()
        
@@ -29,8 +30,14 @@ class Result(State):
 
     def screen_content(self):
         self.display.fill("black")
-        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 200, 250, 50)
-        self.text("Aperte ESPAÇO para sair", 275, 300, 30)
+
+        self.text("Pontuação: %d" % self.score, 275, 250, 50)
+        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 200, 200, 50)
+        self.text("Aperte ESPAÇO para sair", 260, 350, 30)
+
+    @property
+    def score(self):
+        return self.__score
 
     @property
     def alive_time(self):

@@ -10,7 +10,11 @@ class AsteroidGame(State):
     def __init__(self, state_machine):
         super().__init__(state_machine)
 
+        #tempo do ultimo asteroid
         self.__last_asteroid_time = time()
+
+        #pontuação -> 1 por asteroid aki no protopipo
+        self.__score = 0
 
         #tempo que começou o jogo
         self.__init_time = time()
@@ -39,7 +43,7 @@ class AsteroidGame(State):
 
     #adiciona a nave
     def add_ship(self):
-        self.ship = Ship(speed=7, vel_max=10)
+        self.ship = Ship(speed=8, vel_max=10)
         self.all_sprites.add(self.ship)
         self.ship_group.add(self.ship)
     
@@ -91,22 +95,37 @@ class AsteroidGame(State):
 
         #colisao ship <-> asteroid
         if (collisions.collision_asteroid_ship()):
-            self.state_machine.set_alive_time(time() - self.init__time)
+            #quando detecta colisao da nave
+            #passo certos parametros pra maquina de stados, pra poder passar pra tela de RESULT
+
+            #passo pro state machine o tempo de vida
+            alive_time = time()-self.init__time
+            self.state_machine.set_alive_time(alive_time)
+
+            #passo pro state machine a pontuação
+            self.state_machine.set_score(self.score)
             self.nextState("Result")
 
         #colisao bullet <-> asteroid
-        t = collisions.collision_bullet_asteroid()
+        if (collisions.collision_bullet_asteroid()):
+            #aumento em 1 a pontuação conforme asteroid destruido
+            self.__score += 1
             
 
     #conteudo da tela
     def screen_content(self):
         self.display.fill("black")
         self.text("Você sobreviveu: %.1f " % (time() - self.init__time), 10, 10, 30)
+        self.text("Pontuação: %d" % self.score, 10, 37, 30)
 
     #atualiza todos os sprites
     def update_all_sprites(self):
         self.all_sprites.update()
         self.all_sprites.draw(self.display)
+
+    @property
+    def score(self):
+        return self.__score
 
     @property
     def all_asteroids(self):
