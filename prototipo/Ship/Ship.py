@@ -20,12 +20,11 @@ class Ship(pygame.sprite.Sprite):
         self.__x = int((self.display_width)/2)
         self.__y = int((self.display_height)/2)
 
-        self.__speed = speed
         self.__vel_max = vel_max
 
         #direção, impulso e rotação inicial
         self.__direction = 90
-        self.__thrust = 2
+        self.__thrust = speed
         self.__rotation = 0
         self.__dx = 0
         self.__dy = 0
@@ -42,7 +41,6 @@ class Ship(pygame.sprite.Sprite):
 
         #tecla W -> aumenta impulso
         if (keys[pygame.K_w]):
-            self.__thrust += self.speed/500
             self.accelerate()
 
         #tecla a -> rotaciona no sentido antihorario
@@ -84,7 +82,6 @@ class Ship(pygame.sprite.Sprite):
     def update_thrust_and_rotation(self):
         #diminui a rotação e o impulso, confor o metodo update é chamado
         #para dar a sencação de inercia
-        self.__thrust /= 1.009
         self.__rotation /= 1.85
 
         self.__dx /= 1.01
@@ -144,10 +141,6 @@ class Ship(pygame.sprite.Sprite):
     @property
     def dy(self):
         return self.__dy
-
-    @property
-    def speed(self):
-        return self.__speed
 
     @property
     def last_shoot(self):
