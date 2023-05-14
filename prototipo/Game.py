@@ -2,6 +2,7 @@ import pygame
 from States.MainMenu import MainMenu
 from States.AsteroidGame import AsteroidGame
 from States.Result import Result 
+from utility.ResultData import ResultData
 
 class Game:
     def __init__(self, name = 'Asteroid'):
@@ -9,6 +10,8 @@ class Game:
         self.__running = True
         self.__display_width = 800
         self.__display_height = 600
+
+        self.__result_data = ResultData()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
 
@@ -18,15 +21,20 @@ class Game:
 
         self.__current_state = MainMenu(self)
 
+    def run(self):
 
-    @property
-    def display_width(self):
-        return self.__display_width
+        pygame.display.set_caption("ASTEROIDS")
+ 
+        while self.running:
+            self.handle_update()
+            self.handle_transition()
+        
+        pygame.quit()
 
-    @property
-    def display_height(self):
-        return self.__display_height
-
+    def change_state(self, next_state_str):
+        next_state = self.get_states_dictionary()[next_state_str](self)
+        self.set_current_state(next_state)
+ 
     def close(self):
         self.__running = False
         pygame.quit()
@@ -39,15 +47,7 @@ class Game:
         
     def get_states_dictionary(self):
         return self.__states_dictionary
-    
-    def change_state(self, next_state_str):
-        next_state = self.get_states_dictionary()[next_state_str](self)
-        self.set_current_state(next_state)
-    
-    @property
-    def running(self):
-        return self.__running
-    
+  
     def get_display(self):
         return self.display
     
@@ -57,16 +57,19 @@ class Game:
     def handle_update(self):
         return self.get_current_state().handle_update()
 
-    def run(self):
+    @property
+    def result_data(self):
+        return self.__result_data
 
-        pygame.display.set_caption("ASTEROIDS")
+    @property
+    def display_width(self):
+        return self.__display_width
+
+    @property
+    def display_height(self):
+        return self.__display_height
+
+    @property
+    def running(self):
+        return self.__running
  
-        while self.running:
-            self.handle_update()
-            self.handle_transition()
-        
-        pygame.quit()
-
-
-
-

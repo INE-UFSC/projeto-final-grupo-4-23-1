@@ -1,12 +1,10 @@
 import pygame
 from abc import ABC, abstractmethod
-from utility.ResultData import ResultData
 
 class State(ABC):
     def __init__(self, owner):
         self.get_display
         self.__owner = owner
-        self.__result = ResultData()
 
     def get_display(self):
         return pygame.display.get_surface()
@@ -15,7 +13,7 @@ class State(ABC):
         return self.__owner
     
     def get_result(self):
-        return self.__result
+        return self.__owner.result_data
     
 
     #metodo geral para colocar texto

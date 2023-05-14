@@ -1,10 +1,10 @@
 import pygame
 from States.State import State
-from Ship.Ship import Ship
-from Asteroid.Asteroid import Asteroid
+from Sprites.Ship.Ship import Ship
+from Sprites.Asteroid.Asteroid import Asteroid
+from Sprites.Bullet.Bullet import Bullet
 from CollisionManager.CollisionManager import CollisionManager
 from time import time
-from Bullet import Bullet
 
 
 class AsteroidGame(State):
@@ -16,7 +16,6 @@ class AsteroidGame(State):
 
         #pontuação -> 1 por asteroid aki no protopipo
         self.__score = 0
-
         #tempo que começou o jogo
         self.__init_time = time()
 
@@ -63,21 +62,20 @@ class AsteroidGame(State):
             self.all_sprites.add(bullet)
             self.bullets_group.add(bullet)
 
-
     def collisions(self):
         collisions = CollisionManager(self.ship_group, self.all_asteroids, self.__bullets_group)
 
         #colisao ship <-> asteroid
         if (collisions.collision_asteroid_ship()):
             #quando detecta colisao da nave
-            #passo certos parametros pra maquina de stados, pra poder passar pra tela de RESULT
+            #passo certos parametros pra result, pra poder passar pra tela de RESULT
 
-            #passo pro state machine o tempo de vida
+            #passo pro resultdata o tempo de vida
             alive_time = time()-self.init__time
             self.get_result().set_alive_time(alive_time)
-
-            #passo pro state machine a pontuação
+            #passo pro resultdata a pontuação
             self.get_result().set_score(self.score)
+            #troco de estado kkkkk
             self.get_owner().change_state("Result")
 
         #colisao bullet <-> asteroid
@@ -85,7 +83,6 @@ class AsteroidGame(State):
             #aumento em 1 a pontuação conforme asteroid destruido
             self.__score += 1
             
-
     #conteudo da tela
     def screen_content(self):
         self.get_display().fill("black")
@@ -119,7 +116,6 @@ class AsteroidGame(State):
             self.get_owner().change_state("Result")
         super().handle_transition()
     
-
     #atualiza todos os sprites
     def update_all_sprites(self):
         self.all_sprites.update()

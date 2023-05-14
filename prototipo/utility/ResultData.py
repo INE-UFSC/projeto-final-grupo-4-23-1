@@ -11,6 +11,9 @@ class ResultData:
     
     def reset_alive_time(self):
         self.__alive_time = 0
+
+    def reset_score(self):
+        self.__score = 0
     
     def get_score(self):
         return self.__score
