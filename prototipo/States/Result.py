@@ -1,35 +1,17 @@
 import pygame
 from States.State import State
+from utility.ResultData import ResultData
+
 
 class Result(State):
-    def __init__(self, state_machine):
-        super().__init__(state_machine)
+    def __init__(self, owner):
+        super().__init__(owner)
+        self.__alive_time = self.get_result().get_alive_time()
+        self.__score = self.get_result().get_score()
 
-        self.__alive_time = state_machine.alive_time
-        self.__score = state_machine.score
-
-        self.run()
-       
-    def run(self):
-        while (self.playing):
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    self.nextState("Sair")
-
-            pygame.display.update()
-
-            #talvez mudar depois
-            keys = pygame.key.get_pressed()
-            if (keys[pygame.K_SPACE]):
-                self.nextState("MainMenu")
-            #talvez mudar deopis1
-
-            self.screen_content()
-
-            pygame.display.update()
 
     def screen_content(self):
-        self.display.fill("black")
+        self.get_display().fill("black")
 
         self.text("Pontuação: %d" % self.score, 275, 250, 50)
         self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 200, 200, 50)
@@ -42,3 +24,14 @@ class Result(State):
     @property
     def alive_time(self):
         return self.__alive_time
+
+    def handle_transition(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            self.get_owner().change_state("MainMenu")
+        super().handle_transition()
+
+    def handle_update(self):
+        pygame.display.update()
+        self.screen_content()
+        pygame.display.update()

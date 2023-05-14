@@ -1,34 +1,37 @@
 import pygame
 from abc import ABC, abstractmethod
+from utility.ResultData import ResultData
 
 class State(ABC):
-    def __init__(self, state_machine):
-        #maquina de estados
-        self.state_machine = state_machine
-        self.__playing = True
+    def __init__(self, owner):
+        self.get_display
+        self.__owner = owner
+        self.__result = ResultData()
 
-        #pega a tela
-        self.display = pygame.display.get_surface()
-
-    @property
-    def playing(self):
-        return self.__playing
-
-    #metodo para chamar o proximo estado
-    def nextState(self, nextState):
-        self.state_machine.change_state(nextState)
-        self.__playing = False
+    def get_display(self):
+        return pygame.display.get_surface()
+    
+    def get_owner(self):
+        return self.__owner
+    
+    def get_result(self):
+        return self.__result
+    
 
     #metodo geral para colocar texto
     def text(self, text, x, y, size):
         self.font = pygame.font.SysFont(None, size)
         textSurface = self.font.render(text, True, ("white"))
-        self.display.blit(textSurface, (x, y))
-
-    @abstractmethod
-    def run(self):
-        pass
+        self.get_display().blit(textSurface, (x, y))
 
     @abstractmethod
     def screen_content(self):
         pass
+    @abstractmethod
+    def handle_update(self):
+        pass
+ 
+    def handle_transition(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.get_owner().close()

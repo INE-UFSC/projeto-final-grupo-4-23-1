@@ -6,9 +6,10 @@ from CollisionManager.CollisionManager import CollisionManager
 from time import time
 from Bullet import Bullet
 
+
 class AsteroidGame(State):
-    def __init__(self, state_machine):
-        super().__init__(state_machine)
+    def __init__(self, owner):
+        super().__init__(owner)
 
         #tempo do ultimo asteroid
         self.__last_asteroid_time = time()
@@ -39,7 +40,7 @@ class AsteroidGame(State):
         #clock
         self.__ck = pygame.time.Clock()
 
-        self.run()
+
 
     #adiciona a nave
     def add_ship(self):
@@ -62,33 +63,6 @@ class AsteroidGame(State):
             self.all_sprites.add(bullet)
             self.bullets_group.add(bullet)
 
-    def run(self):
-        while (self.playing == True):
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    self.nextState("Sair")
-
-            #fps
-            self.ck.tick(60)
-            
-            pygame.display.update()
-
-            #põe o conteudo da tela
-            self.screen_content()
-            
-            #adiciona asteroid a cada 5s
-            self.add_asteroid()
-
-            #colisoes
-            self.collisions()
-            
-            #atualiza todos os sprites(chama o metodo update de todos os sprites do grupo)
-            self.update_all_sprites()
-            
-            #adicionando bullet
-            self.add_bullets()
-
-            pygame.display.update()
 
     def collisions(self):
         collisions = CollisionManager(self.ship_group, self.all_asteroids, self.__bullets_group)
@@ -100,11 +74,11 @@ class AsteroidGame(State):
 
             #passo pro state machine o tempo de vida
             alive_time = time()-self.init__time
-            self.state_machine.set_alive_time(alive_time)
+            self.get_result().set_alive_time(alive_time)
 
             #passo pro state machine a pontuação
-            self.state_machine.set_score(self.score)
-            self.nextState("Result")
+            self.get_result().set_score(self.score)
+            self.get_owner().change_state("Result")
 
         #colisao bullet <-> asteroid
         if (collisions.collision_bullet_asteroid()):
@@ -114,14 +88,42 @@ class AsteroidGame(State):
 
     #conteudo da tela
     def screen_content(self):
-        self.display.fill("black")
+        self.get_display().fill("black")
         self.text("Você sobreviveu: %.1f " % (time() - self.init__time), 10, 10, 30)
         self.text("Pontuação: %d" % self.score, 10, 37, 30)
+
+    def handle_update(self):
+        self.ck.tick(60)
+
+        pygame.display.update()
+
+        #põe o conteudo da tela
+        self.screen_content()
+            
+        #adiciona asteroid a cada 5s
+        self.add_asteroid()
+
+        #colisoes
+        self.collisions()
+            
+        #atualiza todos os sprites(chama o metodo update de todos os sprites do grupo)
+        self.update_all_sprites()
+
+        #adicionando bullet
+        self.add_bullets()
+        pygame.display.update()
+
+    def handle_transition(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_1]:
+            self.get_owner().change_state("Result")
+        super().handle_transition()
+    
 
     #atualiza todos os sprites
     def update_all_sprites(self):
         self.all_sprites.update()
-        self.all_sprites.draw(self.display)
+        self.all_sprites.draw(self.get_display())
 
     @property
     def score(self):
