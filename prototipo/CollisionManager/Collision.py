@@ -1,11 +1,12 @@
 import pygame
 
 class Collision:
-    def __init__(self, group1, group2):
+    def __init__(self, group1: pygame.sprite.Group, group2: pygame.sprite.Group) -> None:
         self.__group1 = group1
         self.__group2 = group2
 
-    def detect_collision(self):
+    #detecta colisao entre 2 grupos de sprites (pygame.Sprite.Group)
+    def detect_collision(self) -> bool:
         #nos parametros é dado 2 sprite.group, e quando detecta colisao
         #é retornado um dicionario em que as chaves são os sprites que "bateram" do grupo 1
         # e nos valores é uma lista dos sprites que colidiram
