@@ -6,7 +6,7 @@ from time import time
 pasta = path.dirname(__file__)
 
 class Ship(pygame.sprite.Sprite):
-    def __init__(self, speed, vel_max):
+    def __init__(self, speed: float, vel_max: float) -> None:
         super().__init__()
 
         #tempo do ultimo tiro
@@ -28,17 +28,18 @@ class Ship(pygame.sprite.Sprite):
         self.__dx = 0
         self.__dy = 0
 
+        #carrega imagem 
         self.__load_image = pygame.image.load(pasta+"//ship.png")
         self.__image = self.load_image
-        self.__mask = pygame.mask.from_surface(self.image)
 
         #marca o hitbox
         self.__rect = self.image.get_rect(center = (self.x, self.y))
+        self.__mask = pygame.mask.from_surface(self.image)
 
-    def user_input(self):
+    def user_input(self) -> None:
         keys = pygame.key.get_pressed()
 
-        #tecla W -> aumenta impulso
+        #tecla W -> acelera
         if (keys[pygame.K_w]):
             self.accelerate()
 
@@ -52,7 +53,7 @@ class Ship(pygame.sprite.Sprite):
 
 
     #metodo que chama bulet, com o tempo minimo entre eles de 0.5sec
-    def shoot(self):
+    def shoot(self) -> bool:
         if pygame.key.get_pressed()[pygame.K_SPACE]:
 
             if ((time() - self.last_shoot) > 0.5):
@@ -65,10 +66,11 @@ class Ship(pygame.sprite.Sprite):
             return False
                 
 
-    def hit(self):
-        print("bateu")
+    def hit(self) -> None:
+        pass
 
-    def accelerate(self):
+    #acelera
+    def accelerate(self) -> None:
         self.__dx += cos(radians(self.direction)) * self.thrust/8
         self.__dy += sin(radians(-self.direction)) * self.thrust/8
 
@@ -78,7 +80,7 @@ class Ship(pygame.sprite.Sprite):
             self.__dy = -self.vel_max if (self.dy < 0) else self.vel_max
 
     #atualiza o impulso e a rotação
-    def update_thrust_and_rotation(self):
+    def update_position(self) -> None:
         #diminui a rotação e o impulso, confor o metodo update é chamado
 
         self.__dx /= 1.01
@@ -88,14 +90,14 @@ class Ship(pygame.sprite.Sprite):
         self.__x += self.dx
         self.__y += self.dy
 
-    #atualiza imagem, conforme a posição
-    def update_position(self):
+    #atualiza imagem e hitbox, conforme a posição
+    def update_image_position(self) -> None:
         self.__image = pygame.transform.rotate(self.load_image, self.direction-90)
         self.__rect = self.image.get_rect(center = (self.x, self.y))
         self.__mask = pygame.mask.from_surface(self.image)
 
     #teletransporta para o outro lado da tela
-    def display_limit(self):
+    def display_limit(self) -> None:
         if (self.x >= self.display_width):
             self.__x = 1
     
@@ -110,9 +112,9 @@ class Ship(pygame.sprite.Sprite):
 
     #metodo UPDATE, todo sprite deve ter
     # é chamado com o o self.all_sprites é atualizado(esta no asteroid game)
-    def update(self):
+    def update(self) -> None:
         self.user_input()
-        self.update_thrust_and_rotation()
+        self.update_image_position()
         self.display_limit()
         self.update_position()
 
