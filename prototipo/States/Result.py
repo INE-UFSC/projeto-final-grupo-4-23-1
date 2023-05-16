@@ -10,9 +10,12 @@ class Result(State):
     def screen_content(self):
         self.get_display().fill("black")
 
-        self.text("Pontuação: %d" % self.score, 275, 250, 50)
-        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), 200, 200, 50)
-        self.text("Aperte ESPAÇO para sair", 260, 350, 30)
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), x_pos-200, y_pos-100, 50)
+        self.text("Pontuação: %d" % self.score, x_pos-125, y_pos-50, 50)
+        self.text("Aperte ESPAÇO para sair", x_pos-140, y_pos+50, 30)
 
     def handle_transition(self):
         keys = pygame.key.get_pressed()

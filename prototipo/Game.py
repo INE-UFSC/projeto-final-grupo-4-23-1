@@ -2,14 +2,14 @@ import pygame
 from States.MainMenu import MainMenu
 from States.AsteroidGame import AsteroidGame
 from States.Result import Result 
-from utility.ResultData import ResultData
+from Utility.ResultData import ResultData
 
 class Game:
     def __init__(self, name = 'Asteroid'):
         pygame.init()
         self.__running = True
-        self.__display_width = 800
-        self.__display_height = 600
+        self.__display_width = 1200
+        self.__display_height = 1000
 
         self.__result_data = ResultData()
 

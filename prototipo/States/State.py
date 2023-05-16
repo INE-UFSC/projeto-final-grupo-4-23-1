@@ -6,6 +6,10 @@ class State(ABC):
         self.get_display
         self.__owner = owner
 
+        #altura e largura da tela
+        self.__display_width = pygame.display.Info().current_w
+        self.__display_height = pygame.display.Info().current_h
+
     def get_display(self):
         return pygame.display.get_surface()
     
@@ -33,3 +37,11 @@ class State(ABC):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.get_owner().close()
+
+    @property
+    def display_width(self):
+        return self.__display_width
+    
+    @property
+    def display_height(self):
+        return self.__display_height
