@@ -2,7 +2,7 @@ import pygame
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, x, y, text, callback):
+    def __init__(self, x: int, y: int, text: str, callback) -> None:
         super().__init__()
 
         self.__callback = callback
@@ -22,7 +22,7 @@ class Button(pygame.sprite.Sprite):
         self.__image = self.__norm_image
         self.__rect = self.__image.get_rect(topleft=(x, y))
 
-    def update(self):
+    def update(self) -> None:
         if self.__rect.collidepoint(pygame.mouse.get_pos()):
             self.__image = self.__hover_image
             if pygame.mouse.get_pressed()[0]:

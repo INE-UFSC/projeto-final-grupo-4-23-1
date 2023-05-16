@@ -6,13 +6,13 @@ from random import randint
 pasta = path.dirname(__file__)
 
 class Asteroid(pygame.sprite.Sprite):
-    def __init__(self, game, size = 2, position = None):
+    def __init__(self, game, size: int = 2, position: tuple = None) -> None:
         super().__init__()
         #tamanho da tela
         self.__display_width = pygame.display.Info().current_w
         self.__display_height = pygame.display.Info().current_h
 
-        #AsteroidGame.py
+        #asteroidgame.py
         self.__game = game
 
         #tamanho / direção / impulso
@@ -34,10 +34,10 @@ class Asteroid(pygame.sprite.Sprite):
         self.__rect = self.image.get_rect(center=(self.x, self.y))
         self.__mask = pygame.mask.from_surface(self.image)
 
-    def asteroid_size_image(self):
+    def asteroid_size_image(self) -> None:
         self.__load_image = pygame.image.load(pasta+f"//asteroid_{self.size}.png")
     
-    def start_position(self, position):
+    def start_position(self, position: tuple) -> None:
         if position == None:
             random_side = randint(1,4)
             if random_side == 1:
@@ -57,24 +57,24 @@ class Asteroid(pygame.sprite.Sprite):
             self.__x = position[0]
             self.__y = position[1]
     
-    def update(self):
+    def update(self) -> None:
 
         self.update_coordenates()
         self.display_limit()
         self.update_position()
     
-    def update_coordenates(self):
+    def update_coordenates(self) -> None:
    
         self.__x += self.thrust * cos(radians(-self.direction))
         self.__y += self.thrust * sin(radians(-self.direction))
 
 
-    def update_position(self):
+    def update_position(self) -> None:
         self.__image = pygame.transform.rotate(self.load_image, self.direction+90)
         self.__rect = self.image.get_rect(center = (self.x, self.y))  
         self.__mask = pygame.mask.from_surface(self.image)
     
-    def display_limit(self):
+    def display_limit(self) -> None:
         if (self.x >= self.display_width):
             self.__x = 1
     
@@ -87,10 +87,9 @@ class Asteroid(pygame.sprite.Sprite):
         if (self.y  <= 0):
             self.__y = self.display_height-1
     
-    def hit(self):
-        print('acertou o asteroid')
+    def hit(self) -> None:
         if self.size > 0:
-            for i in range(self.asteroids_ramaining):
+            for _ in range(self.asteroids_ramaining):
                 asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
                 self.game.all_sprites.add(asteroid)
                 self.game.all_asteroids.add(asteroid)
@@ -100,18 +99,6 @@ class Asteroid(pygame.sprite.Sprite):
     @property
     def mask(self):
         return self.__mask
-
-    @property 
-    def speed(self):
-        return self.__speed
-    
-    @property
-    def rotation(self):
-        return self.__rotation
-
-    @property
-    def last_shoot(self):
-        return self.__last_shoot
 
     @property
     def display_width(self):
@@ -132,10 +119,6 @@ class Asteroid(pygame.sprite.Sprite):
     @property
     def load_image(self):
         return self.__load_image
-
-    @property
-    def rotation(self):
-        return self.__rotation
 
     @property
     def thrust(self):
