@@ -26,8 +26,9 @@ class Game:
         pygame.display.set_caption("ASTEROIDS")
  
         while self.running:
-            self.handle_transition()
             self.handle_update()
+            self.handle_transition()
+ 
         
         pygame.quit()
 
@@ -37,7 +38,6 @@ class Game:
  
     def close(self):
         self.__running = False
-        pygame.quit()
         
     def get_current_state(self):
         return self.__current_state

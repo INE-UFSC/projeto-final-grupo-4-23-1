@@ -41,7 +41,7 @@ class MainMenu(State):
 
     def handle_transition(self):
         super().handle_transition()
-    
+
     def handle_update(self):
         pygame.display.update()
         self.screen_content()
