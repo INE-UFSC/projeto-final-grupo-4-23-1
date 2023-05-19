@@ -8,8 +8,8 @@ class Game:
     def __init__(self, name = 'Asteroid'):
         pygame.init()
         self.__running = True
-        self.__display_width = 800
-        self.__display_height = 600
+        self.__display_width = 1200
+        self.__display_height = 1000
 
         self.__result_data = ResultData()
 
@@ -26,8 +26,8 @@ class Game:
         pygame.display.set_caption("ASTEROIDS")
  
         while self.running:
-            self.handle_update()
             self.handle_transition()
+            self.handle_update()
         
         pygame.quit()
 
