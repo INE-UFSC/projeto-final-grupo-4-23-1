@@ -33,7 +33,7 @@ class Ship(MovingSprite):
         self.__invunerable = False
         self.__invunerable_time = time()
         self.__change_color_time = time()
-        self.__gray = False #indica se está cinza
+        self.__blue = False #indica se está cinza
 
         #carrega imagem 
         color = pygame.image.load(pasta+"//ship.png")
@@ -115,13 +115,13 @@ class Ship(MovingSprite):
     def blink(self):
         if ((time() - self.change_color_time) >= 0.4):
 
-            if (not self.gray):
-                color = pygame.image.load(pasta+"//gray_ship.png")
+            if (not self.blue):
+                color = pygame.image.load(pasta+"//blue_ship.png")
                 self.__color = pygame.transform.rotate(color, -90)
-                self.__gray = True
+                self.__blue = True
             else:
                 self.__color = self.original_image
-                self.__gray = False
+                self.__blue = False
 
             self.__change_color_time = time()
 
@@ -133,7 +133,7 @@ class Ship(MovingSprite):
             if ((time() - self.invunerable_time) >= 2):
                 self.__invunerable = False
                 self.__color = self.original_image
-                self.__gray = False
+                self.__blue = False
 
 
     #metodo UPDATE, todo sprite deve ter
@@ -156,8 +156,8 @@ class Ship(MovingSprite):
         return self.__change_color_time
 
     @property
-    def gray(self):
-        return self.__gray
+    def blue(self):
+        return self.__blue
 
     @property
     def invunerable(self):
