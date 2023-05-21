@@ -30,7 +30,7 @@ class BasicEnemy(MovingSprite):
 
             bullet = Bullet(self.game, (self.x, self.y), direction, 10, 1, "red", 1)
             self.game.all_sprites.add(bullet)
-            self.game.enemy_bullet_group.add(bullet)
+            self.game.enemy_bullets_group.add(bullet)
 
             self.__last_shoot_time = time()
     

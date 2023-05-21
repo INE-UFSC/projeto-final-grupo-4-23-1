@@ -1,19 +1,48 @@
-import pygame
 from CollisionManager.Collision import Collision
+from time import time
 
 class CollisionManager:
     #recebe grupo de sprites para detectar colisao
-    def __init__(self, ship_group: pygame.sprite.Group,
-                 all_asteroids: pygame.sprite.Group,
-                 all_bullets: pygame.sprite.Group,
-                 enemy_group: pygame.sprite.Group,
-                 enemy_bullet_group: pygame.sprite.Group) -> None:
+    def __init__(self, game) -> None:
 
-        self.__ship_group = ship_group
-        self.__all_asteroids = all_asteroids
-        self.__all_bullets = all_bullets
-        self.__enemy_group = enemy_group
-        self.__enemy_bullet_group = enemy_bullet_group
+        self.__game = game
+
+    #ações realisadas no jogo quando é detectado colisão
+    def collisions(self) -> None:
+        #colisao ship <-> asteroid
+        if (self.collision_asteroid_ship()):
+            self.ship_life_detect()
+
+        #colisao ship <-> enemy
+        if (self.collision_enemy_ship()):
+            self.ship_life_detect()
+
+        #colisao ship <-> enemy_bullet
+        if (self.collision_enemy_bullet_ship()):
+            self.ship_life_detect()
+
+        #colisao ship_bullet <-> asteroid
+        if (self.collision_bullet_asteroid()):
+            #aumento em 1 a pontuação conforme asteroid destruido
+            score = self.game.score + 1
+            self.game.set_score(score)
+
+        if (self.collision_bullet_enemy()):
+            #aumento em 1 a pontuação conforme asteroid destruido
+            score = self.game.score + 1
+            self.game.set_score(score)
+
+    def ship_life_detect(self):
+        if (self.ship.life <= 0):
+            #passo certos parametros pra result, para poder passar pra tela de RESULT
+
+            #passo pro resultData o tempo de vida
+            alive_time = time() - self.game.init__time
+            self.game.get_result().set_alive_time(alive_time)
+            #passo a pontuação
+            self.game.get_result().set_score(self.game.score)
+            #troco de estado kkkkkk
+            self.game.get_owner().change_state("Result")
 
     #colisao entre asteroids e ship
     def collision_asteroid_ship(self) -> bool:
@@ -31,43 +60,50 @@ class CollisionManager:
 
     #colisão entre tiro do inimigo e ship
     def collision_enemy_bullet_ship(self) -> bool:
-        if (Collision(self.ship_group, self.enemy_bullet_group).detect_collision()):
+        if (Collision(self.ship_group, self.enemy_bullets).detect_collision()):
             return True
         else:
             return False
 
     #colisao bullet da nave e asteroids
     def collision_bullet_asteroid(self) -> bool:
-        if (Collision(self.all_bullets, self.all_asteroids).detect_collision()):
+        if (Collision(self.ship_bullets, self.all_asteroids).detect_collision()):
             return True
         else:
             return False
 
     #colisaõ entre bullet da nave e inimigo
     def collision_bullet_enemy(self) -> bool:
-        if (Collision(self.all_bullets, self.enemy_group).detect_collision()):
+        if (Collision(self.ship_bullets, self.enemy_group).detect_collision()):
             return True
         else:
             return False
 
-    
+
+    @property
+    def game(self):
+        return self.__game
 
     @property
     def enemy_group(self):
-        return self.__enemy_group
+        return self.game.enemy_group
 
     @property
-    def enemy_bullet_group(self):
-        return self.__enemy_bullet_group
+    def enemy_bullets(self):
+        return self.game.enemy_bullets_group
 
     @property
     def ship_group(self):
-        return self.__ship_group
+        return self.game.ship_group
 
     @property
     def all_asteroids(self):
-        return self.__all_asteroids
+        return self.game.all_asteroids
 
     @property
-    def all_bullets(self):
-        return self.__all_bullets
+    def ship_bullets(self):
+        return self.game.ship_bullets_group
+
+    @property
+    def ship(self):
+        return self.game.ship

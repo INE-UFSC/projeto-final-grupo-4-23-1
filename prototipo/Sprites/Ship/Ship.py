@@ -61,7 +61,7 @@ class Ship(MovingSprite):
             if ((time() - self.last_shoot) > self.cooldown):
                 bullet = Bullet(self, (self.x, self.y), self.direction, 10, 5, "yellow", 1)
                 self.game.all_sprites.add(bullet)
-                self.game.bullets_group.add(bullet)
+                self.game.ship_bullets_group.add(bullet)
 
                 self.__last_shoot = time()
 
