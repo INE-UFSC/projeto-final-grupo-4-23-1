@@ -8,8 +8,8 @@ class Game:
     def __init__(self, name = 'Asteroid'):
         pygame.init()
         self.__running = True
-        self.__display_width = 1200
-        self.__display_height = 1000
+        self.__display_width = 1280
+        self.__display_height = 960
 
         self.__result_data = ResultData()
 

@@ -13,9 +13,9 @@ class Result(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("Voce sobreviveu %.1f sec" % (self.alive_time), x_pos-200, y_pos-100, 50)
-        self.text("Pontuação: %d" % self.score, x_pos-125, y_pos-50, 50)
-        self.text("Aperte ESPAÇO para sair", x_pos-140, y_pos+50, 30)
+        self.text("You Survived %.1f sec" % (self.alive_time), x_pos-150, y_pos-100, 50)
+        self.text("Score: %d" % self.score, x_pos-65, y_pos-50, 50)
+        self.text("Press SPACE to go back", x_pos-110, y_pos+50, 30)
 
     def handle_transition(self):
         keys = pygame.key.get_pressed()

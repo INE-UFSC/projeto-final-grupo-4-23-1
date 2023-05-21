@@ -16,9 +16,9 @@ class MainMenu(State):
         y_pos = self.display_height//2
 
 
-        play = Button(x_pos, y_pos-125, 'Jogar', self.play)
+        play = Button(x_pos, y_pos-125, 'Play', self.play)
         self.all_sprites.add(play)
-        quit = Button(x_pos, y_pos+25, 'Sair', self.quit)
+        quit = Button(x_pos, y_pos+25, 'Quit', self.quit)
         self.all_sprites.add(quit)
 
     def play(self):
@@ -30,10 +30,10 @@ class MainMenu(State):
     def screen_content(self):
         self.get_display().fill("black")
 
-        x_pos = self.display_width//2 - 165
+        x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=ASTEROIDS=-=-", x_pos, y_pos-250, 50)
+        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-250, 50)
 
     @property
     def all_sprites(self):
