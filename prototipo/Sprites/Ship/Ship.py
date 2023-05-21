@@ -29,10 +29,17 @@ class Ship(MovingSprite):
         self.__dx = 0
         self.__dy = 0
 
+        #indica se está invulneravel
+        self.__invunerable = False
+        self.__invunerable_time = time()
+        self.__change_color_time = time()
+        self.__gray = False #indica se está cinza
+
         #carrega imagem 
-        image = pygame.image.load(pasta+"//ship.png")
-        image = pygame.transform.rotate(image, -90)
-        super().__init__(game, self.speed, 90, image, (x, y))
+        color = pygame.image.load(pasta+"//ship.png")
+        self.__color = pygame.transform.rotate(color, -90)
+        super().__init__(game, self.speed, 90, self.color, (x, y))
+
 
     def user_input(self) -> None:
         keys = pygame.key.get_pressed()
@@ -52,6 +59,7 @@ class Ship(MovingSprite):
             self.set_direction(d)
 
         if (keys[pygame.K_SPACE]):
+            print(self.invunerable)
             self.shoot()
 
 
@@ -64,15 +72,6 @@ class Ship(MovingSprite):
                 self.game.ship_bullets_group.add(bullet)
 
                 self.__last_shoot = time()
-
-    def hit(self) -> None:
-        self.__life -= 1
-
-        x = self.display_width//2
-        y = self.display_height//2
-        self.set_pos(x, y)
-        self.reset_speed()
-                
 
     #acelera
     def accelerate(self) -> None:
@@ -95,15 +94,78 @@ class Ship(MovingSprite):
         y = self.y + self.dy
         self.set_pos(x, y)
 
+    def hit(self) -> None:
+        if (not self.invunerable):
+            self.__life -= 1
+
+            x = self.display_width//2
+            y = self.display_height//2
+            self.set_pos(x, y)
+            self.set_direction(90)
+            self.reset_speed()
+
+            self.__invunerable = True
+            self.__invunerable_time = time()
+
+    def update_image_position(self):
+        self.set_image(pygame.transform.rotate(self.color, self.direction))
+        self.set_rect(self.image.get_rect(center = (self.x, self.y)))
+        self.set_mask(pygame.mask.from_surface(self.color))
+    
+    def blink(self):
+        if ((time() - self.change_color_time) >= 0.4):
+
+            if (not self.gray):
+                color = pygame.image.load(pasta+"//gray_ship.png")
+                self.__color = pygame.transform.rotate(color, -90)
+                self.__gray = True
+            else:
+                self.__color = self.original_image
+                self.__gray = False
+
+            self.__change_color_time = time()
+
+    def check_invunerable(self):
+        if (self.invunerable):
+
+            self.blink()
+
+            if ((time() - self.invunerable_time) >= 2):
+                self.__invunerable = False
+                self.__color = self.original_image
+                self.__gray = False
+
+
     #metodo UPDATE, todo sprite deve ter
     # é chamado com o o self.all_sprites é atualizado(esta no asteroid game)
     def update(self) -> None:
+        self.check_invunerable()
         self.user_input()
         super().update()
 
     def reset_speed(self):
         self.__dx = 0
         self.__dy = 0
+
+    @property
+    def color(self):
+        return self.__color
+
+    @property
+    def change_color_time(self):
+        return self.__change_color_time
+
+    @property
+    def gray(self):
+        return self.__gray
+
+    @property
+    def invunerable(self):
+        return self.__invunerable
+
+    @property
+    def invunerable_time(self):
+        return self.__invunerable_time
 
     @property
     def life(self):
