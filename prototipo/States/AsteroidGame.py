@@ -83,6 +83,7 @@ class AsteroidGame(State):
         #adiciona inimigo basico a cada 8s
         self.add_basic_enemy()
 
+    #atualiza a tela
     def handle_update(self):
         self.ck.tick(60)
         pygame.display.update()
@@ -96,6 +97,7 @@ class AsteroidGame(State):
 
         pygame.display.update()
 
+    #lida com a transição de estados
     def handle_transition(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_1]:

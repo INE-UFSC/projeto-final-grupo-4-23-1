@@ -12,13 +12,16 @@ class Asteroid(MovingSprite):
         self.__size = size
         #quantidade de asteroids a dividir quando é destruido
         self.__asteroids_ramaining = 2
-
+        #velocidade do asteroid (aleatória)
         speed = randint(2, 4)
+        #direção do asteroid (aleatória)
         direction = randint(0,360)
+        #carrega a imagem do asteroid
         original_image = pygame.image.load(pasta+f"//asteroid_{self.size}.png")
 
         super().__init__(game, speed, -direction, original_image, position)
 
+    #se o asteroid for acertado, diminui de tamanho se o tamanho for maior que zero, caso contrário é destruído
     def hit(self) -> None:
         if self.size > 0:
             for _ in range(self.asteroids_ramaining):

@@ -10,28 +10,28 @@ class Game:
         self.__running = True
         self.__display_width = 1280
         self.__display_height = 960
-
         self.__result_data = ResultData()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
-
+        #dicionário com os estados do jogo
         self.__states_dictionary = {'MainMenu': MainMenu,
                                     'AsteroidGame': AsteroidGame,
                                     'Result': Result}
-
+        #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
 
     def run(self):
 
         pygame.display.set_caption("ASTEROIDS")
- 
+
         while self.running:
             self.handle_update()
             self.handle_transition()
  
         
         pygame.quit()
-
+    
+    #altera o estado atual com base na string que informa o nome do próximo estado
     def change_state(self, next_state_str):
         next_state = self.get_states_dictionary()[next_state_str](self)
         self.set_current_state(next_state)
