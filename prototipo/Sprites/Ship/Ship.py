@@ -59,7 +59,6 @@ class Ship(MovingSprite):
             self.set_direction(d)
 
         if (keys[pygame.K_SPACE]):
-            print(self.invunerable)
             self.shoot()
 
 
@@ -107,12 +106,12 @@ class Ship(MovingSprite):
             self.__invunerable = True
             self.__invunerable_time = time()
 
-    def update_image_position(self):
+    def update_image_position(self) -> None:
         self.set_image(pygame.transform.rotate(self.color, self.direction))
         self.set_rect(self.image.get_rect(center = (self.x, self.y)))
         self.set_mask(pygame.mask.from_surface(self.color))
     
-    def blink(self):
+    def blink(self) -> None:
         if ((time() - self.change_color_time) >= 0.4):
 
             if (not self.blue):
@@ -125,7 +124,7 @@ class Ship(MovingSprite):
 
             self.__change_color_time = time()
 
-    def check_invunerable(self):
+    def check_invunerable(self) -> None:
         if (self.invunerable):
 
             self.blink()
