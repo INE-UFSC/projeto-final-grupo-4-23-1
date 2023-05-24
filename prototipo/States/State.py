@@ -3,7 +3,6 @@ from abc import ABC, abstractmethod
 
 class State(ABC):
     def __init__(self, owner):
-        self.get_display
         #Game é o parâmetro owner. Assim é possível fazer a transição de estados com o change_state
         self.__owner = owner
 
