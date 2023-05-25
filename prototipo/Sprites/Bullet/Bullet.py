@@ -32,11 +32,14 @@ class Bullet(MovingSprite):
     def hit(self) -> None:
         self.kill()
 
+    def detect_lifetime(self) -> None:
+        if (time() - self.criacao > self.lifetime):
+            self.kill
+
     def update(self) -> None:
+        self.detect_lifetime()
         super().update()
 
-        if time() - self.criacao > self.lifetime:
-            self.kill()
 
     @property
     def color(self):

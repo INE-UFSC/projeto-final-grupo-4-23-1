@@ -21,6 +21,8 @@ class MovingSprite(pygame.sprite.Sprite, ABC):
         self.__game = game
 
         #posição inicial
+        self.__x = 0
+        self.__y = 0
         self.start_position(position)
 
         #velocidade
