@@ -34,7 +34,7 @@ class Bullet(MovingSprite):
 
     def detect_lifetime(self) -> None:
         if (time() - self.criacao > self.lifetime):
-            self.kill
+            self.kill()
 
     def update(self) -> None:
         self.detect_lifetime()
