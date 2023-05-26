@@ -58,7 +58,7 @@ class State(ABC):
                        ship_vel_max: float,
                        ship_life: int,
                        ship_cooldown: int,
-                       ship_qtd_bullet: int) -> bool:
+                       ship_qtd_bullet: int) -> None:
         return ProfileManager().create_profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
     
 

@@ -85,7 +85,7 @@ class ProfileManager:
                        ship_vel_max: float,
                        ship_life: int,
                        ship_cooldown: int,
-                       ship_qtd_bullet: int) -> bool:
+                       ship_qtd_bullet: int) -> None:
 
         name = name.capitalize().strip()
         self.detect_exceptions(name)
