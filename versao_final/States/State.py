@@ -50,8 +50,7 @@ class State(ABC):
         return ProfileManager().save_profile()
 
     #cria um novo perfil
-    #True -> criado com sucesso
-    #False -> perfil JÁ existente
+    #Dá erro se o perfil já existir
     def create_profile(self, name: str,
                        credit: int,
                        max_score: int,

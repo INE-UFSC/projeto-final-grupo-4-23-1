@@ -77,8 +77,7 @@ class ProfileManager:
             return False
 
     #cria um novo perfil
-    #retorno True -> criado com sucesso
-    #returno False -> perfil já existente
+    #Da erro de o perfil já existir
     def create_profile(self, name: str,
                        credit: int,
                        max_score: int,
@@ -91,15 +90,13 @@ class ProfileManager:
         name = name.capitalize().strip()
         self.detect_exceptions(name)
 
-        if (not self.verify_profile_existence(name)):
-            profile = Profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
+        if (self.verify_profile_existence(name)):
+            raise ProfileAlreadyExist
 
-            self.all_profiles.append(profile)
+        profile = Profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
+        self.all_profiles.append(profile)
             
-            self.save_database()
-            return True
-        else:
-            return False
+        self.save_database()
 
     def get_all_profiles(self) -> list[Profile]:
         return self.__all_profiles

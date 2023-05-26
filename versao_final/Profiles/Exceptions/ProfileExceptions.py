@@ -12,3 +12,8 @@ class NullName(Exception):
     def __init__(self):
         message = "Name can not be null"
         super().__init__(message)
+
+class ProfileAlreadyExist(Exception):
+    def __init__(self):
+        message = "Profile Already Exist"
+        super().__init__(message)
