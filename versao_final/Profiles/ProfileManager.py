@@ -41,6 +41,8 @@ class ProfileManager:
     #True -> se existe
     #False -> se não existe
     def verify_profile_existence(self, name: str) -> bool:
+        name = name.capitalize().strip()
+        self.detect_exceptions(name)
         try:
             for profile in self.all_profiles:
                 if (name == profile.name):
@@ -54,6 +56,9 @@ class ProfileManager:
     #True -> Removido com sucesso
     #False -> Perfil não existe
     def remove_profile(self, name: str) -> bool:
+        name = name.capitalize().strip()
+        self.detect_exceptions(name)
+
         if (self.verify_profile_existence(name)):
 
             for i, profile in enumerate(self.all_profiles):
