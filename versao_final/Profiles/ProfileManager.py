@@ -1,4 +1,5 @@
 from os import path
+from Profiles.Exceptions.ProfileExceptions import *
 from Profiles.Profile import Profile
 import pickle
 
@@ -16,7 +17,6 @@ class ProfileManager:
         try:
             with open(DataBase, "rb") as data:
                 self.__all_profiles = sorted(pickle.load(data), key=lambda x: x.max_score, reverse=True)
-                #self.__all_profiles = list(pickle.load(data)).sort(key=lambda x: x.max_score)
         except:
             with open(DataBase, "wb") as data:
                 pickle.dump(list(), data)
@@ -66,6 +66,7 @@ class ProfileManager:
             return False
     
     #salva um perfil JÁ EXISTENTE
+    #True -> Salvado com sucesso
     def save_profile(self, profile: Profile) -> bool:
         if (self.verify_profile_existence(profile.name)):
             self.remove_profile(profile.name)
@@ -74,7 +75,7 @@ class ProfileManager:
             return True
         else:
             return False
-    
+
     #cria um novo perfil
     #retorno True -> criado com sucesso
     #returno False -> perfil já existente
@@ -86,6 +87,10 @@ class ProfileManager:
                        ship_life: int,
                        ship_cooldown: int,
                        ship_qtd_bullet: int) -> bool:
+
+        name = name.capitalize().strip()
+        self.detect_exceptions(name)
+
         if (not self.verify_profile_existence(name)):
             profile = Profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
 
@@ -98,6 +103,16 @@ class ProfileManager:
 
     def get_all_profiles(self) -> list[Profile]:
         return self.__all_profiles
+
+    def detect_exceptions(self, name: str) -> None:
+        if (" " in name):
+            raise NameWithSpace
+
+        if (len(name) > 5):
+            raise NameWithMoreThan5Letters
+
+        if (name == ""):
+            raise NullName
 
     @property
     def all_profiles(self):
