@@ -1,0 +1,104 @@
+from os import path
+from Profiles.Profile import Profile
+import pickle
+
+DataBase = path.dirname(__file__) + "//DataBase//Profiles.pkl"
+
+class ProfileManager:
+    def __init__(self):
+        #lista com todos os perfils
+        self.__all_profiles = list()
+
+        self.load_database()
+
+    #carrega os perfils do banco de dados
+    def load_database(self) -> None:
+        try:
+            with open(DataBase, "rb") as data:
+                self.__all_profiles = sorted(pickle.load(data), key=lambda x: x.max_score, reverse=True)
+                #self.__all_profiles = list(pickle.load(data)).sort(key=lambda x: x.max_score)
+        except:
+            with open(DataBase, "wb") as data:
+                pickle.dump(list(), data)
+    
+    #salva o self.all_profiles atual no banco de dados
+    def save_database(self) -> None:
+        with open(DataBase, "wb") as data:
+            pickle.dump(self.all_profiles, data)
+
+        self.load_database()
+
+    #retorna um perfil pelo nome
+    def get_profile(self, name: str) -> Profile:
+        if (self.verify_profile_existence(name)):
+            for profile in self.all_profiles:
+                if (profile.name == name):
+                    return profile
+        else:
+            return False
+
+    #verifica se existe um perfil pelo nome
+    #True -> se existe
+    #False -> se não existe
+    def verify_profile_existence(self, name: str) -> bool:
+        try:
+            for profile in self.all_profiles:
+                if (name == profile.name):
+                    return True 
+            else:
+                return False
+        except:
+            return True
+
+    #remove um perfil pelo nome
+    #True -> Removido com sucesso
+    #False -> Perfil não existe
+    def remove_profile(self, name: str) -> bool:
+        if (self.verify_profile_existence(name)):
+
+            for i, profile in enumerate(self.all_profiles):
+                if (profile.name == name):
+                    self.all_profiles.pop(i)
+
+                    self.save_database()
+                    return True
+        else:
+            return False
+    
+    #salva um perfil JÁ EXISTENTE
+    def save_profile(self, profile: Profile) -> bool:
+        if (self.verify_profile_existence(profile.name)):
+            self.remove_profile(profile.name)
+            self.all_profiles.append(profile)
+            self.save_database()
+            return True
+        else:
+            return False
+    
+    #cria um novo perfil
+    #retorno True -> criado com sucesso
+    #returno False -> perfil já existente
+    def create_profile(self, name: str,
+                       credit: int,
+                       max_score: int,
+                       ship_damage: int,
+                       ship_vel_max: float,
+                       ship_life: int,
+                       ship_cooldown: int,
+                       ship_qtd_bullet: int) -> bool:
+        if (not self.verify_profile_existence(name)):
+            profile = Profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
+
+            self.all_profiles.append(profile)
+            
+            self.save_database()
+            return True
+        else:
+            return False
+
+    def get_all_profiles(self) -> list[Profile]:
+        return self.__all_profiles
+
+    @property
+    def all_profiles(self):
+        return self.__all_profiles
