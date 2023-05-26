@@ -92,9 +92,5 @@ class State(ABC):
         return self.__display_height
 
     @property
-    def profile_manager(self):
-        return self.__profille_manager
-
-    @property
     def all_sprites(self):
         return self.__all_sprites
