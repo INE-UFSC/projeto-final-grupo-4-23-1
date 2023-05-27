@@ -15,7 +15,6 @@ class ProfileManager:
         try:
             with open(DataBase, "rb") as data:
                 self.__all_profiles = list(sorted(pickle.load(data), key=lambda x: x.max_score, reverse=True))
-                print(self.all_profiles)
         except:
             with open(DataBase, "wb") as data:
                 pickle.dump(list(), data)

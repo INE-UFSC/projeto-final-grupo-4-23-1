@@ -43,6 +43,12 @@ class State(ABC):
     def get_all_profiles(self) -> list[Profile]:
         return ProfileManager().get_all_profiles()
 
+    #remove um perfil pelo nome
+    #True -> removido com sucesso
+    #False -> perfil não existe
+    def remove_profile(self, profile: str) -> bool:
+        return ProfileManager().remove_profile(profile)
+
     #salva um perfil ja existente
     #True -> salvado com sucesso
     #False -> Perfil não existe
