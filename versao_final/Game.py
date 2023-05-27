@@ -2,7 +2,7 @@ import pygame
 from States.MainMenu import MainMenu
 from States.AsteroidGame import AsteroidGame
 from States.Result import Result 
-#from utility.ResultData import ResultData
+from Utility.GameData import GameData
 
 class Game:
     def __init__(self, name = 'Asteroid'):
@@ -10,7 +10,7 @@ class Game:
         self.__running = True
         self.__display_width = 1280
         self.__display_height = 720
-        #self.__result_data = ResultData()
+        self.__game_data = GameData()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
         #dicionário com os estados do jogo
@@ -58,8 +58,8 @@ class Game:
         return self.get_current_state().handle_update()
 
     @property
-    def result_data(self):
-        return self.__result_data
+    def game_data(self):
+        return self.__game_data
 
     @property
     def display_width(self):
