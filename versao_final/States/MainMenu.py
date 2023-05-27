@@ -18,8 +18,15 @@ class MainMenu(State):
 
         play = Button(x_pos, y_pos-125, 'Play', self.play)
         self.all_sprites.add(play)
-        quit = Button(x_pos, y_pos+25, 'Quit', self.quit)
+
+        select_profile = Button(x_pos, y_pos+25, "Select Profile", self.select_profile)
+        self.all_sprites.add(select_profile)
+
+        quit = Button(x_pos, y_pos+175, 'Quit', self.quit)
         self.all_sprites.add(quit)
+
+    def select_profile(self):
+        self.get_owner().change_state("SelectProfile")
 
     def play(self):
         self.get_owner().change_state("AsteroidGame")

@@ -10,13 +10,12 @@ class ProfileManager:
         #lista com todos os perfils
         self.__all_profiles = list()
 
-        self.load_database()
-
     #carrega os perfils do banco de dados
     def load_database(self) -> None:
         try:
             with open(DataBase, "rb") as data:
-                self.__all_profiles = sorted(pickle.load(data), key=lambda x: x.max_score, reverse=True)
+                self.__all_profiles = list(sorted(pickle.load(data), key=lambda x: x.max_score, reverse=True))
+                print(self.all_profiles)
         except:
             with open(DataBase, "wb") as data:
                 pickle.dump(list(), data)
@@ -26,10 +25,10 @@ class ProfileManager:
         with open(DataBase, "wb") as data:
             pickle.dump(self.all_profiles, data)
 
-        self.load_database()
-
     #retorna um perfil pelo nome
     def get_profile(self, name: str) -> Profile:
+        self.load_database()
+
         if (self.verify_profile_existence(name)):
             for profile in self.all_profiles:
                 if (profile.name == name):
@@ -41,6 +40,8 @@ class ProfileManager:
     #True -> se existe
     #False -> se não existe
     def verify_profile_existence(self, name: str) -> bool:
+        self.load_database()
+
         name = name.capitalize().strip()
         self.detect_exceptions(name)
         try:
@@ -56,6 +57,8 @@ class ProfileManager:
     #True -> Removido com sucesso
     #False -> Perfil não existe
     def remove_profile(self, name: str) -> bool:
+        self.load_database()
+
         name = name.capitalize().strip()
         self.detect_exceptions(name)
 
@@ -73,6 +76,8 @@ class ProfileManager:
     #salva um perfil JÁ EXISTENTE
     #True -> Salvado com sucesso
     def save_profile(self, profile: Profile) -> bool:
+        self.load_database()
+
         if (self.verify_profile_existence(profile.name)):
             self.remove_profile(profile.name)
             self.all_profiles.append(profile)
@@ -91,6 +96,7 @@ class ProfileManager:
                        ship_life: int,
                        ship_cooldown: int,
                        ship_qtd_bullet: int) -> None:
+        self.load_database()
 
         name = name.capitalize().strip()
         self.detect_exceptions(name)
@@ -104,7 +110,8 @@ class ProfileManager:
         self.save_database()
 
     def get_all_profiles(self) -> list[Profile]:
-        return self.__all_profiles
+        self.load_database()
+        return self.all_profiles
 
     def detect_exceptions(self, name: str) -> None:
         if (" " in name):
@@ -119,3 +126,4 @@ class ProfileManager:
     @property
     def all_profiles(self):
         return self.__all_profiles
+

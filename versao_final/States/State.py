@@ -67,20 +67,26 @@ class State(ABC):
         self.font = pygame.font.SysFont(None, size)
         textSurface = self.font.render(text, True, ("white"))
         self.get_display().blit(textSurface, (x, y))
-    
-    #conteúdo da tela
-    @abstractmethod
-    def screen_content(self):
-        pass
-    #atualiza a tela
-    @abstractmethod
-    def handle_update(self):
-        pass
-    #lida com a transição de estados
+
+     #lida com a transição de estados
     def handle_transition(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.get_owner().close()
+   
+    #conteúdo da tela
+    @abstractmethod
+    def screen_content(self):
+        pass
+
+    #atualiza a tela
+    @abstractmethod
+    def handle_update(self):
+        pass
+
+    @abstractmethod
+    def create_button(self):
+        pass
 
     @property
     def display_width(self):
