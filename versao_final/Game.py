@@ -2,15 +2,15 @@ import pygame
 from States.MainMenu import MainMenu
 from States.AsteroidGame import AsteroidGame
 from States.Result import Result 
-from utility.ResultData import ResultData
+#from utility.ResultData import ResultData
 
 class Game:
     def __init__(self, name = 'Asteroid'):
         pygame.init()
         self.__running = True
-        self.__display_width = 800
-        self.__display_height = 600
-        self.__result_data = ResultData()
+        self.__display_width = 1280
+        self.__display_height = 720
+        #self.__result_data = ResultData()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
         #dicionário com os estados do jogo

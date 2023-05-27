@@ -2,8 +2,8 @@ import pygame
 from States.State import State
 from Sprites.Ship.Ship import Ship
 from Sprites.Asteroid.Asteroid import Asteroid
-from Sprites.BasicEnemy.BasicEnemy import BasicEnemy
-from CollisionManager.CollisionManager import CollisionManager
+#from Sprites.BasicEnemy.BasicEnemy import BasicEnemy
+#from CollisionManager.CollisionManager import CollisionManager
 from time import time
 
 

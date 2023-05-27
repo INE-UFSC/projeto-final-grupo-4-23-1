@@ -1,6 +1,6 @@
 import pygame
 from Sprites.MovingSprite import MovingSprite
-from Sprites.Bullet.Bullet import Bullet
+#from Sprites.Bullet.Bullet import Bullet
 from math import cos, sin, radians
 from os import path
 from time import time
