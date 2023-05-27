@@ -38,10 +38,10 @@ class SelectProfile(State):
         back = Button(10, 10, "<-- Back", self.back)
         self.all_sprites.add(back)
 
-        advance = Button(x_pos+60, y_pos-80, ">>>", self.advance_selected_profile)
+        advance = Button(x_pos+100, y_pos-80, ">>>", self.advance_selected_profile)
         self.all_sprites.add(advance)
 
-        back = Button(x_pos-360, y_pos-80, "<<<", self.back_selected_profile)
+        back = Button(x_pos-400, y_pos-80, "<<<", self.back_selected_profile)
         self.all_sprites.add(back)
 
         select = Button(x_pos-310, y_pos+150, "Enter Profile", self.enter_selected_profile)
