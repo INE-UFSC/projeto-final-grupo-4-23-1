@@ -2,21 +2,24 @@ import pygame
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, x: int, y: int, text: str, callback) -> None:
+    def __init__(self, x: int, y: int, width: int, heigth: int, text: str, callback) -> None:
         super().__init__()
 
-        self.__callback = callback
-        self.__norm_image = pygame.Surface([300, 100], pygame.SRCALPHA)
-        pygame.draw.rect(self.__norm_image, (50,50,50), (0, 0, 300, 100))
-        pygame.draw.rect(self.__norm_image, (5,5,5), (10, 10, 280, 80))
+        self.__width = width
+        self.__heigth = heigth
 
-        self.__hover_image = pygame.Surface([300, 100], pygame.SRCALPHA)
-        pygame.draw.rect(self.__hover_image, (50, 50, 50), (0, 0, 300, 100))
-        pygame.draw.rect(self.__hover_image, (150, 150, 150), (10, 10, 280, 80))
+        self.__callback = callback
+        self.__norm_image = pygame.Surface([self.width, self.heigth], pygame.SRCALPHA)
+        pygame.draw.rect(self.__norm_image, (50,50,50), (0, 0, self.width, self.heigth))
+        pygame.draw.rect(self.__norm_image, (5,5,5), (self.heigth*0.1, self.heigth*0.1, self.width-2*(self.heigth*0.1), self.heigth-2*(self.heigth*0.1)))
+
+        self.__hover_image = pygame.Surface([self.width, self.heigth], pygame.SRCALPHA)
+        pygame.draw.rect(self.__hover_image, (50, 50, 50), (0, 0, self.width, self.heigth))
+        pygame.draw.rect(self.__hover_image, (150, 150, 150), (self.heigth*0.1, self.heigth*0.1, self.width-2*(self.heigth*0.1), self.heigth-2*(self.heigth*0.1)))
 
         self.__font = pygame.font.SysFont(None, 30)
-        textSurface = self.__font.render(text, True, (255, 255, 255))
-        textRect = textSurface.get_rect(center = (150, 50))
+        textSurface = self.__font.render(text, True, (0, 255, 255))
+        textRect = textSurface.get_rect(center = (self.width//2, self.heigth//2))
         self.__norm_image.blit(textSurface, textRect)
         self.__hover_image.blit(textSurface, textRect)
 
@@ -38,3 +41,11 @@ class Button(pygame.sprite.Sprite):
     @property
     def rect(self):
         return self.__rect
+
+    @property
+    def width(self):
+        return self.__width
+
+    @property
+    def heigth(self):
+        return self.__heigth
