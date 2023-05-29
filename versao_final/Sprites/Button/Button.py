@@ -15,9 +15,10 @@ class Button(pygame.sprite.Sprite):
         pygame.draw.rect(self.__hover_image, (150, 150, 150), (10, 10, 280, 80))
 
         self.__font = pygame.font.SysFont(None, 30)
-        textSurface = self.__font.render(text, True, (0, 255, 255))
-        self.__norm_image.blit(textSurface, (50, 30))
-        self.__hover_image.blit(textSurface, (50, 30))
+        textSurface = self.__font.render(text, True, (255, 255, 255))
+        textRect = textSurface.get_rect(center = (150, 50))
+        self.__norm_image.blit(textSurface, textRect)
+        self.__hover_image.blit(textSurface, textRect)
 
         self.__image = self.__norm_image
         self.__rect = self.__image.get_rect(topleft=(x, y))

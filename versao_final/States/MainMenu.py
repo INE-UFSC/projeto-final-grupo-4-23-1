@@ -15,14 +15,16 @@ class MainMenu(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
+        newProfile = Button(x_pos, y_pos - 200, 'New Profile', self.play)
+        self.all_sprites.add(newProfile)
 
-        play = Button(x_pos, y_pos-125, 'Play', self.play)
-        self.all_sprites.add(play)
+        selectProfile = Button(x_pos, y_pos - 50, 'Select Profile', self.select_profile)
+        self.all_sprites.add(selectProfile)
 
-        select_profile = Button(x_pos, y_pos+25, "Select Profile", self.select_profile)
-        self.all_sprites.add(select_profile)
+        scoreboard = Button(x_pos, y_pos + 100, 'Scoreboard', self.result)
+        self.all_sprites.add(scoreboard)
 
-        quit = Button(x_pos, y_pos+175, 'Quit', self.quit)
+        quit = Button(x_pos, y_pos + 250, 'Quit', self.quit)
         self.all_sprites.add(quit)
 
     def select_profile(self):
@@ -34,13 +36,16 @@ class MainMenu(State):
     def quit(self):
         self.get_owner().close()
 
+    def result(self):
+        self.get_owner().change_state("Result")
+
     def screen_content(self):
         self.get_display().fill("black")
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-250, 50)
+        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-400, 50)
 
     @property
     def all_sprites(self):
