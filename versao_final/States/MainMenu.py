@@ -15,13 +15,13 @@ class MainMenu(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-        newProfile = Button(x_pos, y_pos - 200, 300, 100, 'New Profile', self.play)
+        newProfile = Button(x_pos, y_pos - 200, 300, 100, 'New Profile', self.new_profile)
         self.all_sprites.add(newProfile)
 
         selectProfile = Button(x_pos, y_pos - 50, 300, 100, 'Select Profile', self.select_profile)
         self.all_sprites.add(selectProfile)
 
-        scoreboard = Button(x_pos, y_pos + 100, 300, 100, 'Scoreboard', self.result)
+        scoreboard = Button(x_pos, y_pos + 100, 300, 100, 'Scoreboard', self.scoreboard)
         self.all_sprites.add(scoreboard)
 
         quit = Button(x_pos, y_pos + 250, 300, 100, 'Quit', self.quit)
@@ -30,14 +30,14 @@ class MainMenu(State):
     def select_profile(self):
         self.get_owner().change_state("SelectProfile")
 
-    def play(self):
-        self.get_owner().change_state("AsteroidGame")
+    def new_profile(self):
+        pass
 
     def quit(self):
         self.get_owner().close()
 
-    def result(self):
-        self.get_owner().change_state("Result")
+    def scoreboard(self):
+        pass
 
     def screen_content(self):
         self.get_display().fill("black")
