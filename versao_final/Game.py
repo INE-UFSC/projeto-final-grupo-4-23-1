@@ -1,8 +1,7 @@
 import pygame
 from States.MainMenu import MainMenu
-from States.AsteroidGame import AsteroidGame
 from States.SelectProfile import SelectProfile
-from States.Result import Result 
+from States.ProfileMenu import ProfileMenu
 from Utility.GameData import GameData
 
 class Game:
@@ -17,6 +16,7 @@ class Game:
         #dicionário com os estados do jogo
         self.__states_dictionary = {'MainMenu': MainMenu,
                                     'SelectProfile': SelectProfile,
+                                    'ProfileMenu': ProfileMenu
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)

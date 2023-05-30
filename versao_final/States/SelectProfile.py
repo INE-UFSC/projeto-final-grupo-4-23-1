@@ -60,7 +60,7 @@ class SelectProfile(State):
     def enter_selected_profile(self):
         if (len(self.all_profiles) != 0):
             self.get_owner().game_data.set_profile(self.profile_selected)
-            print(self.get_owner().game_data.profile.name)
+            self.get_owner().change_state("ProfileMenu")
 
     def advance_selected_profile(self):
         if ((time() - self.button_time) > 0.1):
