@@ -15,7 +15,7 @@ class MainMenu(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-        newProfile = Button(x_pos, y_pos - 200, 200, 100, 'New Profile', self.play)
+        newProfile = Button(x_pos, y_pos - 200, 300, 100, 'New Profile', self.play)
         self.all_sprites.add(newProfile)
 
         selectProfile = Button(x_pos, y_pos - 50, 300, 100, 'Select Profile', self.select_profile)

@@ -35,19 +35,19 @@ class SelectProfile(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        back = Button(10, 10, "<-- Back", self.back)
+        back = Button(20, 20, 180, 100, "<-- Back", self.back)
         self.all_sprites.add(back)
 
-        advance = Button(x_pos+100, y_pos-80, ">>>", self.advance_selected_profile)
+        advance = Button(x_pos+100, y_pos-80, 100, 70, ">>>", self.advance_selected_profile)
         self.all_sprites.add(advance)
 
-        back = Button(x_pos-400, y_pos-80, "<<<", self.back_selected_profile)
+        back = Button(x_pos-200, y_pos-80, 100, 70, "<<<", self.back_selected_profile)
         self.all_sprites.add(back)
 
-        select = Button(x_pos-310, y_pos+150, "Enter Profile", self.enter_selected_profile)
+        select = Button(x_pos-310, y_pos+150, 300, 100, "Enter Profile", self.enter_selected_profile)
         self.all_sprites.add(select)
 
-        remove =Button(x_pos+10, y_pos+150, "Remove Profile", self.remove_selected_profile)
+        remove =Button(x_pos+10, y_pos+150, 300, 100, "Remove Profile", self.remove_selected_profile)
         self.all_sprites.add(remove)
 
     def remove_selected_profile(self):
