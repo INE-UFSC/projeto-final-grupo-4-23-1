@@ -10,7 +10,7 @@ class ProfileMenu(State):
     def create_button(self):
         pass
 
-    def screen_content(self):
+    def screen_content(self) -> None:
         self.get_display().fill("black")
 
         x_pos = self.display_width//2
@@ -24,7 +24,7 @@ class ProfileMenu(State):
         self.text("Credit:", self.display_width-220, 20, 40, "white")
         self.text(str(self.current_profile.credit), self.display_width-120, 20, 40, "yellow")
 
-    def handle_update(self):
+    def handle_update(self) -> None:
         pygame.display.update()
         self.screen_content()
         pygame.display.update()

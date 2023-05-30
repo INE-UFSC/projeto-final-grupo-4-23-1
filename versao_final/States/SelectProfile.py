@@ -22,7 +22,7 @@ class SelectProfile(State):
         self.text("SELECT YOUR PROFILE", x_pos-200, y_pos-250, 50, "white")
         self.show_profile_selected_name()
 
-    def show_profile_selected_name(self):
+    def show_profile_selected_name(self) -> None:
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
@@ -31,7 +31,7 @@ class SelectProfile(State):
         else:
             self.text(self.profile_selected.name , x_pos-40, y_pos-50, 40, "yellow")
 
-    def create_button(self):
+    def create_button(self) -> None:
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
@@ -50,19 +50,19 @@ class SelectProfile(State):
         remove =Button(x_pos+10, y_pos+150, 300, 100, "Remove Profile", self.remove_selected_profile)
         self.all_sprites.add(remove)
 
-    def remove_selected_profile(self):
+    def remove_selected_profile(self) -> None:
         if (len(self.all_profiles) != 0):
             if (messagebox.askyesno("Remove Profile", "Do you really want to delete %s profile?" % self.profile_selected.name)):
                 self.remove_profile(self.profile_selected.name)
                 self.advance_selected_profile()
 
 
-    def enter_selected_profile(self):
+    def enter_selected_profile(self) -> None:
         if (len(self.all_profiles) != 0):
             self.get_owner().game_data.set_profile(self.profile_selected)
             self.get_owner().change_state("ProfileMenu")
 
-    def advance_selected_profile(self):
+    def advance_selected_profile(self) -> None:
         if ((time() - self.button_time) > 0.1):
             if (len(self.all_profiles) == 0):
                 self.__profile_selected_index = 0
@@ -73,7 +73,7 @@ class SelectProfile(State):
 
             self.__button_time = time()
 
-    def back_selected_profile(self):
+    def back_selected_profile(self) -> None:
         if ((time() - self.button_time) > 0.1):
             if (len(self.all_profiles) == 0):
                 self.__profile_selected_index = 0
@@ -96,11 +96,11 @@ class SelectProfile(State):
         pygame.display.update()
 
     @property
-    def all_profiles(self):
+    def all_profiles(self) -> list:
         return self.get_all_profiles()
 
     @property
-    def profile_selected_index(self):
+    def profile_selected_index(self) -> int:
         return self.__profile_selected_index
 
     @property
@@ -108,5 +108,5 @@ class SelectProfile(State):
         return self.all_profiles[self.profile_selected_index]
 
     @property
-    def button_time(self):
+    def button_time(self) -> int:
         return self.__button_time
