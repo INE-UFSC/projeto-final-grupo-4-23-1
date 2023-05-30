@@ -45,7 +45,7 @@ class MainMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-400, 50)
+        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-400, 50, "white")
 
     @property
     def all_sprites(self):

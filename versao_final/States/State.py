@@ -69,9 +69,9 @@ class State(ABC):
     
 
     #metodo geral para colocar texto
-    def text(self, text, x, y, size):
+    def text(self, text: str, x: int, y: int, size: int, color: str):
         self.font = pygame.font.SysFont(None, size)
-        textSurface = self.font.render(text, True, ("white"))
+        textSurface = self.font.render(text, True, (color))
         self.get_display().blit(textSurface, (x, y))
 
      #lida com a transição de estados
