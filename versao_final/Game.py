@@ -16,9 +16,8 @@ class Game:
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
         #dicionário com os estados do jogo
         self.__states_dictionary = {'MainMenu': MainMenu,
-                                    'AsteroidGame': AsteroidGame,
                                     'SelectProfile': SelectProfile,
-                                    'Result': Result}
+                                   }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
 
