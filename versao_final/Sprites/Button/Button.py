@@ -5,6 +5,8 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, x: int, y: int, width: int, heigth: int, text: str, callback) -> None:
         super().__init__()
 
+        self.__pressed = False
+
         self.__width = width
         self.__heigth = heigth
 
@@ -30,8 +32,13 @@ class Button(pygame.sprite.Sprite):
         if self.__rect.collidepoint(pygame.mouse.get_pos()):
             self.__image = self.__hover_image
             if pygame.mouse.get_pressed()[0]:
-                self.__callback()
+                self.__pressed = True
+            else:
+                if (self.pressed == True):
+                    self.__pressed = False
+                    self.__callback()
         else:
+            self.__pressed = False
             self.__image = self.__norm_image
 
     @property
@@ -49,3 +56,7 @@ class Button(pygame.sprite.Sprite):
     @property
     def heigth(self):
         return self.__heigth
+
+    @property
+    def pressed(self):
+        return self.__pressed

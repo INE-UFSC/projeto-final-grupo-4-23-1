@@ -2,7 +2,6 @@ import pygame
 from Sprites.Button.Button import Button
 from States.State import State
 from tkinter import messagebox
-from time import time
 
 class SelectProfile(State):
     def __init__(self, owner) -> None:
@@ -10,7 +9,6 @@ class SelectProfile(State):
         self.create_button()
 
         self.__profile_selected_index = 0
-        self.__button_time = time()
 
     def screen_content(self) -> None:
         self.get_display().fill("black")
@@ -23,6 +21,10 @@ class SelectProfile(State):
         self.show_profile_selected_name()
 
     def show_profile_selected_name(self) -> None:
+
+        self.all_sprites.update()
+        self.all_sprites.draw(self.get_display())
+
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
@@ -63,26 +65,20 @@ class SelectProfile(State):
             self.get_owner().change_state("ProfileMenu")
 
     def advance_selected_profile(self) -> None:
-        if ((time() - self.button_time) > 0.35):
-            if (len(self.all_profiles) == 0):
-                self.__profile_selected_index = 0
-            elif (self.profile_selected_index >= len(self.all_profiles)-1):
-                self.__profile_selected_index = 0
-            else:
-                self.__profile_selected_index += 1
-
-            self.__button_time = time()
+        if (len(self.all_profiles) == 0):
+            self.__profile_selected_index = 0
+        elif (self.profile_selected_index >= len(self.all_profiles)-1):
+            self.__profile_selected_index = 0
+        else:
+            self.__profile_selected_index += 1
 
     def back_selected_profile(self) -> None:
-        if ((time() - self.button_time) > 0.35):
-            if (len(self.all_profiles) == 0):
-                self.__profile_selected_index = 0
-            elif (self.profile_selected_index == 0):
-                self.__profile_selected_index = len(self.all_profiles)-1
-            else:
-                self.__profile_selected_index -= 1
-
-            self.__button_time = time()
+        if (len(self.all_profiles) == 0):
+            self.__profile_selected_index = 0
+        elif (self.profile_selected_index == 0):
+            self.__profile_selected_index = len(self.all_profiles)-1
+        else:
+            self.__profile_selected_index -= 1
 
     def back(self) -> None:
         self.get_owner().change_state("MainMenu")
@@ -91,8 +87,6 @@ class SelectProfile(State):
     def handle_update(self) -> None:
         pygame.display.update()
         self.screen_content()
-        self.all_sprites.update()
-        self.all_sprites.draw(self.get_display())
         pygame.display.update()
 
     @property
@@ -106,7 +100,4 @@ class SelectProfile(State):
     @property
     def profile_selected(self):
         return self.all_profiles[self.profile_selected_index]
-
-    @property
-    def button_time(self) -> int:
-        return self.__button_time
+       

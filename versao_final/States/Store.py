@@ -8,8 +8,6 @@ class Store(State):
     def __init__(self, owner):
         super().__init__(owner)
 
-        self.__click_time = time()
-
         self.__vel_max_price = 15
 
         self.__current_profile: Profile = self.get_owner().game_data.profile
@@ -29,30 +27,24 @@ class Store(State):
         self.all_sprites.add(add_vel_max)
 
     def rmv_vel_max(self):
-        if ((time() - self.click_time) > 0.35):
-            if (self.current_profile.ship_vel_max > 1):
+        if (self.current_profile.ship_vel_max > 1):
 
-                credit = self.current_profile.credit + self.vel_max_price
-                self.current_profile.set_credit(credit)
+            credit = self.current_profile.credit + self.vel_max_price
+            self.current_profile.set_credit(credit)
 
-                vel_max = self.current_profile.ship_vel_max - 1
-                self.current_profile.set_ship_vel_max(vel_max)
-
-            self.__click_time = time()
+            vel_max = self.current_profile.ship_vel_max - 1
+            self.current_profile.set_ship_vel_max(vel_max)
 
     def add_vel_max(self):
-        if ((time() - self.click_time) > 0.35):
+        if (self.current_profile.credit >= self.vel_max_price):
+            if (self.current_profile.ship_vel_max < 5):
 
-            if (self.current_profile.credit >= self.vel_max_price):
-                if (self.current_profile.ship_vel_max < 5):
+                credit = self.current_profile.credit - self.vel_max_price
+                self.current_profile.set_credit(credit)
 
-                    credit = self.current_profile.credit - self.vel_max_price
-                    self.current_profile.set_credit(credit)
+                vel_max = self.current_profile.ship_vel_max + 1
+                self.current_profile.set_ship_vel_max(vel_max)
 
-                    vel_max = self.current_profile.ship_vel_max + 1
-                    self.current_profile.set_ship_vel_max(vel_max)
-
-            self.__click_time = time()
 
     def update_rects(self) -> None:
         self.vel_max_rect()
@@ -88,8 +80,8 @@ class Store(State):
 
         #velmax
         self.text("Vel. Max:", 160, 160, 30, "white")
-        self.text("-%d"%self.vel_max_price, 40, 160, 30, "green")
-        self.text("+%d"%self.vel_max_price, 345, 160, 30, "red")
+        self.text("+%d"%self.vel_max_price, 40, 160, 30, "green")
+        self.text("-%d"%self.vel_max_price, 345, 160, 30, "red")
 
     def rect(self, x: int, y: int, width: int, heigth: int, profile_value: int, green_value: int):
         color = "gray" if (profile_value < green_value) else "green"
@@ -105,10 +97,6 @@ class Store(State):
     def current_profile(self) -> Profile:
         return self.__current_profile
 
-    @property
-    def click_time(self):
-        return self.__click_time
-    
     @property
     def vel_max_price(self):
         return self.__vel_max_price
