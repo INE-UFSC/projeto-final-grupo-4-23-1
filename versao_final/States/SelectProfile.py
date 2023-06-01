@@ -63,7 +63,7 @@ class SelectProfile(State):
             self.get_owner().change_state("ProfileMenu")
 
     def advance_selected_profile(self) -> None:
-        if ((time() - self.button_time) > 0.2):
+        if ((time() - self.button_time) > 0.5):
             if (len(self.all_profiles) == 0):
                 self.__profile_selected_index = 0
             elif (self.profile_selected_index >= len(self.all_profiles)-1):
@@ -74,7 +74,7 @@ class SelectProfile(State):
             self.__button_time = time()
 
     def back_selected_profile(self) -> None:
-        if ((time() - self.button_time) > 0.2):
+        if ((time() - self.button_time) > 0.5):
             if (len(self.all_profiles) == 0):
                 self.__profile_selected_index = 0
             elif (self.profile_selected_index == 0):
