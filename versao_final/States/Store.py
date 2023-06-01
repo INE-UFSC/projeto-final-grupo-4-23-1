@@ -9,6 +9,7 @@ class Store(State):
         super().__init__(owner)
 
         self.__vel_max_price = 15
+        self.__damage_price = 20
 
         self.__current_profile: Profile = self.get_owner().game_data.profile
 
@@ -25,6 +26,11 @@ class Store(State):
         add_vel_max = Button(325, 180, 70, 70, "+", self.add_vel_max)
         self.all_sprites.add(rmv_vel_max)
         self.all_sprites.add(add_vel_max)
+
+        rmv_damage = Button(500, 180, 70, 70, "-", self.rmv_damage)
+        add_damage = Button(805, 180, 70, 70, "+", self.add_damage)
+        self.all_sprites.add(rmv_damage)
+        self.all_sprites.add(add_damage)
 
     def rmv_vel_max(self):
         if (self.current_profile.ship_vel_max > 1):
@@ -45,9 +51,29 @@ class Store(State):
                 vel_max = self.current_profile.ship_vel_max + 1
                 self.current_profile.set_ship_vel_max(vel_max)
 
+    def rmv_damage(self):
+        if (self.current_profile.ship_damage > 1):
+
+            credit = self.current_profile.credit + self.damage_price
+            self.current_profile.set_credit(credit)
+
+            damage = self.current_profile.ship_damage - 1
+            self.current_profile.set_ship_damage(damage)
+
+    def add_damage(self):
+        if (self.current_profile.credit >= self.damage_price):
+            if (self.current_profile.ship_damage < 5):
+
+                credit = self.current_profile.credit - self.damage_price
+                self.current_profile.set_credit(credit)
+
+                damage = self.current_profile.ship_damage + 1
+                self.current_profile.set_ship_damage(damage)
+
 
     def update_rects(self) -> None:
         self.vel_max_rect()
+        self.damage_rect()
 
     def vel_max_rect(self):
         #1 rect
@@ -58,6 +84,16 @@ class Store(State):
         self.rect(210, 200, 50, 25, self.current_profile.ship_vel_max, 4)
         #4 rect
         self.rect(265, 200, 50, 25, self.current_profile.ship_vel_max, 5)
+
+    def damage_rect(self):
+        #1 rect
+        self.rect(580, 200, 50, 25, self.current_profile.ship_damage, 2)
+        #2 rect
+        self.rect(635, 200, 50, 25, self.current_profile.ship_damage, 3)
+        #3 rect
+        self.rect(690, 200, 50, 25, self.current_profile.ship_damage, 4)
+        #4 rect
+        self.rect(745, 200, 50, 25, self.current_profile.ship_damage, 5)
 
     def back(self):
         self.save_profile(self.current_profile)
@@ -83,6 +119,11 @@ class Store(State):
         self.text("+%d"%self.vel_max_price, 40, 160, 30, "green")
         self.text("-%d"%self.vel_max_price, 345, 160, 30, "red")
 
+        #damage
+        self.text("Damage:", 640, 160, 30, "white")
+        self.text("+%d"%self.damage_price, 520, 160, 30, "green")
+        self.text("-%d"%self.damage_price, 825, 160, 30, "red")
+
     def rect(self, x: int, y: int, width: int, heigth: int, profile_value: int, green_value: int):
         color = "gray" if (profile_value < green_value) else "green"
         pygame.draw.rect(self.get_display(), color, (x, y, width, heigth))
@@ -100,3 +141,7 @@ class Store(State):
     @property
     def vel_max_price(self):
         return self.__vel_max_price
+
+    @property
+    def damage_price(self):
+        return self.__damage_price
