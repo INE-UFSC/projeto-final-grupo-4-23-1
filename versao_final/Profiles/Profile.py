@@ -26,6 +26,9 @@ class Profile:
     def set_ship_damage(self, dmg: int) -> None:
         self.__ship_damage = dmg
 
+    def set_ship_vel_max(self, vel: int) -> None:
+        self.__ship_vel_max = vel
+
     def set_ship_life(self, life: int) -> None:
         self.__ship_life = life
 
