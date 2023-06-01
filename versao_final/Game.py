@@ -3,6 +3,7 @@ from States.MainMenu import MainMenu
 from States.SelectProfile import SelectProfile
 from States.ProfileMenu import ProfileMenu
 from States.Store import Store
+from States.NormalLevel import NormalLevel
 from Utility.GameData import GameData
 
 class Game:
@@ -18,7 +19,8 @@ class Game:
         self.__states_dictionary = {'MainMenu': MainMenu,
                                     'SelectProfile': SelectProfile,
                                     'ProfileMenu': ProfileMenu,
-                                    'Store': Store
+                                    'Store': Store,
+                                    'NormalLevel': NormalLevel
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
