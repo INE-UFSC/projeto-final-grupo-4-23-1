@@ -31,7 +31,7 @@ class State(ABC):
     #True -> perfil existe
     #False -> perfil não existe
     def verify_profile_existence(self, name: str) -> bool:
-        return ProfileManager().verify_profile_existence()
+        return ProfileManager().verify_profile_existence(name)
 
     #retorna um perfil pelo nome
     #retorna o perfil se existir
@@ -52,8 +52,8 @@ class State(ABC):
     #salva um perfil ja existente
     #True -> salvado com sucesso
     #False -> Perfil não existe
-    def save_profile(profile: Profile) -> bool:
-        return ProfileManager().save_profile()
+    def save_profile(self, profile: Profile) -> bool:
+        return ProfileManager().save_profile(profile)
 
     #cria um novo perfil
     #Dá erro se o perfil já existir
