@@ -40,28 +40,29 @@ class InputBox(pygame.sprite.Sprite):
 
     def update(self):
         keys = pygame.key.get_pressed()
-    
-        if pygame.mouse.get_pressed()[0]:
-            print('pressed')
-            if self.__rect.collidepoint(pygame.mouse.get_pos()):
-                self.active = not self.active
-            else:
-                self.change_color()
-                self.active = False
-            
-            self.text = ''
+        mouse_buttons = pygame.mouse.get_pressed()
 
-        
-        if self.active:
+        if mouse_buttons[0]:
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                self.active = True
+
+            else:
+                self.active = False
             self.change_color()
+
+        if self.active:
             if keys[pygame.K_RETURN]:
                 print(self.text)
                 self.text = ''
             elif keys[pygame.K_BACKSPACE]:
                 self.text = self.text[:-1]
             else:
-                self.text += 'a'
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        self.text += event.unicode
+
         
+        print(self.text)
 
     def change_color(self):
         if self.active:

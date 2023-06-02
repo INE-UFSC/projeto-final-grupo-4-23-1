@@ -7,9 +7,11 @@ from Sprites.InputBox.InputBox import InputBox
 class CreateProfile(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
+        self.__name = ''
+        self.__input_box = None
         self.create_button()
         self.create_input_box()
-        self.__name = ''
+    
 
     def screen_content(self) -> None:
         self.get_display().fill("black")
@@ -20,14 +22,15 @@ class CreateProfile(State):
         
         self.text("ENTER A NEW NAME", x_pos-200, y_pos-250, 50, "white")
     
-      
+
          
     def create_input_box(self):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
     
-        input_box = InputBox(x_pos-165, y_pos-50, 500, 100)
-        self.all_sprites.add(input_box)
+        self.input_box = InputBox(x_pos-165, y_pos-50, 500, 100)
+        self.all_sprites.add(self.input_box)
+
     
     def create_button(self) -> None:
         x_pos = self.display_width//2
@@ -37,14 +40,15 @@ class CreateProfile(State):
         self.all_sprites.add(back)
 
 
-        select = Button(x_pos-310, y_pos+150, 300, 100, "Create", self.create_profile)
+        select = Button(x_pos-310, y_pos+150, 300, 100, "Create", self.call_create_profile)
         self.all_sprites.add(select)
 
         back = Button(x_pos+10, y_pos+150, 300, 100, "Back", self.back)
         self.all_sprites.add(back)
 
 
-    def create_profile(self) -> None:
+    def call_create_profile(self) -> None:
+        self.name = self.input_box.text
         if len(self.name) != 0:
             self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
             self.enter_selected_profile()
@@ -52,11 +56,9 @@ class CreateProfile(State):
             pass
         
 
-
-
     def enter_selected_profile(self) -> None:
         if (len(self.all_profiles) != 0):
-            self.get_owner().game_data.set_profile(self.get_profile(self.name))
+            self.get_owner().game_data.set_profile(self.profile_selected)
             self.get_owner().change_state("ProfileMenu")
 
     def back(self) -> None:
@@ -75,7 +77,22 @@ class CreateProfile(State):
     def all_profiles(self) -> list:
         return self.get_all_profiles()
 
+    @property
+    def input_box(self):
+        return self.__input_box
     
     @property
     def name(self):
-        return self.__name       
+        return self.__name    
+    
+    @property
+    def profile_selected(self):
+        return self.all_profiles[-1]   
+    
+    @name.setter
+    def name(self, name):
+        self.__name = name
+    
+    @input_box.setter
+    def input_box(self, input_box):
+        self.__input_box = input_box
