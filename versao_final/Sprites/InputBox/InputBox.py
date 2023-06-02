@@ -5,15 +5,14 @@ class InputBox(pygame.sprite.Sprite):
         super().__init__()
         
         self.__rect = pygame.Rect(x, y, width, height)
-        self.__color = pygame.Color('white')
         self.__text = ''
         self.__font = pygame.font.Font(None, 32)
         self.__active = False
-        self.__norm_image = pygame.Surface([width, height], pygame.SRCALPHA)
+        self.__image = pygame.Surface([width, height], pygame.SRCALPHA)
         
-        pygame.draw.rect(self.__norm_image, self.color, self.rect, 2)
+        pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, 300, 100))
         text_surface = self.font.render(self.text, True, (0, 0, 0))
-        self.__norm_image.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
+        self.__image.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
         
 
     def handle_event(self, event):
@@ -40,18 +39,38 @@ class InputBox(pygame.sprite.Sprite):
                     self.text += event.unicode
 
     def update(self):
+        keys = pygame.key.get_pressed()
+    
+        if pygame.mouse.get_pressed()[0]:
+            print('pressed')
+            if self.__rect.collidepoint(pygame.mouse.get_pos()):
+                self.active = not self.active
+            else:
+                pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, 300, 100))
+                self.active = False
+            
+            self.text = ''
 
-        self.color = pygame.Color('yellow') if self.active else pygame.Color('white')
+        
+        if self.active:
+            pygame.draw.rect(self.image, (100, 100, 100), (0, 0, 300, 100))
+            if keys[pygame.K_RETURN]:
+                print(self.text)
+                self.text = ''
+            elif keys[pygame.K_BACKSPACE]:
+                self.text = self.text[:-1]
+            else:
+                self.text += 'a'
+        
 
-    def draw(self, screen):
-
-        pygame.draw.rect(screen, self.color, self.rect, 2)
-        text_surface = self.font.render(self.text, True, (0, 0, 0))
-        screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
+        
     
     @property 
     def rect(self):
         return self.__rect
+    @property
+    def image(self):
+        return self.__image
     @property 
     def color(self):
         return self.__color
@@ -64,3 +83,18 @@ class InputBox(pygame.sprite.Sprite):
     @property 
     def active(self):
         return self.__active
+    @rect.setter 
+    def rect(self, rect):
+        self.__rect = rect
+    @color.setter 
+    def color(self, color):
+        self.__color = color
+    @text.setter
+    def text(self, text):
+        self.__text = text
+    @font.setter
+    def font(self, font):
+        self.__font = font
+    @active.setter
+    def active(self, active):
+        self.__active = active

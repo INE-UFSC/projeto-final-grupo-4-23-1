@@ -8,7 +8,7 @@ class CreateProfile(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
         self.create_button()
-        #self.create_input_box()
+        self.create_input_box()
         self.__name = ''
 
     def screen_content(self) -> None:
@@ -21,14 +21,14 @@ class CreateProfile(State):
         self.text("ENTER A NEW NAME", x_pos-200, y_pos-250, 50, "white")
     
       
-    """     
+         
     def create_input_box(self):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
     
-        input_box = InputBox(x_pos-40, y_pos-50, 40, 10)
+        input_box = InputBox(x_pos-165, y_pos-50, 500, 100)
         self.all_sprites.add(input_box)
-    """
+    
     def create_button(self) -> None:
         x_pos = self.display_width//2
         y_pos = self.display_height//2
@@ -37,7 +37,7 @@ class CreateProfile(State):
         self.all_sprites.add(back)
 
 
-        select = Button(x_pos-310, y_pos+150, 300, 100, "Create", print('a'))
+        select = Button(x_pos-310, y_pos+150, 300, 100, "Create", self.create_profile)
         self.all_sprites.add(select)
 
         back = Button(x_pos+10, y_pos+150, 300, 100, "Back", self.back)
@@ -45,8 +45,12 @@ class CreateProfile(State):
 
 
     def create_profile(self) -> None:
-        self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
-        self.enter_selected_profile()
+        if len(self.name) != 0:
+            self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
+            self.enter_selected_profile()
+        else:
+            pass
+        
 
 
 
