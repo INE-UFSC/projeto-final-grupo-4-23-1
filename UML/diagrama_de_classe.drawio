@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-        <mxGraphModel dx="3161" dy="1769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="5761" dy="4369" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="WIyWlLk6GJQsqaUBKTNV-0"/>
                 <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0"/>
@@ -114,7 +114,7 @@
                     <mxGeometry y="34" width="230" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="21" value="ScoreBoard" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-                    <mxGeometry x="414" y="640" width="160" height="130" as="geometry"/>
+                    <mxGeometry x="420" y="640" width="160" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="21" vertex="1">
                     <mxGeometry y="26" width="160" height="8" as="geometry"/>
@@ -204,7 +204,7 @@
                 <mxCell id="52" value="NormalLevel" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
                     <mxGeometry x="-190" y="640" width="280" height="390" as="geometry"/>
                 </mxCell>
-                <mxCell id="53" value="- collision_manager: CollisionManager&#10;&#10;- last_asteroid_time: time()&#10;- last_basic_enemy_time: time()&#10;&#10;- score: Int&#10;- init_time: time()&#10;&#10;- all_sprites: Pygame.sprite.Group&#10;- all_asteroids: Pygame.sprite.Group&#10;- all_ship_group: Pygame.sprite.Group&#10;- all_ship_bullet_group: Pygame.sprite.Group&#10;- all_enemy_group: Pygame.sprite.Group&#10;- all_enemy_bullets_group: Pygame.sprite.Group&#10;&#10;- clk: pygame.time.clock" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="52" vertex="1">
+                <mxCell id="53" value="- profile: Profile&#10;&#10;- collision_manager: CollisionManager&#10;&#10;- last_asteroid_time: time()&#10;- last_basic_enemy_time: time()&#10;&#10;- score: Int&#10;- init_time: time()&#10;&#10;- all_sprites: Pygame.sprite.Group&#10;- all_asteroids: Pygame.sprite.Group&#10;- all_ship_group: Pygame.sprite.Group&#10;- all_ship_bullet_group: Pygame.sprite.Group&#10;- all_enemy_group: Pygame.sprite.Group&#10;- all_enemy_bullets_group: Pygame.sprite.Group&#10;&#10;- clk: pygame.time.clock" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="52" vertex="1">
                     <mxGeometry y="26" width="280" height="234" as="geometry"/>
                 </mxCell>
                 <mxCell id="54" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="52" vertex="1">
@@ -380,16 +380,16 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="100" value="Ship" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-                    <mxGeometry x="-480" y="1800" width="210" height="510" as="geometry"/>
+                    <mxGeometry x="-480" y="1800" width="210" height="520" as="geometry"/>
                 </mxCell>
-                <mxCell id="101" value="- last_shoot: Int&#10;&#10;- cooldown: Int&#10;- life: Int&#10;- vel_max: Float&#10;- speed: Speed&#10;- dx: Float&#10;- dy: Float&#10;&#10;- invunerable: Bool&#10;- invunerable_time: time()&#10;- change_color_time() time()&#10;- blue: Bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="100" vertex="1">
-                    <mxGeometry y="26" width="210" height="194" as="geometry"/>
+                <mxCell id="101" value="- last_shoot: Int&#10;&#10;- damage: int&#10;- cooldown: Int&#10;- life: Int&#10;- vel_max: Float&#10;- speed: Speed&#10;- dx: Float&#10;- dy: Float&#10;&#10;- invunerable: Bool&#10;- invunerable_time: time()&#10;- change_color_time() time()&#10;- blue: Bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="100" vertex="1">
+                    <mxGeometry y="26" width="210" height="204" as="geometry"/>
                 </mxCell>
                 <mxCell id="102" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="100" vertex="1">
-                    <mxGeometry y="220" width="210" height="8" as="geometry"/>
+                    <mxGeometry y="230" width="210" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="103" value="+ __init__(game: State,&#10;                 speed: Float,&#10;                 vel_max: Float,&#10;                 cooldown: Float,&#10;                 life: Int) -&gt; None&#10;&#10;+ user_input() -&gt; None&#10;+ shoot() -&gt; None&#10;+ accelerate() -&gt; None&#10;&#10;+ hit() -&gt; None&#10;+ blink() -&gt; None&#10;+ check_invunerable() -&gt; None &#10;&#10;+ update_position() -&gt; None&#10;+ update_image_position() -&gt; None&#10;+ update() -&gt; None&#10;&#10;+ reset_speed() -&gt; None&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="100" vertex="1">
-                    <mxGeometry y="228" width="210" height="282" as="geometry"/>
+                <mxCell id="103" value="+ __init__(game: State,&#10;                 speed: Float,&#10;                 vel_max: Float,&#10;                 cooldown: Float,&#10;                 life: Int,&#10;                 damage: Int) -&gt; None&#10;&#10;+ user_input() -&gt; None&#10;+ shoot() -&gt; None&#10;+ accelerate() -&gt; None&#10;&#10;+ hit() -&gt; None&#10;+ blink() -&gt; None&#10;+ check_invunerable() -&gt; None &#10;&#10;+ update_position() -&gt; None&#10;+ update_image_position() -&gt; None&#10;+ update() -&gt; None&#10;&#10;+ reset_speed() -&gt; None&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="100" vertex="1">
+                    <mxGeometry y="238" width="210" height="282" as="geometry"/>
                 </mxCell>
                 <mxCell id="104" value="Asteroid" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
                     <mxGeometry x="-200" y="1800" width="200" height="160" as="geometry"/>

@@ -24,7 +24,6 @@ class NormalLevel(State):
 
         life = self.get_owner().game_data.ship_life
 
-
         self.__ship = Ship(game = self,
                            speed = vel_max*0.3,
                            vel_max = vel_max,
