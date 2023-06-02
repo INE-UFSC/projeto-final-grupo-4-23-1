@@ -31,7 +31,7 @@ class MainMenu(State):
         self.get_owner().change_state("SelectProfile")
 
     def new_profile(self):
-        pass
+        self.get_owner().change_state("CreateProfile")
 
     def quit(self):
         self.get_owner().close()
