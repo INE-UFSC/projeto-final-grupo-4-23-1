@@ -46,14 +46,14 @@ class InputBox(pygame.sprite.Sprite):
             if self.__rect.collidepoint(pygame.mouse.get_pos()):
                 self.active = not self.active
             else:
-                pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, 300, 100))
+                self.change_color()
                 self.active = False
             
             self.text = ''
 
         
         if self.active:
-            pygame.draw.rect(self.image, (100, 100, 100), (0, 0, 300, 100))
+            self.change_color()
             if keys[pygame.K_RETURN]:
                 print(self.text)
                 self.text = ''
@@ -63,7 +63,11 @@ class InputBox(pygame.sprite.Sprite):
                 self.text += 'a'
         
 
-        
+    def change_color(self):
+        if self.active:
+            return pygame.draw.rect(self.image, (100, 100, 100), (0, 0, 300, 100))
+        else:
+            return pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, 300, 100))
     
     @property 
     def rect(self):
