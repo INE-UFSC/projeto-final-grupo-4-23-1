@@ -18,7 +18,20 @@ class NormalLevel(State):
 
 
     def add_ship(self) -> None:
-        self.__ship = Ship(game=self, speed=2, vel_max=10, cooldown=0.5, life=3)
+        vel_max = 10*(1.2)**(self.profile.ship_vel_max-1)
+        cooldown = 0.8 - (0.15 * (self.profile.ship_cooldown-1))
+        damage = self.profile.ship_damage
+
+        life = self.get_owner().game_data.ship_life
+
+
+        self.__ship = Ship(game = self,
+                           speed = vel_max*0.3,
+                           vel_max = vel_max,
+                           cooldown = cooldown,
+                           life = life,
+                           damage = damage)
+
         self.all_sprites.add(self.ship)
         self.ship_group.add(self.ship)
 

@@ -12,10 +12,13 @@ class Ship(MovingSprite):
                  speed: float,
                  vel_max: float,
                  cooldown: float,
-                 life: int) -> None:
+                 life: int,
+                 damage: int) -> None:
 
         #tempo do ultimo tiro
         self.__last_shoot = 0
+
+        self.__damage = damage
 
         #posição inicial
         x = pygame.display.Info().current_w // 2
@@ -66,7 +69,15 @@ class Ship(MovingSprite):
     def shoot(self) -> None:
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             if ((time() - self.last_shoot) > self.cooldown):
-                bullet = Bullet(self, (self.x, self.y), self.direction, 10, 5, "yellow", 1)
+                print(self.damage)
+                bullet = Bullet(game = self,
+                                position = (self.x, self.y),
+                                direction = self.direction,
+                                speed = 10,
+                                damage = self.damage,
+                                color = "yellow",
+                                lifetime = 1)
+
                 self.game.all_sprites.add(bullet)
                 self.game.ship_bullets_group.add(bullet)
 
@@ -145,6 +156,10 @@ class Ship(MovingSprite):
     def reset_speed(self):
         self.__dx = 0
         self.__dy = 0
+
+    @property
+    def damage(self):
+        return self.__damage
 
     @property
     def color(self):

@@ -30,6 +30,7 @@ class ProfileMenu(State):
         self.get_owner().change_state("Store")
 
     def play(self) -> None:
+        self.get_owner().game_data.set_ship_life(3+(self.current_profile.ship_life-1))
         self.get_owner().change_state("NormalLevel")
 
     def screen_content(self) -> None:

@@ -5,6 +5,7 @@ class GameData:
         self.__profile: Profile = None
         self.__level: int = None
         self.__score: int = None
+        self.__ship_life: int = None
 
     def set_profile(self, profile: Profile) -> None:
         self.__profile = profile
@@ -14,6 +15,9 @@ class GameData:
 
     def set_score(self, score: int) -> None:
         self.__score = score
+
+    def set_ship_life(self, life: int) -> None:
+        self.__ship_life = life
 
     @property
     def profile(self) -> Profile:
@@ -27,4 +31,7 @@ class GameData:
     def score(self) -> int:
         return self.__score
 
-    
+    @property 
+    def ship_life(self):
+        return self.__ship_life
+        
