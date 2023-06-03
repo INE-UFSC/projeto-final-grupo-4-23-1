@@ -4,7 +4,7 @@ from Profiles.Profile import Profile
 from Sprites.Ship.Ship import Ship
 from time import time
 
-class NormalLevel(State):
+class BossLevel(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
 
@@ -13,10 +13,11 @@ class NormalLevel(State):
         self.__ship_group = pygame.sprite.Group()
         self.__ship_bullets_group = pygame.sprite.Group()
 
+        #apagar dps
+        self.init_time = time()
+
         level = 1 if (self.level == None) else self.level
         self.get_owner().game_data.set_level(level)
-
-        self.__next_level_time = time()+30
 
         self.add_ship()
 
@@ -55,16 +56,13 @@ class NormalLevel(State):
         self.all_sprites.draw(self.get_display())
 
         self.text("Level: %d"%self.level, x_pos-50, 10, 30, "white")
-        self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, 10, 30, "white")
+        self.text(str(time() - self.init_time), 10, 10, 30, "white")
 
     def level_transition(self):
-        if (self.next_level_time-time() <= 0):
-            self.__next_level_time = time() + 30
+        #não é isso, apagar dps
+        if (time() - self.init_time > 5):
             self.get_owner().game_data.set_level(self.level+1)
-
-            if ((self.level % 5) == 0):
-                self.get_owner().change_state("BossTransition")
-
+            self.get_owner().change_state("BossTransition")
 
     def handle_update(self):
         self.clock.tick(60)
@@ -96,7 +94,3 @@ class NormalLevel(State):
     @property
     def ship_bullets_group(self):
         return self.__ship_bullets_group
-
-    @property
-    def next_level_time(self):
-        return self.__next_level_time

@@ -1,0 +1,81 @@
+import pygame
+from Profiles.Profile import Profile
+from States.State import State
+from time import time
+
+class BossTransition(State):
+    def __init__(self, owner):
+        super().__init__(owner)
+
+        self.__init_time = time()
+        self.__blink_time = time()
+        self.__text_color = "gray"
+        self.__enter_boss_fight = True if ((self.level-1) % 5 == 4) else False
+
+        self.__profile: Profile = self.get_owner().game_data.profile
+        self.create_button()
+
+    def create_button(self):
+        pass
+
+    def screen_content(self) -> None:
+        self.get_display().fill("black")
+
+        self.blink_text()
+
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        if (self.enter_boss_fight):
+            self.text("BOSS FIGHT", x_pos-100, y_pos-50, 50, self.text_color)
+        else:
+            self.text("BOSS DEFEATED", x_pos-150, y_pos-50, 50, self.text_color)
+
+    def blink_text(self) -> None:
+        if ((time() - self.blink_time) >= 0.5):
+            if (self.enter_boss_fight):
+                self.__text_color = "red" if (self.text_color == "gray") else "gray"
+            else:
+                self.__text_color = "green" if (self.text_color == "gray") else "gray"
+
+            self.__blink_time = time()
+
+    def transition(self):
+        if ((time() - self.init_time) > 5):
+            if (self.enter_boss_fight):
+                self.get_owner().change_state("BossLevel")
+            else:
+                self.get_owner().change_state("NormalLevel")
+
+
+    def handle_update(self) -> None:
+        pygame.display.update()
+        self.screen_content()
+        self.transition()
+        pygame.display.update()
+
+    
+
+    @property
+    def profile(self) -> Profile:
+        return self.__profile
+
+    @property
+    def blink_time(self):
+        return self.__blink_time
+
+    @property
+    def text_color(self):
+        return self.__text_color
+
+    @property
+    def init_time(self):
+        return self.__init_time
+
+    @property
+    def level(self):
+        return self.get_owner().game_data.level
+
+    @property
+    def enter_boss_fight(self):
+        return self.__enter_boss_fight
