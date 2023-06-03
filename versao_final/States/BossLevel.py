@@ -1,7 +1,7 @@
 import pygame
 from States.State import State
 from Profiles.Profile import Profile
-from Sprites.Ship.Ship import Ship
+from Sprites.MovingSprites.Ship.Ship import Ship
 from time import time
 
 class BossLevel(State):
