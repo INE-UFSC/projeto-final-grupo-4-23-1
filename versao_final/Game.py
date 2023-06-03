@@ -5,6 +5,8 @@ from States.ProfileMenu import ProfileMenu
 from States.Store import Store
 from States.CreateProfile import CreateProfile
 from States.NormalLevel import NormalLevel
+from States.BossTransition import BossTransition
+from States.BossLevel import BossLevel
 from Utility.GameData import GameData
 
 class Game:
@@ -22,7 +24,9 @@ class Game:
                                     'CreateProfile': CreateProfile,
                                     'ProfileMenu': ProfileMenu,
                                     'Store': Store,
-                                    'NormalLevel': NormalLevel
+                                    'NormalLevel': NormalLevel,
+                                    'BossTransition': BossTransition,
+                                    'BossLevel': BossLevel
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)

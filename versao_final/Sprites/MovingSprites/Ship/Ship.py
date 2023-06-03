@@ -1,6 +1,6 @@
 import pygame
-from Sprites.MovingSprite import MovingSprite
-from Sprites.Bullet.Bullet import Bullet
+from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Sprites.MovingSprites.Bullet.Bullet import Bullet
 from math import cos, sin, radians
 from os import path
 from time import time
@@ -13,7 +13,8 @@ class Ship(MovingSprite):
                  vel_max: float,
                  cooldown: float,
                  life: int,
-                 damage: int) -> None:
+                 damage: int,
+                 qtd_bullet: int) -> None:
 
         #tempo do ultimo tiro
         self.__last_shoot = 0
@@ -25,6 +26,7 @@ class Ship(MovingSprite):
         y = pygame.display.Info().current_h // 2
 
         #direção, impulso e rotação inicial
+        self.__qtd_bullet = qtd_bullet
         self.__cooldown = cooldown
         self.__life = life
         self.__vel_max = vel_max
@@ -67,19 +69,101 @@ class Ship(MovingSprite):
 
     #metodo que chama bulet, com o tempo minimo entre eles de self.cooldown sec
     def shoot(self) -> None:
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            if ((time() - self.last_shoot) > self.cooldown):
-                print(self.damage)
-                bullet = Bullet(game = self,
+        strait_front_bullet = Bullet(game = self,
+                                    position = (self.x, self.y),
+                                    direction = self.direction,
+                                    speed = 10,
+                                    damage = self.damage,
+                                    color = "yellow",
+                                    lifetime = 1)
+        
+        strait_back_bullet = Bullet(game = self,
+                                    position = (self.x, self.y),
+                                    direction = self.direction+180,
+                                    speed = 10,
+                                    damage = self.damage,
+                                    color = "yellow",
+                                    lifetime = 1)
+
+        top_left_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
-                                direction = self.direction,
+                                direction = self.direction+30,
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
                                 lifetime = 1)
 
-                self.game.all_sprites.add(bullet)
-                self.game.ship_bullets_group.add(bullet)
+        top_rigth_bullet =  Bullet(game = self,
+                                position = (self.x, self.y),
+                                direction = self.direction-30,
+                                speed = 10,
+                                damage = self.damage,
+                                color = "yellow",
+                                lifetime = 1)
+
+        botton_left_bullet = Bullet(game = self,
+                                position = (self.x, self.y),
+                                direction = self.direction+135,
+                                speed = 10,
+                                damage = self.damage,
+                                color = "yellow",
+                                lifetime = 1)
+
+        botton_rigth_bullet = Bullet(game = self,
+                                position = (self.x, self.y),
+                                direction = self.direction-135,
+                                speed = 10,
+                                damage = self.damage,
+                                color = "yellow",
+                                lifetime = 1)
+
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            if ((time() - self.last_shoot) > self.cooldown):
+                
+                if (self.qtd_bullet == 1):
+                    self.game.all_sprites.add(strait_front_bullet)
+                    self.game.ship_bullets_group.add(strait_front_bullet)
+
+                elif (self.qtd_bullet == 2):
+                    self.game.all_sprites.add(strait_front_bullet)
+                    self.game.all_sprites.add(strait_back_bullet)
+                    self.game.ship_bullets_group.add(strait_front_bullet)
+                    self.game.ship_bullets_group.add(strait_back_bullet)
+
+                elif (self.qtd_bullet == 3):
+                    self.game.all_sprites.add(strait_front_bullet)
+                    self.game.all_sprites.add(top_left_bullet)
+                    self.game.all_sprites.add(top_rigth_bullet)
+
+                    self.game.ship_bullets_group.add(strait_front_bullet)
+                    self.game.ship_bullets_group.add(top_left_bullet)
+                    self.game.ship_bullets_group.add(top_rigth_bullet)
+
+                elif (self.qtd_bullet == 4):
+                    self.game.all_sprites.add(strait_front_bullet)
+                    self.game.all_sprites.add(top_left_bullet)
+                    self.game.all_sprites.add(top_rigth_bullet)
+                    self.game.all_sprites.add(strait_back_bullet)
+
+                    self.game.ship_bullets_group.add(strait_front_bullet)
+                    self.game.ship_bullets_group.add(top_left_bullet)
+                    self.game.ship_bullets_group.add(top_rigth_bullet)
+                    self.game.ship_bullets_group.add(strait_back_bullet)
+
+                elif (self.qtd_bullet == 5):
+                    self.game.all_sprites.add(strait_front_bullet)
+                    self.game.all_sprites.add(top_left_bullet)
+                    self.game.all_sprites.add(top_rigth_bullet)
+                    self.game.all_sprites.add(botton_left_bullet)
+                    self.game.all_sprites.add(botton_rigth_bullet)
+
+                    self.game.ship_bullets_group.add(strait_front_bullet)
+                    self.game.ship_bullets_group.add(top_left_bullet)
+                    self.game.ship_bullets_group.add(top_rigth_bullet)
+                    self.game.ship_bullets_group.add(botton_left_bullet)
+                    self.game.ship_bullets_group.add(botton_rigth_bullet)
+
+
 
                 self.__last_shoot = time()
 
@@ -156,6 +240,10 @@ class Ship(MovingSprite):
     def reset_speed(self):
         self.__dx = 0
         self.__dy = 0
+
+    @property
+    def qtd_bullet(self):
+        return self.__qtd_bullet
 
     @property
     def damage(self):

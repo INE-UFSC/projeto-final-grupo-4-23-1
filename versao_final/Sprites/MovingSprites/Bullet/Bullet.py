@@ -1,5 +1,5 @@
 import pygame
-from Sprites.MovingSprite import MovingSprite
+from Sprites.MovingSprites.MovingSprite import MovingSprite
 from time import time
 
 class Bullet(MovingSprite):
