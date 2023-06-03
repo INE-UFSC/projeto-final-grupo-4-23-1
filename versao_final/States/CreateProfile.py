@@ -8,6 +8,7 @@ class CreateProfile(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
         self.__name = ''
+        self.__name_max_length = 5
         self.__input_box = None
         self.create_button()
         self.create_input_box()
@@ -25,11 +26,11 @@ class CreateProfile(State):
 
          
     def create_input_box(self):
-        x_pos = self.display_width//2
-        y_pos = self.display_height//2
-    
-        self.input_box = InputBox(x_pos-165, y_pos-50, 500, 100)
-        self.all_sprites.add(self.input_box)
+        x_pos = self.display_width // 2
+        y_pos = self.display_height // 2
+
+        self.__input_box = InputBox(x_pos - 165, y_pos - 50, 300, 100)
+        self.all_sprites.add(self.__input_box)
 
     
     def create_button(self) -> None:
@@ -49,12 +50,18 @@ class CreateProfile(State):
 
     def call_create_profile(self) -> None:
         self.name = self.input_box.text
-        if len(self.name) != 0:
-            self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
-            self.enter_selected_profile()
+        if len(self.name) <= self.name_max_length:
+            if len(self.name) != 0:
+                if " " not in self.name:
+                    self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
+                    self.enter_selected_profile()
+                else:
+                    messagebox.askyesno("The name should not have spaces")
+            else:
+                messagebox.askyesno("The name should have a bigger length")
         else:
-            pass
-        
+            messagebox.askyesno(f"{self.name} should have less than {self.name_max_length} characters")
+
 
     def enter_selected_profile(self) -> None:
         if (len(self.all_profiles) != 0):
@@ -80,6 +87,10 @@ class CreateProfile(State):
     @property
     def input_box(self):
         return self.__input_box
+    
+    @property
+    def name_max_length(self):
+        return self.__name_max_length
     
     @property
     def name(self):
