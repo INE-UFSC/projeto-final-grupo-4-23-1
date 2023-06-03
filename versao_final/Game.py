@@ -13,8 +13,8 @@ class Game:
     def __init__(self, name = 'Asteroid'):
         pygame.init()
         self.__running = True
-        self.__display_width = 1600
-        self.__display_height = 900
+        self.__display_width = 800#1600
+        self.__display_height = 600#900
         self.__game_data = GameData()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))

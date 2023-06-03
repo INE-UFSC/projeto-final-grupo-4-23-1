@@ -12,7 +12,7 @@ class CreateProfile(State):
         self.__input_box = None
         self.create_button()
         self.create_input_box()
-    
+
 
     def screen_content(self) -> None:
         self.get_display().fill("black")
@@ -50,17 +50,20 @@ class CreateProfile(State):
 
     def call_create_profile(self) -> None:
         self.name = self.input_box.text
-        if len(self.name) <= self.name_max_length:
-            if len(self.name) != 0:
-                if " " not in self.name:
-                    self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
-                    self.enter_selected_profile()
+        if not self.verify_profile_existence(self.name):
+            if len(self.name) <= self.name_max_length:
+                if len(self.name) != 0:
+                    if " " not in self.name:
+                        self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
+                        self.enter_selected_profile()
+                    else:
+                        messagebox.askyesno("The name should not have spaces")
                 else:
-                    messagebox.askyesno("The name should not have spaces")
+                    messagebox.askyesno("The name should have a bigger length")
             else:
-                messagebox.askyesno("The name should have a bigger length")
+                messagebox.askyesno(f"{self.name} should have less than {self.name_max_length} characters")
         else:
-            messagebox.askyesno(f"{self.name} should have less than {self.name_max_length} characters")
+            messagebox.askyesno(f"{self.name} already exists")
 
 
     def enter_selected_profile(self) -> None:

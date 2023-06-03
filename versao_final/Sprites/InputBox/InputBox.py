@@ -1,5 +1,5 @@
 import pygame
-
+import time
 
 class InputBox(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -13,6 +13,8 @@ class InputBox(pygame.sprite.Sprite):
         self.__width = width
         self.__height = height
         self.__cursor_pos = len(self.text)
+        self.__key_delay = 0.1  
+        self.__last_key_press_time = 0
         pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, width, height))
 
     def update(self):
@@ -70,10 +72,16 @@ class InputBox(pygame.sprite.Sprite):
             self.active = False
 
     def verify_key_input(self, keys):
+        current_time = time.time()
+
         if keys[pygame.K_LEFT]:
-            self.cursor_pos = max(self.cursor_pos - 1, 0)
+            if self.ready_to_click(current_time):
+                self.cursor_pos = max(self.cursor_pos - 1, 0)
+                
         elif keys[pygame.K_RIGHT]:
-            self.cursor_pos = min(self.cursor_pos + 1, len(self.text))
+            if self.ready_to_click(current_time):
+                self.cursor_pos = min(self.cursor_pos + 1, len(self.text))
+    
         elif keys[pygame.K_HOME]:
             self.cursor_pos = 0
         elif keys[pygame.K_END]:
@@ -82,17 +90,22 @@ class InputBox(pygame.sprite.Sprite):
             print(self.text)
         elif keys[pygame.K_BACKSPACE]:
             if self.cursor_pos > 0:
-                self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
-                self.cursor_pos -= 1
+                if self.ready_to_click(current_time):
+                    self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
+                    self.cursor_pos -= 1
+                    
         elif keys[pygame.K_DELETE]:
             if self.cursor_pos < len(self.text):
-                self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
+                if self.ready_to_click(current_time):
+                    self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
+                  
         else:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.unicode != "":
                         self.text = self.text[:self.cursor_pos] + event.unicode + self.text[self.cursor_pos:]
                         self.cursor_pos += 1
+                        self.last_key_press_time = current_time
 
 
     def text_detect(self, keys):
@@ -105,6 +118,14 @@ class InputBox(pygame.sprite.Sprite):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     self.text += event.unicode
+    
+    def ready_to_click(self, current_time):
+        if current_time - self.last_key_press_time > self.key_delay:
+            self.last_key_press_time = current_time
+            return True
+        else:
+            return False
+            
 
     def change_color(self):
         if self.active:
@@ -123,6 +144,10 @@ class InputBox(pygame.sprite.Sprite):
     @property
     def height(self):
         return self.__height
+    
+    @property
+    def key_delay(self):
+        return self.__key_delay
 
     @property
     def image(self):
@@ -143,6 +168,10 @@ class InputBox(pygame.sprite.Sprite):
     @property
     def cursor_pos(self):
         return self.__cursor_pos
+    
+    @property
+    def last_key_press_time(self):
+        return self.__last_key_press_time
 
     @property
     def active(self):
@@ -171,3 +200,7 @@ class InputBox(pygame.sprite.Sprite):
     @cursor_pos.setter
     def cursor_pos(self, position):
         self.__cursor_pos = max(0, min(position, len(self.text)))
+    
+    @last_key_press_time.setter
+    def last_key_press_time(self, last_key_press_time):
+        self.__last_key_press_time = last_key_press_time
