@@ -21,6 +21,7 @@ class NormalLevel(State):
         vel_max = 10*(1.2)**(self.profile.ship_vel_max-1)
         cooldown = 0.8 - (0.15 * (self.profile.ship_cooldown-1))
         damage = self.profile.ship_damage
+        qtd_bullet = self.profile.ship_qtd_bullet
 
         life = self.get_owner().game_data.ship_life
 
@@ -29,7 +30,8 @@ class NormalLevel(State):
                            vel_max = vel_max,
                            cooldown = cooldown,
                            life = life,
-                           damage = damage)
+                           damage = damage,
+                           qtd_bullet = qtd_bullet)
 
         self.all_sprites.add(self.ship)
         self.ship_group.add(self.ship)
