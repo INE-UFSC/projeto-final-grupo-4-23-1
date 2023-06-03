@@ -13,75 +13,87 @@ class InputBox(pygame.sprite.Sprite):
         self.__width = width
         self.__height = height
         self.__cursor_pos = len(self.text)
-        pygame.draw.rect(self.image, (50, 50, 50), (0, 0, 300, 100))
-
+        pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, width, height))
 
     def update(self):
         keys = pygame.key.get_pressed()
         mouse_buttons = pygame.mouse.get_pressed()
 
         if mouse_buttons[0]:
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                self.active = True
-            else:
-                self.active = False
+            self.verify_text_box_collision()
 
         if self.active:
-            if keys[pygame.K_LEFT]:
-                self.cursor_pos = max(0, self.cursor_pos - 1)
-            elif keys[pygame.K_RIGHT]:
-                self.cursor_pos = min(len(self.text), self.cursor_pos + 1)
-            elif keys[pygame.K_HOME]:
-                self.cursor_pos = 0
-            elif keys[pygame.K_END]:
-                self.cursor_pos = len(self.text)
-                
-            elif keys[pygame.K_RETURN]:
-                print(self.text)
-                
-            elif keys[pygame.K_BACKSPACE]:
-                self.text = self.text[:-1]
-            elif keys[pygame.K_DELETE]:
-                self.text = self.text[1:]
-            else:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        self.text += event.unicode
+            self.verify_key_input(keys)
         self.render_text()
-
 
         print(self.text)
 
     def render_text(self):
-        x = 0  
-        y = self.height // 2 
-        cursor_x = self.cursor_pos
-        
+        x = 0
+        y = self.height // 2
+        cursor_x = self.calculate_cursor_x()
+
         self.change_color()
 
+        self.render_character(x, y)
+
+        if self.active:
+            self.render_cursor(cursor_x, y)
+    
+
+    def render_character(self, x, y):
         for char in self.text:
             char_surface = self.font.render(char, True, (255, 255, 255))
             char_rect = char_surface.get_rect(topleft=(x, y))
             self.image.blit(char_surface, char_rect)
             x += char_rect.width + 2
 
-        if self.active:
-            for i in range(self.cursor_pos):
-                char_surface = self.font.render(self.text[i], True, (255, 255, 255))
-                cursor_x += char_surface.get_width() + 2
+    def render_cursor(self, x, y):
+        cursor_width = 2
+        cursor_surface = pygame.Surface((cursor_width, self.font.get_height()))
+        cursor_surface.fill((255, 255, 255))
+        cursor_rect = cursor_surface.get_rect(left=x, top=y+2)
+        self.image.blit(cursor_surface, cursor_rect)
+    
+    def calculate_cursor_x(self):
+        x = 0
+        for i in range(self.cursor_pos):
+            char_surface = self.font.render(self.text[i], True, (255, 255, 255))
+            x += char_surface.get_width() + 2
+        return x
 
-            cursor_surface = self.font.render("|", True, (255, 255, 255))
-            cursor_rect = cursor_surface.get_rect(topleft=(cursor_x, y))
-            self.image.blit(cursor_surface, cursor_rect.move((0, 2)))  
-           
-        
     def verify_text_box_collision(self):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.active = True
 
         else:
             self.active = False
-            self.change_color()
+
+    def verify_key_input(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.cursor_pos = max(self.cursor_pos - 1, 0)
+        elif keys[pygame.K_RIGHT]:
+            self.cursor_pos = min(self.cursor_pos + 1, len(self.text))
+        elif keys[pygame.K_HOME]:
+            self.cursor_pos = 0
+        elif keys[pygame.K_END]:
+            self.cursor_pos = len(self.text)
+        elif keys[pygame.K_RETURN]:
+            print(self.text)
+        elif keys[pygame.K_BACKSPACE]:
+            if self.cursor_pos > 0:
+                self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
+                self.cursor_pos -= 1
+        elif keys[pygame.K_DELETE]:
+            if self.cursor_pos < len(self.text):
+                self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
+        else:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.unicode != "":
+                        self.text = self.text[:self.cursor_pos] + event.unicode + self.text[self.cursor_pos:]
+                        self.cursor_pos += 1
+
 
     def text_detect(self, keys):
         if keys[pygame.K_RETURN]:
@@ -93,7 +105,6 @@ class InputBox(pygame.sprite.Sprite):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     self.text += event.unicode
-    
 
     def change_color(self):
         if self.active:
@@ -101,15 +112,14 @@ class InputBox(pygame.sprite.Sprite):
         else:
             pygame.draw.rect(self.image, (50, 50, 50), (0, 0, 300, 100))
 
-
     @property
     def rect(self):
         return self.__rect
-    
+
     @property
     def width(self):
         return self.__width
-    
+
     @property
     def height(self):
         return self.__height
@@ -129,7 +139,7 @@ class InputBox(pygame.sprite.Sprite):
     @property
     def font(self):
         return self.__font
-    
+
     @property
     def cursor_pos(self):
         return self.__cursor_pos
@@ -157,8 +167,7 @@ class InputBox(pygame.sprite.Sprite):
     @active.setter
     def active(self, active):
         self.__active = active
-    
+
     @cursor_pos.setter
     def cursor_pos(self, position):
-        self.__cursor_pos = position
-        
+        self.__cursor_pos = max(0, min(position, len(self.text)))
