@@ -7,8 +7,9 @@ class CollisionManager:
 
         self.__game = game
 
+
     #ações realisadas no jogo quando é detectado colisão
-    def collisions(self) -> None:
+    def collisions_normal_level(self) -> None:
         #colisao ship <-> asteroid
         if (self.collision_asteroid_ship()):
             self.ship_life_detect()
@@ -32,6 +33,25 @@ class CollisionManager:
             score = self.game.score + 1
             self.game.set_score(score)
 
+    def collisions_boss_level(self):
+        if (self.collision_boss_ship()):
+            self.ship_life_detect()
+            self.boss_life_detect()
+
+        if (self.collision_bullet_boss()):
+            self.ship_life_detect()
+            self.boss_life_detect()
+
+        if (self.collision_boss_bullet_ship()):
+            self.ship_life_detect()
+
+
+    def boss_life_detect(self):
+        if (self.boss.life <= 0):
+            level = self.game.get_owner().game_data.level + 1
+            self.game.get_owner().game_data.set_level(level)
+            self.game.get_owner().change_state("BossTransition")
+
     def ship_life_detect(self):
         if (self.ship.life <= 0):
             #passo certos parametros pra result, para poder passar pra tela de RESULT
@@ -43,6 +63,24 @@ class CollisionManager:
             self.game.get_result().set_score(self.game.score)
             #troco de estado kkkkkk
             self.game.get_owner().change_state("Result")
+
+    def collision_boss_ship(self) -> bool:
+        if (Collision(self.ship_group, self.boss_group).detect_collision()):
+            return True
+        else:
+            return False
+
+    def collision_bullet_boss(self) -> bool:
+        if (Collision(self.ship_bullets, self.boss_group).detect_collision()):
+            return True
+        else:
+            return False
+    
+    def collision_boss_bullet_ship(self) -> bool:
+        if (Collision(self.boss_bullets, self.ship_group).detect_collision()):
+            return True
+        else:
+            return False
 
     #colisao entre asteroids e ship
     def collision_asteroid_ship(self) -> bool:
@@ -107,3 +145,15 @@ class CollisionManager:
     @property
     def ship(self):
         return self.game.ship
+
+    @property
+    def boss_group(self):
+        return self.game.boss_group
+
+    @property
+    def boss_bullets(self):
+       return self.game.boss_bullets_group 
+
+    @property
+    def boss(self):
+        return self.game.boss
