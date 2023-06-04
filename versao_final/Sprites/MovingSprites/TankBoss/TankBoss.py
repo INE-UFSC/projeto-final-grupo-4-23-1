@@ -14,6 +14,8 @@ class TankBoss(MovingSprite):
         self.__change_direction_time = time()
         self.__rush_time = time()
         self.__stop_time = time()
+        self.__invunerable_time = time()
+        self.__invunerable = False
         self.__stop = False
         self.__activate_rush = False
 
@@ -24,8 +26,15 @@ class TankBoss(MovingSprite):
         super().__init__(game, speed, -direction, original_image, position)
 
     def hit(self) -> None:
-        if (self.activate_rush == False):
+        if ((self.activate_rush == False) and (self.invunerable == False)):
+
             self.__life -= 1
+            self.__invunerable = True
+            self.__invunerable_time = time()
+
+            image = pygame.image.load(pasta+"//TankBoss_rush.png")
+            self.set_original_image(image)
+
             if (self.life <= 0):
                 self.kill()
 
@@ -44,6 +53,14 @@ class TankBoss(MovingSprite):
                 self.set_direction(direction)
 
                 self.__change_direction_time = time()
+
+    def check_invunerable(self) -> None:
+        if ((time() - self.invunerable_time) > 2):
+            self.__invunerable = False
+
+            if (self.activate_rush == False):
+                image = pygame.image.load(pasta+"//TankBoss.png")
+                self.set_original_image(image)
 
     def rush(self) -> None:
         if (self.activate_rush == False):
@@ -68,7 +85,8 @@ class TankBoss(MovingSprite):
 
                 self.__rush_time = time()
                 self.__activate_rush = False
-    
+                self.__invunerable = True
+                self.__invunerable_time = time()
 
     def update_position(self) -> None:
         if (self.stop == False):
@@ -79,7 +97,16 @@ class TankBoss(MovingSprite):
     def update(self) -> None:
         self.change_direction()
         self.rush()
+        self.check_invunerable()
         super().update()
+
+    @property
+    def invunerable(self):
+        return self.__invunerable
+
+    @property
+    def invunerable_time(self):
+        return self.__invunerable_time
 
     @property
     def change_direction_time(self):
