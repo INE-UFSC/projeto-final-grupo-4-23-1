@@ -2,11 +2,14 @@ import pygame
 from States.State import State
 from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
+from CollisionManager.CollisionManager import CollisionManager
 from time import time
 
 class NormalLevel(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
+
+        self.__colision_manager = CollisionManager(self)
 
         self.__profile: Profile = self.get_owner().game_data.profile
 
@@ -75,8 +78,13 @@ class NormalLevel(State):
         self.clock.tick(60)
         pygame.display.update()
         self.screen_content()
+        self.collision_manager.collisions_normal_level()
         self.level_transition()
         pygame.display.update()
+
+    @property
+    def collision_manager(self):
+        return self.__colision_manager
 
     @property
     def level(self):
