@@ -71,13 +71,13 @@ class CollisionManager:
             return False
 
     def collision_bullet_boss(self) -> bool:
-        if (Collision(self.ship_bullets, self.boss_group).detect_collision()):
+        if (Collision(self.ship_bullet, self.boss_group).detect_collision()):
             return True
         else:
             return False
     
     def collision_boss_bullet_ship(self) -> bool:
-        if (Collision(self.boss_bullets, self.ship_group).detect_collision()):
+        if (Collision(self.boss_bullet, self.ship_group).detect_collision()):
             return True
         else:
             return False
@@ -98,21 +98,21 @@ class CollisionManager:
 
     #colisão entre tiro do inimigo e ship
     def collision_enemy_bullet_ship(self) -> bool:
-        if (Collision(self.ship_group, self.enemy_bullets).detect_collision()):
+        if (Collision(self.ship_group, self.enemy_bullet).detect_collision()):
             return True
         else:
             return False
 
     #colisao bullet da nave e asteroids
     def collision_bullet_asteroid(self) -> bool:
-        if (Collision(self.ship_bullets, self.all_asteroids).detect_collision()):
+        if (Collision(self.ship_bullet, self.all_asteroids).detect_collision()):
             return True
         else:
             return False
 
     #colisaõ entre bullet da nave e inimigo
     def collision_bullet_enemy(self) -> bool:
-        if (Collision(self.ship_bullets, self.enemy_group).detect_collision()):
+        if (Collision(self.ship_bullet, self.enemy_group).detect_collision()):
             return True
         else:
             return False
@@ -124,11 +124,11 @@ class CollisionManager:
 
     @property
     def enemy_group(self):
-        return self.game.enemy_group
+        return self.game.basic_enemy_group
 
     @property
-    def enemy_bullets(self):
-        return self.game.enemy_bullets_group
+    def enemy_bullet(self):
+        return self.game.basic_enemy_bullet_group
 
     @property
     def ship_group(self):
@@ -136,11 +136,11 @@ class CollisionManager:
 
     @property
     def all_asteroids(self):
-        return self.game.all_asteroids
+        return self.game.asteroid_group
 
     @property
-    def ship_bullets(self):
-        return self.game.ship_bullets_group
+    def ship_bullet(self):
+        return self.game.ship_bullet_group
 
     @property
     def ship(self):
@@ -151,8 +151,8 @@ class CollisionManager:
         return self.game.boss_group
 
     @property
-    def boss_bullets(self):
-       return self.game.boss_bullets_group 
+    def boss_bullet(self):
+       return self.game.boss_bullet_group 
 
     @property
     def boss(self):

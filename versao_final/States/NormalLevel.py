@@ -11,7 +11,10 @@ class NormalLevel(State):
         self.__profile: Profile = self.get_owner().game_data.profile
 
         self.__ship_group = pygame.sprite.Group()
-        self.__ship_bullets_group = pygame.sprite.Group()
+        self.__ship_bullet_group = pygame.sprite.Group()
+        self.__asteroid_group = pygame.sprite.Group()
+        self.__basic_enemy_group = pygame.sprite.Group()
+        self.__basic_enemy_bullet_group = pygame.sprite.Group()
 
         level = 1 if (self.level == None) else self.level
         self.get_owner().game_data.set_level(level)
@@ -94,8 +97,20 @@ class NormalLevel(State):
         return self.__ship_group
 
     @property
-    def ship_bullets_group(self):
-        return self.__ship_bullets_group
+    def ship_bullet_group(self):
+        return self.__ship_bullet_group
+
+    @property
+    def asteroid_group(self):
+        return self.__asteroid_group
+
+    @property
+    def basic_enemy_group(self):
+        return self.__basic_enemy_group
+
+    @property
+    def basic_enemy_bullet_group(self):
+        return self.__basic_enemy_bullet_group
 
     @property
     def next_level_time(self):

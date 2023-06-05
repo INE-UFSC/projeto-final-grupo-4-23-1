@@ -15,13 +15,13 @@ class BossLevel(State):
 
         self.__profile: Profile = self.get_owner().game_data.profile
 
-        tankboss = TankBoss(self, 5, (self.display_width//2, 30))
+        tankboss = TankBoss(game=self, life=10, position=(self.display_width//2, 30))
         self.__boss_list = [tankboss]
 
         self.__ship_group = pygame.sprite.Group()
-        self.__ship_bullets_group = pygame.sprite.Group()
+        self.__ship_bullet_group = pygame.sprite.Group()
         self.__boss_group = pygame.sprite.Group()
-        self.__boss_bullets_group = pygame.sprite.Group()
+        self.__boss_bullet_group = pygame.sprite.Group()
 
         #apagar dps
         self.init_time = time()
@@ -126,8 +126,8 @@ class BossLevel(State):
         return self.__ship_group
 
     @property
-    def ship_bullets_group(self):
-        return self.__ship_bullets_group
+    def ship_bullet_group(self):
+        return self.__ship_bullet_group
 
     @property
     def boss_list(self):
@@ -142,5 +142,5 @@ class BossLevel(State):
         return self.__boss
 
     @property
-    def boss_bullets_group(self):
-        return self.__boss_bullets_group
+    def boss_bullet_group(self):
+        return self.__boss_bullet_group
