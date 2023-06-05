@@ -15,23 +15,22 @@ class CollisionManager:
             self.ship_life_detect()
 
         #colisao ship <-> enemy
-        if (self.collision_enemy_ship()):
+        if (self.collision_basic_enemy_ship()):
             self.ship_life_detect()
 
         #colisao ship <-> enemy_bullet
-        if (self.collision_enemy_bullet_ship()):
+        if (self.collision_basic_enemy_bullet_ship()):
             self.ship_life_detect()
 
         #colisao ship_bullet <-> asteroid
         if (self.collision_bullet_asteroid()):
-            #aumento em 1 a pontuação conforme asteroid destruido
-            score = self.game.score + 1
-            self.game.set_score(score)
+            enemys_destroied = self.game.enemys_destroied + 1
+            self.game.set_enemys_destroied(enemys_destroied)
 
         if (self.collision_bullet_enemy()):
-            #aumento em 1 a pontuação conforme asteroid destruido
-            score = self.game.score + 1
-            self.game.set_score(score)
+            enemys_destroied = self.game.enemys_destroied + 1
+            self.game.set_enemys_destroied(enemys_destroied)
+       
 
     def collisions_boss_level(self):
         if (self.collision_boss_ship()):
@@ -50,69 +49,68 @@ class CollisionManager:
         if (self.boss.life <= 0):
             level = self.game.get_owner().game_data.level + 1
             self.game.get_owner().game_data.set_level(level)
+
+            enemys_destroied = self.game.enemys_destroied + 1
+            self.game.set_enemys_destroied(enemys_destroied)
+ 
             self.game.get_owner().change_state("BossTransition")
 
     def ship_life_detect(self):
         if (self.ship.life <= 0):
-            #passo certos parametros pra result, para poder passar pra tela de RESULT
-
-            #passo pro resultData o tempo de vida
-            alive_time = time() - self.game.init__time
-            self.game.get_result().set_alive_time(alive_time)
-            #passo a pontuação
-            self.game.get_result().set_score(self.game.score)
-            #troco de estado kkkkkk
             self.game.get_owner().change_state("Result")
 
+    #boss <-> ship
     def collision_boss_ship(self) -> bool:
         if (Collision(self.ship_group, self.boss_group).detect_collision()):
             return True
         else:
             return False
 
+    #ship_bullet <-> boss
     def collision_bullet_boss(self) -> bool:
         if (Collision(self.ship_bullet, self.boss_group).detect_collision()):
             return True
         else:
             return False
     
+    #boss_bullet <-> ship
     def collision_boss_bullet_ship(self) -> bool:
         if (Collision(self.boss_bullet, self.ship_group).detect_collision()):
             return True
         else:
             return False
 
-    #colisao entre asteroids e ship
+    #asteroid <-> ship
     def collision_asteroid_ship(self) -> bool:
-        if (Collision(self.ship_group, self.all_asteroids).detect_collision()):
+        if (Collision(self.ship_group, self.asteroid_group).detect_collision()):
             return True
         else:
             return False
 
-    #colisão entre inimigo e ship
-    def collision_enemy_ship(self) -> bool:
+    #basic_enemy <-> ship
+    def collision_basic_enemy_ship(self) -> bool:
         if (Collision(self.ship_group, self.enemy_group).detect_collision()):
             return True
         else:
             return False
 
-    #colisão entre tiro do inimigo e ship
-    def collision_enemy_bullet_ship(self) -> bool:
-        if (Collision(self.ship_group, self.enemy_bullet).detect_collision()):
+    #basic_enemy_bullet <-> ship
+    def collision_basic_enemy_bullet_ship(self) -> bool:
+        if (Collision(self.ship_group, self.basic_enemy_bullet).detect_collision()):
             return True
         else:
             return False
 
-    #colisao bullet da nave e asteroids
+    #ship_bullet <-> asteroid
     def collision_bullet_asteroid(self) -> bool:
-        if (Collision(self.ship_bullet, self.all_asteroids).detect_collision()):
+        if (Collision(self.ship_bullet, self.asteroid_group).detect_collision()):
             return True
         else:
             return False
 
-    #colisaõ entre bullet da nave e inimigo
+    #ship_bullet <-> basic_enemy
     def collision_bullet_enemy(self) -> bool:
-        if (Collision(self.ship_bullet, self.enemy_group).detect_collision()):
+        if (Collision(self.ship_bullet, self.basic_enemy_group).detect_collision()):
             return True
         else:
             return False
@@ -123,11 +121,11 @@ class CollisionManager:
         return self.__game
 
     @property
-    def enemy_group(self):
+    def basic_enemy_group(self):
         return self.game.basic_enemy_group
 
     @property
-    def enemy_bullet(self):
+    def basic_enemy_bullet(self):
         return self.game.basic_enemy_bullet_group
 
     @property
@@ -135,7 +133,7 @@ class CollisionManager:
         return self.game.ship_group
 
     @property
-    def all_asteroids(self):
+    def asteroid_group(self):
         return self.game.asteroid_group
 
     @property

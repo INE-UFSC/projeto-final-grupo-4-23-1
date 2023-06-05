@@ -97,6 +97,9 @@ class BossLevel(State):
         self.level_transition()
         pygame.display.update()
 
+    def set_enemys_destroied(self, num: int) -> None:
+        self.get_owner().game_data.set_enemys_destroied(num)
+
     @property
     def original_boss_life(self):
         return self.__original_boss_life
@@ -104,6 +107,10 @@ class BossLevel(State):
     @property
     def collision_manager(self):
         return self.__collision_manager
+
+    @property
+    def enemys_destroied(self):
+        return self.get_owner().game_data.enemys_destroied
 
     @property
     def level(self):

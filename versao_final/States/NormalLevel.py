@@ -68,6 +68,8 @@ class NormalLevel(State):
             if ((self.level % 5) == 0):
                 self.get_owner().change_state("BossTransition")
 
+    def set_enemys_destroied(self, num: int) -> None:
+        self.get_owner().game_data.set_enemys_destroied(num)
 
     def handle_update(self):
         self.clock.tick(60)
@@ -79,6 +81,14 @@ class NormalLevel(State):
     @property
     def level(self):
         return self.get_owner().game_data.level
+
+    @property
+    def score(self):
+        return self.get_owner().game_data.score
+
+    @property
+    def enemys_destroied(self):
+        return self.get_owner().game_data.enemys_destroied
 
     @property
     def clock(self):
