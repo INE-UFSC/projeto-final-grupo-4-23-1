@@ -2,19 +2,32 @@ import pygame
 from States.State import State
 from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
+from CollisionManager.CollisionManager import CollisionManager
 from time import time
 
 class NormalLevel(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
 
+        self.__colision_manager = CollisionManager(self)
+
         self.__profile: Profile = self.get_owner().game_data.profile
 
         self.__ship_group = pygame.sprite.Group()
-        self.__ship_bullets_group = pygame.sprite.Group()
+        self.__ship_bullet_group = pygame.sprite.Group()
+        self.__asteroid_group = pygame.sprite.Group()
+        self.__basic_enemy_group = pygame.sprite.Group()
+        self.__basic_enemy_bullet_group = pygame.sprite.Group()
+
+        life = (3+self.profile.ship_life-1) if (self.get_owner().game_data.ship_life == None) else self.get_owner().game_data.ship_life
+        self.get_owner().game_data.set_ship_life(life)
 
         level = 1 if (self.level == None) else self.level
         self.get_owner().game_data.set_level(level)
+
+        enemys_destroied = 0 if (self.enemys_destroied == None) else self.enemys_destroied
+        self.set_enemys_destroied(enemys_destroied)
+        self.set_score()
 
         self.__next_level_time = time()+30
 
@@ -54,8 +67,18 @@ class NormalLevel(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
 
-        self.text("Level: %d"%self.level, x_pos-50, 10, 30, "white")
-        self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, 10, 30, "white")
+        self.text("Level:", x_pos-50, 10, 30, "white")
+        self.text(str(self.level), x_pos+10, 10, 30, "yellow")
+        self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, self.display_height-25, 30, "white")
+
+        self.text("Enemys Destroied:", 10, 10, 30, "white")
+        self.text(str(self.enemys_destroied), 200, 10, 30, "yellow")
+
+        self.text("Score:", 10, 35, 30, "white")
+        self.text(str(self.score), 75, 35, 30, "yellow")
+
+        self.text("Life:", self.display_width-80, 10, 30, "white")
+        self.text(str(self.ship.life),self.display_width-30, 10, 30, "yellow")
 
     def level_transition(self):
         if (self.next_level_time-time() <= 0):
@@ -65,17 +88,35 @@ class NormalLevel(State):
             if ((self.level % 5) == 0):
                 self.get_owner().change_state("BossTransition")
 
+    def set_enemys_destroied(self, num: int) -> None:
+        self.get_owner().game_data.set_enemys_destroied(num)
+
+    def set_score(self) -> None:
+        self.get_owner().game_data.set_score(self.enemys_destroied*self.level)
 
     def handle_update(self):
         self.clock.tick(60)
         pygame.display.update()
         self.screen_content()
+        self.collision_manager.collisions_normal_level()
         self.level_transition()
         pygame.display.update()
 
     @property
+    def collision_manager(self):
+        return self.__colision_manager
+
+    @property
     def level(self):
         return self.get_owner().game_data.level
+
+    @property
+    def score(self):
+        return self.get_owner().game_data.score
+
+    @property
+    def enemys_destroied(self):
+        return self.get_owner().game_data.enemys_destroied
 
     @property
     def clock(self):
@@ -94,8 +135,20 @@ class NormalLevel(State):
         return self.__ship_group
 
     @property
-    def ship_bullets_group(self):
-        return self.__ship_bullets_group
+    def ship_bullet_group(self):
+        return self.__ship_bullet_group
+
+    @property
+    def asteroid_group(self):
+        return self.__asteroid_group
+
+    @property
+    def basic_enemy_group(self):
+        return self.__basic_enemy_group
+
+    @property
+    def basic_enemy_bullet_group(self):
+        return self.__basic_enemy_bullet_group
 
     @property
     def next_level_time(self):

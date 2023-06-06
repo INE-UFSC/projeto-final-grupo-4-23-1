@@ -102,6 +102,12 @@ class MovingSprite(pygame.sprite.Sprite, ABC):
 
     def set_rect(self, rect):
         self.__rect = rect
+
+    def set_original_image(self, image: str):
+        self.__original_image = image
+
+    def set_speed(self, speed: float) -> None:
+        self.__speed = speed
     
     def set_mask(self, mask):
         self.__mask = mask

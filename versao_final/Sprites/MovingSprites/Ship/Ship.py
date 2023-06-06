@@ -122,22 +122,22 @@ class Ship(MovingSprite):
                 
                 if (self.qtd_bullet == 1):
                     self.game.all_sprites.add(strait_front_bullet)
-                    self.game.ship_bullets_group.add(strait_front_bullet)
+                    self.game.ship_bullet_group.add(strait_front_bullet)
 
                 elif (self.qtd_bullet == 2):
                     self.game.all_sprites.add(strait_front_bullet)
                     self.game.all_sprites.add(strait_back_bullet)
-                    self.game.ship_bullets_group.add(strait_front_bullet)
-                    self.game.ship_bullets_group.add(strait_back_bullet)
+                    self.game.ship_bullet_group.add(strait_front_bullet)
+                    self.game.ship_bullet_group.add(strait_back_bullet)
 
                 elif (self.qtd_bullet == 3):
                     self.game.all_sprites.add(strait_front_bullet)
                     self.game.all_sprites.add(top_left_bullet)
                     self.game.all_sprites.add(top_rigth_bullet)
 
-                    self.game.ship_bullets_group.add(strait_front_bullet)
-                    self.game.ship_bullets_group.add(top_left_bullet)
-                    self.game.ship_bullets_group.add(top_rigth_bullet)
+                    self.game.ship_bullet_group.add(strait_front_bullet)
+                    self.game.ship_bullet_group.add(top_left_bullet)
+                    self.game.ship_bullet_group.add(top_rigth_bullet)
 
                 elif (self.qtd_bullet == 4):
                     self.game.all_sprites.add(strait_front_bullet)
@@ -145,10 +145,10 @@ class Ship(MovingSprite):
                     self.game.all_sprites.add(top_rigth_bullet)
                     self.game.all_sprites.add(strait_back_bullet)
 
-                    self.game.ship_bullets_group.add(strait_front_bullet)
-                    self.game.ship_bullets_group.add(top_left_bullet)
-                    self.game.ship_bullets_group.add(top_rigth_bullet)
-                    self.game.ship_bullets_group.add(strait_back_bullet)
+                    self.game.ship_bullet_group.add(strait_front_bullet)
+                    self.game.ship_bullet_group.add(top_left_bullet)
+                    self.game.ship_bullet_group.add(top_rigth_bullet)
+                    self.game.ship_bullet_group.add(strait_back_bullet)
 
                 elif (self.qtd_bullet == 5):
                     self.game.all_sprites.add(strait_front_bullet)
@@ -157,11 +157,11 @@ class Ship(MovingSprite):
                     self.game.all_sprites.add(botton_left_bullet)
                     self.game.all_sprites.add(botton_rigth_bullet)
 
-                    self.game.ship_bullets_group.add(strait_front_bullet)
-                    self.game.ship_bullets_group.add(top_left_bullet)
-                    self.game.ship_bullets_group.add(top_rigth_bullet)
-                    self.game.ship_bullets_group.add(botton_left_bullet)
-                    self.game.ship_bullets_group.add(botton_rigth_bullet)
+                    self.game.ship_bullet_group.add(strait_front_bullet)
+                    self.game.ship_bullet_group.add(top_left_bullet)
+                    self.game.ship_bullet_group.add(top_rigth_bullet)
+                    self.game.ship_bullet_group.add(botton_left_bullet)
+                    self.game.ship_bullet_group.add(botton_rigth_bullet)
 
 
 
@@ -191,6 +191,7 @@ class Ship(MovingSprite):
     def hit(self) -> None:
         if (not self.invunerable):
             self.__life -= 1
+            self.game.get_owner().game_data.set_ship_life(self.life)
 
             x = self.display_width//2
             y = self.display_height//2
