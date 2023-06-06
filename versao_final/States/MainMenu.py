@@ -37,7 +37,7 @@ class MainMenu(State):
         self.get_owner().close()
 
     def scoreboard(self):
-        pass
+        self.get_owner().change_state("ScoreBoard")
 
     def screen_content(self):
         self.get_display().fill("black")

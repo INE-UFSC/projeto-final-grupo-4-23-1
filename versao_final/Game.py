@@ -9,6 +9,7 @@ from States.BossTransition import BossTransition
 from States.BossLevel import BossLevel
 from States.Result import Result
 from Utility.GameData import GameData
+from States.Scoreboard import Scoreboard
 
 
 class Game:
@@ -29,7 +30,8 @@ class Game:
                                     'NormalLevel': NormalLevel,
                                     'BossTransition': BossTransition,
                                     'BossLevel': BossLevel,
-                                    'Result': Result
+                                    'Result': Result,
+                                    'ScoreBoard': Scoreboard
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
