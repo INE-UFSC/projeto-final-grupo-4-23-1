@@ -89,7 +89,7 @@ class CollisionManager:
 
     #basic_enemy <-> ship
     def collision_basic_enemy_ship(self) -> bool:
-        if (Collision(self.ship_group, self.enemy_group).detect_collision()):
+        if (Collision(self.ship_group, self.basic_enemy_group).detect_collision()):
             return True
         else:
             return False

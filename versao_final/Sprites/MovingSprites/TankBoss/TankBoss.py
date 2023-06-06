@@ -55,19 +55,14 @@ class TankBoss(MovingSprite):
                 self.__change_direction_time = time()
 
     def check_invunerable(self) -> None:
-        if ((time() - self.invunerable_time) > 2):
-            self.__invunerable = False
-
-            if (self.activate_rush == False):
-                image = pygame.image.load(pasta+"//TankBoss.png")
-                self.set_original_image(image)
+        if (self.invunerable == True):
+            if ((time() - self.invunerable_time) > 1.5):
+                self.__invunerable = False
 
     def rush(self) -> None:
         if (self.activate_rush == False):
             if ((time() - self.rush_time) > 8):
                 self.__activate_rush = True
-                image = pygame.image.load(pasta+"//TankBoss_rush.png")
-                self.set_original_image(image)
                 self.__stop_time = time()
         else:
             if ((time() - self.stop_time) < 2):
@@ -88,6 +83,14 @@ class TankBoss(MovingSprite):
                 self.__invunerable = True
                 self.__invunerable_time = time()
 
+    def red(self):
+        if (self.invunerable == True) or (self.activate_rush == True):
+            image = pygame.image.load(pasta+"//TankBoss_rush.png")
+        else:
+            image = pygame.image.load(pasta+"//TankBoss.png") 
+
+        self.set_original_image(image)
+
     def update_position(self) -> None:
         if (self.stop == False):
             x = self.x + self.speed * cos(radians(self.direction))
@@ -96,6 +99,7 @@ class TankBoss(MovingSprite):
 
     def update(self) -> None:
         self.change_direction()
+        self.red()
         self.rush()
         self.check_invunerable()
         super().update()

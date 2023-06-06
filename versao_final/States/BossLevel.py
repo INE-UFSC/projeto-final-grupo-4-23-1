@@ -23,6 +23,9 @@ class BossLevel(State):
         self.__boss_group = pygame.sprite.Group()
         self.__boss_bullet_group = pygame.sprite.Group()
 
+        life = (3+self.profile.ship_life-1) if (self.get_owner().game_data.ship_life == None) else self.get_owner().game_data.ship_life
+        self.get_owner().game_data.set_ship_life(life)
+
         #apagar dps
         self.init_time = time()
 
@@ -82,7 +85,17 @@ class BossLevel(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
 
-        self.text("Level: %d"%self.level, x_pos-50, 10, 30, "white")
+        self.text("Level:", x_pos-50, 10, 30, "white")
+        self.text(str(self.level), x_pos+10, 10, 30, "yellow")
+
+        self.text("Enemys Destroied:", 10, 10, 30, "white")
+        self.text(str(self.enemys_destroied), 200, 10, 30, "yellow")
+
+        self.text("Score:", 10, 35, 30, "white")
+        self.text(str(self.score), 75, 35, 30, "yellow")
+
+        self.text("Life:", self.display_width-80, 10, 30, "white")
+        self.text(str(self.ship.life), self.display_width-30, 10, 30, "yellow")    
 
         self.text("BOSS LIFE", x_pos-50, self.display_height-70, 30, "red")
 
@@ -111,6 +124,10 @@ class BossLevel(State):
     @property
     def enemys_destroied(self):
         return self.get_owner().game_data.enemys_destroied
+
+    @property
+    def score(self):
+        return self.get_owner().game_data.score
 
     @property
     def level(self):

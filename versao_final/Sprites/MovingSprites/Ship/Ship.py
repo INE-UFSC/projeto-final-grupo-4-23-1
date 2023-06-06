@@ -191,6 +191,7 @@ class Ship(MovingSprite):
     def hit(self) -> None:
         if (not self.invunerable):
             self.__life -= 1
+            self.game.get_owner().game_data.set_ship_life(self.life)
 
             x = self.display_width//2
             y = self.display_height//2
