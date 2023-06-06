@@ -13,8 +13,9 @@ class InputBox(pygame.sprite.Sprite):
         self.__width = width
         self.__height = height
         self.__cursor_pos = len(self.text)
-        self.__key_delay = 0.1  
+        self.__key_delay = 0.1
         self.__last_key_press_time = 0
+        self.__text_color = (255, 255, 0)
         pygame.draw.rect(self.__image, (50, 50, 50), (0, 0, width, height))
 
     def update(self):
@@ -31,9 +32,9 @@ class InputBox(pygame.sprite.Sprite):
         print(self.text)
 
     def render_text(self):
-        x = 0
+        x = 20
         y = self.height // 2
-        cursor_x = self.calculate_cursor_x()
+        cursor_x = self.calculate_cursor_x(x)
 
         self.change_color()
 
@@ -45,7 +46,7 @@ class InputBox(pygame.sprite.Sprite):
 
     def render_character(self, x, y):
         for char in self.text:
-            char_surface = self.font.render(char, True, (255, 255, 255))
+            char_surface = self.font.render(char, True, self.text_color)
             char_rect = char_surface.get_rect(topleft=(x, y))
             self.image.blit(char_surface, char_rect)
             x += char_rect.width + 2
@@ -53,14 +54,13 @@ class InputBox(pygame.sprite.Sprite):
     def render_cursor(self, x, y):
         cursor_width = 2
         cursor_surface = pygame.Surface((cursor_width, self.font.get_height()))
-        cursor_surface.fill((255, 255, 255))
+        cursor_surface.fill(self.text_color)
         cursor_rect = cursor_surface.get_rect(left=x, top=y+2)
         self.image.blit(cursor_surface, cursor_rect)
     
-    def calculate_cursor_x(self):
-        x = 0
+    def calculate_cursor_x(self, x):
         for i in range(self.cursor_pos):
-            char_surface = self.font.render(self.text[i], True, (255, 255, 255))
+            char_surface = self.font.render(self.text[i], True, self.text_color)
             x += char_surface.get_width() + 2
         return x
 
@@ -125,7 +125,7 @@ class InputBox(pygame.sprite.Sprite):
             return True
         else:
             return False
-            
+    
 
     def change_color(self):
         if self.active:
@@ -177,6 +177,10 @@ class InputBox(pygame.sprite.Sprite):
     def active(self):
         return self.__active
 
+    @property
+    def text_color(self):
+        return self.__text_color
+    
     @rect.setter
     def rect(self, rect):
         self.__rect = rect

@@ -50,20 +50,21 @@ class CreateProfile(State):
 
     def call_create_profile(self) -> None:
         self.name = self.input_box.text
-        if not self.verify_profile_existence(self.name):
+        if len(self.name) != 0:
             if len(self.name) <= self.name_max_length:
-                if len(self.name) != 0:
-                    if " " not in self.name:
+                if " " not in self.name:
+                    if not self.verify_profile_existence(self.name):
                         self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
                         self.enter_selected_profile()
                     else:
-                        messagebox.askyesno("The name should not have spaces")
+                        messagebox.askyesno(f"{self.name} already exists")
                 else:
-                    messagebox.askyesno("The name should have a bigger length")
+                    messagebox.askyesno("The name should not have spaces")
             else:
                 messagebox.askyesno(f"{self.name} should have less than {self.name_max_length} characters")
         else:
-            messagebox.askyesno(f"{self.name} already exists")
+            messagebox.askyesno("The name should have a bigger length")
+    
 
 
     def enter_selected_profile(self) -> None:
