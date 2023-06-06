@@ -36,11 +36,11 @@ class Scoreboard(State):
         self.text("4 %s" % (self.get_all_profiles()[3].name), x_pos-225, y_pos+25, 50, 'yellow')
         self.text("5 %s" % (self.get_all_profiles()[4].name), x_pos-225, y_pos+75, 50, 'yellow')
 
-        self.text("%s" % (self.get_all_profiles()[0].max_score), x_pos+0, y_pos-125, 50, 'yellow')
-        self.text("%s" % (self.get_all_profiles()[1].max_score), x_pos+0, y_pos-75, 50, 'yellow')
-        self.text("%s" % (self.get_all_profiles()[2].max_score), x_pos+0, y_pos-25, 50, 'yellow')
-        self.text("%s" % (self.get_all_profiles()[3].max_score), x_pos+0, y_pos+25, 50, 'yellow')
-        self.text("%s" % (self.get_all_profiles()[4].max_score), x_pos+0, y_pos+75, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[0].max_score), x_pos-0, y_pos-125, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[1].max_score), x_pos-0, y_pos-75, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[2].max_score), x_pos-0, y_pos-25, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[3].max_score), x_pos-0, y_pos+25, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[4].max_score), x_pos-0, y_pos+75, 50, 'yellow')
 
 
     
