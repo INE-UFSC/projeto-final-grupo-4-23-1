@@ -24,12 +24,12 @@ class CollisionManager:
 
         #colisao ship_bullet <-> asteroid
         if (self.collision_bullet_asteroid()):
-            enemys_destroied = self.game.enemys_destroied + 1
-            self.game.set_enemys_destroied(enemys_destroied)
+            enemies_destroyed = self.game.enemies_destroyed + 1
+            self.game.set_enemies_destroyed(enemies_destroyed)
 
         if (self.collision_bullet_enemy()):
-            enemys_destroied = self.game.enemys_destroied + 1
-            self.game.set_enemys_destroied(enemys_destroied)
+            enemies_destroyed = self.game.enemies_destroyed + 1
+            self.game.set_enemies_destroyed(enemies_destroyed)
        
 
     def collisions_boss_level(self):
@@ -50,8 +50,8 @@ class CollisionManager:
             level = self.game.get_owner().game_data.level + 1
             self.game.get_owner().game_data.set_level(level)
 
-            enemys_destroied = self.game.enemys_destroied + 1
-            self.game.set_enemys_destroied(enemys_destroied)
+            enemies_destroyed = self.game.enemies_destroyed + 1
+            self.game.set_enemies_destroyed(enemies_destroyed)
  
             self.game.get_owner().change_state("BossTransition")
 

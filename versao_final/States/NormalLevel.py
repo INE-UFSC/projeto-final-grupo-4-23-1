@@ -25,8 +25,8 @@ class NormalLevel(State):
         level = 1 if (self.level == None) else self.level
         self.get_game_data().set_level(level)
 
-        enemys_destroied = 0 if (self.enemys_destroied == None) else self.enemys_destroied
-        self.set_enemys_destroied(enemys_destroied)
+        enemies_destroyed = 0 if (self.enemies_destroyed == None) else self.enemies_destroyed
+        self.set_enemies_destroyed(enemies_destroyed)
         self.set_score()
 
         self.__next_level_time = time()+30
@@ -71,8 +71,8 @@ class NormalLevel(State):
         self.text(str(self.level), x_pos+10, 10, 30, "yellow")
         self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, self.display_height-25, 30, "white")
 
-        self.text("Enemys Destroied:", 10, 10, 30, "white")
-        self.text(str(self.enemys_destroied), 200, 10, 30, "yellow")
+        self.text("Enemies Destroyed:", 10, 10, 30, "white")
+        self.text(str(self.enemies_destroyed), 210, 10, 30, "yellow")
 
         self.text("Score:", 10, 35, 30, "white")
         self.text(str(self.score), 75, 35, 30, "yellow")
@@ -88,11 +88,11 @@ class NormalLevel(State):
             if ((self.level % 5) == 0):
                 self.get_owner().change_state("BossTransition")
 
-    def set_enemys_destroied(self, num: int) -> None:
-        self.get_game_data().set_enemys_destroied(num)
+    def set_enemies_destroyed(self, num: int) -> None:
+        self.get_game_data().set_enemies_destroyed(num)
 
     def set_score(self) -> None:
-        self.get_game_data().set_score(self.enemys_destroied*self.level)
+        self.get_game_data().set_score(self.enemies_destroyed*self.level)
 
     def handle_update(self):
         self.clock.tick(60)
@@ -115,8 +115,8 @@ class NormalLevel(State):
         return self.get_game_data().score
 
     @property
-    def enemys_destroied(self):
-        return self.get_game_data().enemys_destroied
+    def enemies_destroyed(self):
+        return self.get_game_data().enemies_destroyed
 
     @property
     def clock(self):
