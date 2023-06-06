@@ -57,13 +57,13 @@ class CreateProfile(State):
                         self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
                         self.enter_selected_profile()
                     else:
-                        messagebox.askyesno(f"{self.name} already exists")
+                        messagebox.showerror(title = 'ERROR', message = f"{self.name} already exists")
                 else:
-                    messagebox.askyesno("The name should not have spaces")
+                    messagebox.showerror(title = 'ERROR', message = "The name should not have spaces")
             else:
-                messagebox.askyesno(f"{self.name} should have less than {self.name_max_length} characters")
+                messagebox.showerror(title = 'ERROR', message = f"{self.name} should have less than {self.name_max_length} characters")
         else:
-            messagebox.askyesno("The name should have a bigger length")
+            messagebox.showerror(title = 'ERROR', message = "The name should have a bigger length")
     
 
 
