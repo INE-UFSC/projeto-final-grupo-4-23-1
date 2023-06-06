@@ -88,8 +88,8 @@ class BossLevel(State):
         self.text("Level:", x_pos-50, 10, 30, "white")
         self.text(str(self.level), x_pos+10, 10, 30, "yellow")
 
-        self.text("Enemys Destroied:", 10, 10, 30, "white")
-        self.text(str(self.enemys_destroied), 200, 10, 30, "yellow")
+        self.text("Enemies destroyed:", 10, 10, 30, "white")
+        self.text(str(self.enemies_destroyed), 210, 10, 30, "yellow")
 
         self.text("Score:", 10, 35, 30, "white")
         self.text(str(self.score), 75, 35, 30, "yellow")
@@ -110,8 +110,8 @@ class BossLevel(State):
         self.level_transition()
         pygame.display.update()
 
-    def set_enemys_destroied(self, num: int) -> None:
-        self.get_game_data().set_enemys_destroied(num)
+    def set_enemies_destroyed(self, num: int) -> None:
+        self.get_game_data().set_enemies_destroyed(num)
 
     @property
     def original_boss_life(self):
@@ -122,8 +122,8 @@ class BossLevel(State):
         return self.__collision_manager
 
     @property
-    def enemys_destroied(self):
-        return self.get_game_data().enemys_destroied
+    def enemies_destroyed(self):
+        return self.get_game_data().enemies_destroyed
 
     @property
     def score(self):

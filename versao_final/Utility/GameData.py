@@ -5,11 +5,11 @@ class GameData:
         self.__profile: Profile = None
         self.__level: int = None
         self.__score: int = None
-        self.__enemys_destroied: int = None
+        self.__enemies_destroyed: int = None
         self.__ship_life: int = None
 
-    def set_enemys_destroied(self, num: int) -> None:
-        self.__enemys_destroied = num
+    def set_enemies_destroyed(self, num: int) -> None:
+        self.__enemies_destroyed = num
 
     def set_profile(self, profile: Profile) -> None:
         self.__profile = profile
@@ -28,8 +28,8 @@ class GameData:
         return self.__profile
 
     @property
-    def enemys_destroied(self) -> int:
-        return self.__enemys_destroied
+    def enemies_destroyed(self) -> int:
+        return self.__enemies_destroyed
 
     @property
     def level(self) -> int:
