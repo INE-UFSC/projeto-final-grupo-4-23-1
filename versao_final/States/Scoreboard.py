@@ -30,11 +30,18 @@ class Scoreboard(State):
         y_pos = self.display_height//2
 
         self.text("HIGHSCORE BOARD", x_pos-225, y_pos-250, 50, 'white')
-        self.text("1 %s" % (self.get_all_profiles()[0].name), x_pos-100, y_pos-125, 50, 'yellow')
-        self.text("2 %s" % (self.get_all_profiles()[1].name), x_pos-100, y_pos-75, 50, 'yellow')
-        self.text("3 %s" % (self.get_all_profiles()[2].name), x_pos-100, y_pos-25, 50, 'yellow')
-        self.text("4 %s" % (self.get_all_profiles()[3].name), x_pos-100, y_pos+25, 50, 'yellow')
-        self.text("5 %s" % (self.get_all_profiles()[4].name), x_pos-100, y_pos+75, 50, 'yellow')
+        self.text("1 %s" % (self.get_all_profiles()[0].name), x_pos-225, y_pos-125, 50, 'yellow')
+        self.text("2 %s" % (self.get_all_profiles()[1].name), x_pos-225, y_pos-75, 50, 'yellow')
+        self.text("3 %s" % (self.get_all_profiles()[2].name), x_pos-225, y_pos-25, 50, 'yellow')
+        self.text("4 %s" % (self.get_all_profiles()[3].name), x_pos-225, y_pos+25, 50, 'yellow')
+        self.text("5 %s" % (self.get_all_profiles()[4].name), x_pos-225, y_pos+75, 50, 'yellow')
+
+        self.text("%s" % (self.get_all_profiles()[0].max_score), x_pos+0, y_pos-125, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[1].max_score), x_pos+0, y_pos-75, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[2].max_score), x_pos+0, y_pos-25, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[3].max_score), x_pos+0, y_pos+25, 50, 'yellow')
+        self.text("%s" % (self.get_all_profiles()[4].max_score), x_pos+0, y_pos+75, 50, 'yellow')
+
 
     
 
