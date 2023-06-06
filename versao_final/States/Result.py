@@ -7,6 +7,7 @@ class Result(State):
         super().__init__(owner)
         self.create_button()
 
+
     def screen_content(self):
         self.get_display().fill("black")
 
