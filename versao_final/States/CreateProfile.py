@@ -47,7 +47,7 @@ class CreateProfile(State):
         back = Button(x_pos+10, y_pos+150, 300, 100, "Back", self.back)
         self.all_sprites.add(back)
 
-
+    #chama a função create profile, caso os requisitos sejam cumpridos, senão mostra mensagens de erro
     def call_create_profile(self) -> None:
         self.name = self.input_box.text
         if len(self.name) != 0:
@@ -66,12 +66,13 @@ class CreateProfile(State):
             messagebox.showerror(title = 'ERROR', message = "The name should have a bigger length")
     
 
-
+    #entra no perfil criado e vai para a tela de menu do usuário
     def enter_selected_profile(self) -> None:
         if (len(self.all_profiles) != 0):
             self.get_owner().game_data.set_profile(self.profile_selected)
             self.get_owner().change_state("ProfileMenu")
 
+    #volta para o menu principal
     def back(self) -> None:
         self.get_owner().change_state("MainMenu")
 
