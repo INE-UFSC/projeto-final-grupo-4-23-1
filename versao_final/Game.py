@@ -7,7 +7,9 @@ from States.CreateProfile import CreateProfile
 from States.NormalLevel import NormalLevel
 from States.BossTransition import BossTransition
 from States.BossLevel import BossLevel
+from States.Result import Result
 from Utility.GameData import GameData
+
 
 class Game:
     def __init__(self, name = 'Asteroid'):
@@ -26,7 +28,8 @@ class Game:
                                     'Store': Store,
                                     'NormalLevel': NormalLevel,
                                     'BossTransition': BossTransition,
-                                    'BossLevel': BossLevel
+                                    'BossLevel': BossLevel,
+                                    'Result': Result
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)

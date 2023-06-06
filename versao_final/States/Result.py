@@ -1,11 +1,11 @@
 import pygame
 from States.State import State
+from Sprites.Button.Button import Button
 
 class Result(State):
     def __init__(self, owner):
         super().__init__(owner)
-        self.__alive_time = self.get_result().get_alive_time()
-        self.__score = self.get_result().get_score()
+        self.create_button()
 
     def screen_content(self):
         self.get_display().fill("black")
@@ -13,26 +13,60 @@ class Result(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("You Survived %.1f sec" % (self.alive_time), x_pos-150, y_pos-100, 50)
-        self.text("Score: %d" % self.score, x_pos-65, y_pos-50, 50)
-        self.text("Press SPACE to go back", x_pos-110, y_pos+50, 30)
+        self.text("-=-=RESULT=-=-", x_pos-150, y_pos-250, 50, "white")
+        
+        self.text("Level:", x_pos-150, y_pos - 100, 30, "white")
+        self.text(str(self.level), x_pos-75, y_pos - 100, 30, "yellow")
+        
+        self.text("Enemys Destroied:", x_pos-150, y_pos -50, 30, "white")
+        self.text(str(self.enemys_destroied), x_pos + 50, y_pos -50, 30, "yellow")
+        
+        self.text("Score:", x_pos-150, y_pos, 30, "white")
+        self.text(str(self.score), x_pos-75, y_pos, 30, "yellow")
 
-    def handle_transition(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
-            self.get_owner().change_state("MainMenu")
-        super().handle_transition()
+
+    def create_button(self) -> None:
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        retry = Button(x_pos-310, y_pos+150, 300, 100, "RETRY", self.retry)
+        self.all_sprites.add(retry)
+
+        menu =Button(x_pos+10, y_pos+150, 300, 100, "MENU", self.menu)
+        self.all_sprites.add(menu)
+    
+    def reset_data(self):
+        self.get_game_data().set_enemys_destroied(0) 
+        self.get_game_data().set_level(1) 
+        
+        life = 3 + self.get_owner().game_data.profile.ship_life
+        self.get_game_data().set_ship_life(life)
+    
+    def retry(self):
+        self.reset_data()
+        self.get_owner().change_state('NormalLevel')
+    
+    def menu(self):
+        self.reset_data()
+        self.get_owner().change_state('ProfileMenu')
+    
 
     def handle_update(self):
         pygame.display.update()
         self.screen_content()
+        self.all_sprites.update()
+        self.all_sprites.draw(self.get_display())
         pygame.display.update()
 
     @property
-    def score(self):
-        return self.__score
+    def level(self):
+        return self.get_game_data().level
 
     @property
-    def alive_time(self):
-        return self.__alive_time
+    def score(self):
+        return self.get_game_data().score
+
+    @property
+    def enemys_destroied(self):
+        return self.get_game_data().enemys_destroied
 

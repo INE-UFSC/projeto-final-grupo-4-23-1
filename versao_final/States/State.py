@@ -21,8 +21,8 @@ class State(ABC):
     def get_owner(self):
         return self.__owner
     
-    def get_result(self):
-        return self.__owner.result_data
+    def get_game_data(self):
+        return self.__owner.game_data
 
     def get_all_sprites(self):
         return self.__all_sprites

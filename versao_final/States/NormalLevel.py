@@ -11,7 +11,7 @@ class NormalLevel(State):
 
         self.__colision_manager = CollisionManager(self)
 
-        self.__profile: Profile = self.get_owner().game_data.profile
+        self.__profile: Profile = self.get_game_data().profile
 
         self.__ship_group = pygame.sprite.Group()
         self.__ship_bullet_group = pygame.sprite.Group()
@@ -19,11 +19,11 @@ class NormalLevel(State):
         self.__basic_enemy_group = pygame.sprite.Group()
         self.__basic_enemy_bullet_group = pygame.sprite.Group()
 
-        life = (3+self.profile.ship_life-1) if (self.get_owner().game_data.ship_life == None) else self.get_owner().game_data.ship_life
-        self.get_owner().game_data.set_ship_life(life)
+        life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
+        self.get_game_data().set_ship_life(life)
 
         level = 1 if (self.level == None) else self.level
-        self.get_owner().game_data.set_level(level)
+        self.get_game_data().set_level(level)
 
         enemys_destroied = 0 if (self.enemys_destroied == None) else self.enemys_destroied
         self.set_enemys_destroied(enemys_destroied)
@@ -42,7 +42,7 @@ class NormalLevel(State):
         damage = self.profile.ship_damage
         qtd_bullet = self.profile.ship_qtd_bullet
 
-        life = self.get_owner().game_data.ship_life
+        life = self.get_game_data().ship_life
 
         self.__ship = Ship(game = self,
                            speed = vel_max*0.3,
@@ -83,16 +83,16 @@ class NormalLevel(State):
     def level_transition(self):
         if (self.next_level_time-time() <= 0):
             self.__next_level_time = time() + 30
-            self.get_owner().game_data.set_level(self.level+1)
+            self.get_game_data().set_level(self.level+1)
 
             if ((self.level % 5) == 0):
                 self.get_owner().change_state("BossTransition")
 
     def set_enemys_destroied(self, num: int) -> None:
-        self.get_owner().game_data.set_enemys_destroied(num)
+        self.get_game_data().set_enemys_destroied(num)
 
     def set_score(self) -> None:
-        self.get_owner().game_data.set_score(self.enemys_destroied*self.level)
+        self.get_game_data().set_score(self.enemys_destroied*self.level)
 
     def handle_update(self):
         self.clock.tick(60)
@@ -108,15 +108,15 @@ class NormalLevel(State):
 
     @property
     def level(self):
-        return self.get_owner().game_data.level
+        return self.get_game_data().level
 
     @property
     def score(self):
-        return self.get_owner().game_data.score
+        return self.get_game_data().score
 
     @property
     def enemys_destroied(self):
-        return self.get_owner().game_data.enemys_destroied
+        return self.get_game_data().enemys_destroied
 
     @property
     def clock(self):

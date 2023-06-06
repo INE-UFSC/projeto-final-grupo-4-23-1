@@ -13,7 +13,7 @@ class BossLevel(State):
 
         self.__collision_manager = CollisionManager(self)
 
-        self.__profile: Profile = self.get_owner().game_data.profile
+        self.__profile: Profile = self.get_game_data().profile
 
         tankboss = TankBoss(game=self, life=10, position=(self.display_width//2, 30))
         self.__boss_list = [tankboss]
@@ -23,14 +23,14 @@ class BossLevel(State):
         self.__boss_group = pygame.sprite.Group()
         self.__boss_bullet_group = pygame.sprite.Group()
 
-        life = (3+self.profile.ship_life-1) if (self.get_owner().game_data.ship_life == None) else self.get_owner().game_data.ship_life
-        self.get_owner().game_data.set_ship_life(life)
+        life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
+        self.get_game_data().set_ship_life(life)
 
         #apagar dps
         self.init_time = time()
 
         level = 1 if (self.level == None) else self.level
-        self.get_owner().game_data.set_level(level)
+        self.get_game_data().set_level(level)
 
         self.add_ship()
         self.sort_boss()
@@ -49,7 +49,7 @@ class BossLevel(State):
         damage = self.profile.ship_damage
         qtd_bullet = self.profile.ship_qtd_bullet
 
-        life = self.get_owner().game_data.ship_life
+        life = self.get_game_data().ship_life
 
         self.__ship = Ship(game = self,
                            speed = vel_max*0.3,
@@ -111,7 +111,7 @@ class BossLevel(State):
         pygame.display.update()
 
     def set_enemys_destroied(self, num: int) -> None:
-        self.get_owner().game_data.set_enemys_destroied(num)
+        self.get_game_data().set_enemys_destroied(num)
 
     @property
     def original_boss_life(self):
@@ -123,15 +123,15 @@ class BossLevel(State):
 
     @property
     def enemys_destroied(self):
-        return self.get_owner().game_data.enemys_destroied
+        return self.get_game_data().enemys_destroied
 
     @property
     def score(self):
-        return self.get_owner().game_data.score
+        return self.get_game_data().score
 
     @property
     def level(self):
-        return self.get_owner().game_data.level
+        return self.get_game_data().level
 
     @property
     def clock(self):
