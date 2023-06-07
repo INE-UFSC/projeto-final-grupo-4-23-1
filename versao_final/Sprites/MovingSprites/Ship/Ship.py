@@ -19,13 +19,13 @@ class Ship(MovingSprite):
         #tempo do ultimo tiro
         self.__last_shoot = 0
 
-        self.__damage = damage
 
         #posição inicial
         x = pygame.display.Info().current_w // 2
         y = pygame.display.Info().current_h // 2
 
         #direção, impulso e rotação inicial
+        self.__damage = damage
         self.__qtd_bullet = qtd_bullet
         self.__cooldown = cooldown
         self.__life = life

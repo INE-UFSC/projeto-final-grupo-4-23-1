@@ -28,7 +28,6 @@ class TankBoss(MovingSprite):
     def hit(self) -> None:
         if ((self.activate_rush == False) and (self.invunerable == False)):
 
-            self.__life -= 1
             self.__invunerable = True
             self.__invunerable_time = time()
 
@@ -37,6 +36,9 @@ class TankBoss(MovingSprite):
 
             if (self.life <= 0):
                 self.kill()
+
+    def set_life(self, life: int):
+        self.__life = life
 
     def update_image_position(self) -> None:
         super().update_image_position()
