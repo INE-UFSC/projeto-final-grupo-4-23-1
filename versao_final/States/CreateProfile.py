@@ -2,16 +2,20 @@ import pygame
 from Sprites.Button.Button import Button
 from States.State import State
 from tkinter import messagebox
-from Sprites.InputBox.InputBox import InputBox
 
 class CreateProfile(State):
     def __init__(self, owner) -> None:
         super().__init__(owner)
         self.__name = ''
         self.__name_max_length = 5
-        self.__input_box = None
+
+        x = (self.display_width//2)-150
+        y = (self.display_height//2)-100
+        self.__input_box = pygame.Rect(x, y, 300, 100)
+        self.__box_color = (50, 50, 50)
+        self.__active_box = False
+
         self.create_button()
-        self.create_input_box()
 
 
     def screen_content(self) -> None:
@@ -20,26 +24,16 @@ class CreateProfile(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
+        self.__box_color = (100, 100, 100) if (self.active_box) else (50, 50, 50)
+        pygame.draw.rect(self.get_display(), self.box_color, self.input_box)
+        self.update_input_box()
         
-        self.text("ENTER A NEW NAME", x_pos-200, y_pos-250, 50, "white")
+        self.text("ENTER A NEW NAME", x_pos-180, y_pos-250, 50, "white")
     
-
-         
-    def create_input_box(self):
-        x_pos = self.display_width // 2
-        y_pos = self.display_height // 2
-
-        self.__input_box = InputBox(x_pos - 165, y_pos - 50, 300, 100)
-        self.all_sprites.add(self.__input_box)
-
     
     def create_button(self) -> None:
         x_pos = self.display_width//2
         y_pos = self.display_height//2
-
-        back = Button(20, 20, 180, 100, "<-- Back", self.back)
-        self.all_sprites.add(back)
-
 
         select = Button(x_pos-310, y_pos+150, 300, 100, "Create", self.call_create_profile)
         self.all_sprites.add(select)
@@ -49,12 +43,11 @@ class CreateProfile(State):
 
     #chama a função create profile, caso os requisitos sejam cumpridos, senão mostra mensagens de erro
     def call_create_profile(self) -> None:
-        self.name = self.input_box.text
         if len(self.name) != 0:
             if len(self.name) <= self.name_max_length:
                 if " " not in self.name:
                     if not self.verify_profile_existence(self.name):
-                        self.create_profile(self.name, 1, 1, 1, 1, 1, 1, 1)
+                        self.create_profile(self.name, 0, 0, 1, 1, 1, 1, 1)
                         self.enter_selected_profile()
                     else:
                         messagebox.showerror(title = 'ERROR', message = f"{self.name} already exists")
@@ -76,6 +69,11 @@ class CreateProfile(State):
     def back(self) -> None:
         self.get_owner().change_state("MainMenu")
 
+    def update_input_box(self):
+        font = pygame.font.Font(None, 52)
+        text_surface = font.render(self.name, True, "yellow")
+        text_rect = text_surface.get_rect(center = (self.display_width//2, (self.display_height//2)-50))
+        self.get_display().blit(text_surface, text_rect)
 
     def handle_update(self) -> None:
         pygame.display.update()
@@ -83,7 +81,33 @@ class CreateProfile(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
         pygame.display.update()
-        
+
+    def handle_transition(self):
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT):
+                self.get_owner().close()
+
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                if (self.input_box.collidepoint(event.pos)):
+                    self.__active_box = True
+                else:
+                    self.__active_box = False
+
+            if (event.type == pygame.KEYDOWN):
+                if (self.active_box):
+                    if (event.key == pygame.K_BACKSPACE):
+                        self.__name = self.name[:-1]
+                    else:
+                        if (len(self.name) < self.name_max_length):
+                            self.__name += event.unicode
+
+    @property
+    def active_box(self):
+        return self.__active_box
+
+    @property
+    def box_color(self):
+        return self.__box_color
 
     @property
     def all_profiles(self) -> list:

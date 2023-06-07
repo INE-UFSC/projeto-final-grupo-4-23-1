@@ -95,16 +95,17 @@ class InputBox(pygame.sprite.Sprite):
             self.cursor_pos = len(self.text)
         elif keys[pygame.K_RETURN]:
             print(self.text)
+                   
+        elif keys[pygame.K_DELETE]:
+            if self.cursor_pos < len(self.text):
+                if self.ready_to_press(current_time):
+                    self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
+
         elif keys[pygame.K_BACKSPACE]:
             if self.cursor_pos > 0:
                 if self.ready_to_press(current_time):
                     self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos:]
                     self.cursor_pos -= 1
-                    
-        elif keys[pygame.K_DELETE]:
-            if self.cursor_pos < len(self.text):
-                if self.ready_to_press(current_time):
-                    self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1:]
                   
         else:
             for event in pygame.event.get():
