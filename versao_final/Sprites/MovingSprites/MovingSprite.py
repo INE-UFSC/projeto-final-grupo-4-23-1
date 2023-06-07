@@ -67,6 +67,7 @@ class MovingSprite(pygame.sprite.Sprite, ABC):
         self.__image = pygame.transform.rotate(self.original_image, self.direction)
         self.__rect = self.image.get_rect(center = (self.x, self.y))  
         self.__mask = pygame.mask.from_surface(self.image)
+        self.__image = self.mask.to_surface()
 
     def update_position(self) -> None:
         self.__x += self.speed * cos(radians(self.direction))

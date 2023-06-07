@@ -95,9 +95,7 @@ class TankBoss(MovingSprite):
 
     def update_position(self) -> None:
         if (self.stop == False):
-            x = self.x + self.speed * cos(radians(self.direction))
-            y = self.y + self.speed * sin(radians(self.direction))
-            self.set_pos(x, y)
+            super().update_position()
 
     def update(self) -> None:
         self.change_direction()
