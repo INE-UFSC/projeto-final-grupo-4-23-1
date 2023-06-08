@@ -26,6 +26,13 @@ class BossLevel(State):
         life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
         self.get_game_data().set_ship_life(life)
 
+        level = 1 if (self.level == None) else self.level
+        self.get_game_data().set_level(level)
+
+        enemies_destroyed = 0 if (self.enemies_destroyed == None) else self.enemies_destroyed
+        self.set_enemies_destroyed(enemies_destroyed)
+        self.set_score()
+
         #apagar dps
         self.init_time = time()
 
@@ -36,6 +43,9 @@ class BossLevel(State):
         self.sort_boss()
 
         self.__clock = pygame.time.Clock()
+
+    def set_score(self):
+        self.get_game_data().set_score(self.enemies_destroyed*self.level)
 
     def sort_boss(self) -> None:
         self.__boss = self.boss_list[randint(0, len(self.boss_list)-1)]
