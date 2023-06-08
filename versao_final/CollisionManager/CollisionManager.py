@@ -34,12 +34,10 @@ class CollisionManager:
 
     def collisions_boss_level(self):
         if (self.collision_boss_ship()):
-            self.boss.set_life(self.boss.life-1)
             self.ship_life_detect()
             self.boss_life_detect()
 
         if (self.collision_bullet_boss()):
-            self.boss.set_life(self.boss.life-self.ship.damage)
             self.ship_life_detect()
             self.boss_life_detect()
 

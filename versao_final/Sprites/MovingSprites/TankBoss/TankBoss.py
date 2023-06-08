@@ -28,6 +28,8 @@ class TankBoss(MovingSprite):
     def hit(self) -> None:
         if ((self.activate_rush == False) and (self.invunerable == False)):
 
+            self.__life -= self.game.ship.damage
+
             self.__invunerable = True
             self.__invunerable_time = time()
 
@@ -41,8 +43,10 @@ class TankBoss(MovingSprite):
         self.__life = life
 
     def update_image_position(self) -> None:
-        super().update_image_position()
-        self.set_image(self.original_image)
+        image = self.original_image
+        self.set_image(image)
+        self.set_rect(self.image.get_rect(center = (self.x, self.y)))
+        self.set_mask(pygame.mask.from_surface(self.image))
 
     def change_direction(self) -> None:
         if (self.activate_rush == False):

@@ -41,9 +41,9 @@ class Ship(MovingSprite):
         self.__blue = False #indica se está cinza
 
         #carrega imagem 
-        color = pygame.image.load(pasta+"//ship.png")
-        self.__color = pygame.transform.rotate(color, -90)
-        super().__init__(game, self.speed, 90, self.color, (x, y))
+        image = pygame.image.load(pasta+"//ship.png")
+        image = pygame.transform.rotate(image, -90)
+        super().__init__(game, self.speed, 90, image, (x, y))
 
 
     def user_input(self) -> None:
@@ -202,22 +202,14 @@ class Ship(MovingSprite):
             self.__invunerable = True
             self.__invunerable_time = time()
 
-    def update_image_position(self) -> None:
-        self.set_image(pygame.transform.rotate(self.color, self.direction))
-        self.set_rect(self.image.get_rect(center = (self.x, self.y)))
-        self.set_mask(pygame.mask.from_surface(self.color))
+    #def update_image_position(self) -> None:
+    #    self.set_image(pygame.transform.rotate(self.color, self.direction))
+    #    self.set_rect(self.image.get_rect(center = (self.x, self.y)))
+    #    self.set_mask(pygame.mask.from_surface(self.color))
     
     def blink(self) -> None:
         if ((time() - self.change_color_time) >= 0.4):
-
-            if (not self.blue):
-                color = pygame.image.load(pasta+"//blue_ship.png")
-                self.__color = pygame.transform.rotate(color, -90)
-                self.__blue = True
-            else:
-                self.__color = self.original_image
-                self.__blue = False
-
+            self.__blue = True if (self.blue == False) else False
             self.__change_color_time = time()
 
     def check_invunerable(self) -> None:
@@ -227,14 +219,23 @@ class Ship(MovingSprite):
 
             if ((time() - self.invunerable_time) >= 2):
                 self.__invunerable = False
-                self.__color = self.original_image
                 self.__blue = False
 
+    def check_blue(self):
+        if (self.blue):
+            image = pygame.image.load(pasta+"//blue_ship.png")
+            image = pygame.transform.rotate(image, -90)
+            self.set_original_image(image)
+        else:
+            image = pygame.image.load(pasta+"//ship.png")
+            image = pygame.transform.rotate(image, -90)
+            self.set_original_image(image)
 
     #metodo UPDATE, todo sprite deve ter
     # é chamado com o o self.all_sprites é atualizado(esta no asteroid game)
     def update(self) -> None:
         self.check_invunerable()
+        self.check_blue()
         self.user_input()
         super().update()
 

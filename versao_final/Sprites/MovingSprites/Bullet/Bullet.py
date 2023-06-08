@@ -26,8 +26,10 @@ class Bullet(MovingSprite):
         super().__init__(game, speed, -direction, original_image, position)
 
     def update_image_position(self) -> None:
-        super().update_image_position()
-        self.set_image(pygame.transform.rotate(self.original_image, -self.direction))
+        image = pygame.transform.rotate(self.original_image, -self.direction)
+        self.set_image(image)
+        self.set_rect(self.image.get_rect(center = (self.x, self.y)))
+        self.set_mask(pygame.mask.from_surface(self.image))
 
     def hit(self) -> None:
         self.kill()
