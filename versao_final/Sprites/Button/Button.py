@@ -38,8 +38,8 @@ class Button(pygame.sprite.Sprite):
             else:
                 if (self.pressed == True):
                     self.__pressed = False
-                    self.game.get_sound_mixer().play_button_click_sound()
                     self.__callback()
+                    self.game.get_sound_mixer().play_button_click_sound()
         else:
             self.__pressed = False
             self.__image = self.__norm_image

@@ -37,26 +37,25 @@ class SoundMixer:
         self.__hit_sound.play()
 
     def increase_volume(self):
-        r_vol = abs(round(self.volume, 2))
-        if (1 > r_vol >= 0.95):
+        r_vol = round(self.volume, 2)
+        if (r_vol >= 0.95):
             inc = 0.01
         elif (r_vol >= 0.05):
             inc = 0.05
         elif (r_vol >= 0):
             inc = 0.01
-        self.__volume = 1 if ((r_vol + inc) > 1) else r_vol+inc
+        self.__volume = 1 if ((r_vol+inc) > 1) else self.volume+inc
 
         
     def decrease_volume(self):
-        r_vol = abs(round(self.volume, 2))
-        print(r_vol)
-        if (0 < r_vol <= 0.05):
+        r_vol = round(self.volume, 2)
+        if (r_vol <= 0.05):
             inc = 0.01
         elif (r_vol <= 0.95):
             inc = 0.05
-        elif (r_vol <= 1):
+        elif (r_vol<= 1):
             inc = 0.01
-        self.__volume = 0 if ((r_vol - inc) < 0) else r_vol-inc
+        self.__volume = 0 if ((r_vol-inc) < 0) else r_vol-inc
 
     @property
     def volume(self):
