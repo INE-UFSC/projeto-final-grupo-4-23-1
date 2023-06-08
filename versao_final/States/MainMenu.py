@@ -27,6 +27,18 @@ class MainMenu(State):
         quit = Button(self, x_pos, y_pos + 250, 300, 100, 'Quit', self.quit)
         self.all_sprites.add(quit)
 
+        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", self.increase_volume)
+        self.all_sprites.add(inc_volume)
+
+        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", self.decrease_volume)
+        self.all_sprites.add(dec_volume)
+
+    def decrease_volume(self):
+        self.get_sound_mixer().decrease_volume()
+
+    def increase_volume(self):
+        self.get_sound_mixer().increase_volume()
+
     def select_profile(self):
         self.get_owner().change_state("SelectProfile")
 
@@ -46,6 +58,8 @@ class MainMenu(State):
         y_pos = self.display_height//2
 
         self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-400, 50, "white")
+
+        self.text("Volume", self.display_width-140, y_pos-60, 30, "white")
 
     @property
     def all_sprites(self):

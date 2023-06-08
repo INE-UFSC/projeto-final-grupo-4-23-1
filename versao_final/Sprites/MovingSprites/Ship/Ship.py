@@ -190,6 +190,7 @@ class Ship(MovingSprite):
 
     def hit(self) -> None:
         if (not self.invunerable):
+            self.game.get_sound_mixer().play_ship_explosion_sound()
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
                                                                            scale=(50, 50))
