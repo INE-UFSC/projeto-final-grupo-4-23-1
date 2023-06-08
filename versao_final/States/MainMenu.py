@@ -59,7 +59,9 @@ class MainMenu(State):
 
         self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, y_pos-400, 50, "white")
 
-        self.text("Volume", self.display_width-140, y_pos-60, 30, "white")
+        self.text("Volume:", self.display_width-160, y_pos-60, 30, "white")
+        volume = int(self.get_sound_mixer().volume * 100)
+        self.text(str(volume), self.display_width-80, y_pos-60, 30, "yellow")
 
     @property
     def all_sprites(self):
