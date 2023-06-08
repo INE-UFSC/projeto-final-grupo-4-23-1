@@ -8,8 +8,9 @@ from States.NormalLevel import NormalLevel
 from States.BossTransition import BossTransition
 from States.BossLevel import BossLevel
 from States.Result import Result
-from Utility.GameData import GameData
 from States.Scoreboard import Scoreboard
+from Utility.GameData import GameData
+from Utility.SoundMixer.SoundMixer import SoundMixer
 
 
 class Game:
@@ -19,6 +20,7 @@ class Game:
         self.__display_width = pygame.display.Info().current_w
         self.__display_height = pygame.display.Info().current_h
         self.__game_data = GameData()
+        self.__sound_mixer = SoundMixer()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
         #dicionário com os estados do jogo
@@ -73,6 +75,10 @@ class Game:
     
     def handle_update(self):
         return self.get_current_state().handle_update()
+
+    @property
+    def sound_mixer(self):
+        return self.__sound_mixer
 
     @property
     def game_data(self):

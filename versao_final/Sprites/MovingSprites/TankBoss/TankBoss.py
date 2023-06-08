@@ -19,6 +19,8 @@ class TankBoss(MovingSprite):
         self.__stop = False
         self.__activate_rush = False
 
+        self.__rush_sound_time = 0
+
 
         speed = 5
         direction = randint(0, 360)
@@ -71,7 +73,10 @@ class TankBoss(MovingSprite):
                 self.__activate_rush = True
                 self.__stop_time = time()
         else:
-            if ((time() - self.stop_time) < 2):
+            self.play_rush_sound()
+            self.__rush_sound_time = time()
+
+            if ((time() - self.stop_time) < 4.5):
                 self.__stop = True
             else:
                 self.__stop = False
@@ -88,6 +93,10 @@ class TankBoss(MovingSprite):
                 self.__activate_rush = False
                 self.__invunerable = True
                 self.__invunerable_time = time()
+
+    def play_rush_sound(self):
+        if ((time() - self.__rush_sound_time) > 8):
+            self.game.get_sound_mixer().play_charge_tank_boss_rush_sound()
 
     def red(self):
         if (self.invunerable == True) or (self.activate_rush == True):

@@ -2,8 +2,10 @@ import pygame
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, x: int, y: int, width: int, heigth: int, text: str, callback) -> None:
+    def __init__(self, game, x: int, y: int, width: int, heigth: int, text: str, callback) -> None:
         super().__init__()
+
+        self.__game = game
 
         self.__pressed = False
 
@@ -36,10 +38,15 @@ class Button(pygame.sprite.Sprite):
             else:
                 if (self.pressed == True):
                     self.__pressed = False
+                    self.game.get_sound_mixer().play_button_click_sound()
                     self.__callback()
         else:
             self.__pressed = False
             self.__image = self.__norm_image
+
+    @property
+    def game(self):
+        return self.__game
 
     @property
     def image(self):

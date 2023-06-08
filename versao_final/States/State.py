@@ -23,6 +23,9 @@ class State(ABC):
     
     def get_game_data(self):
         return self.__owner.game_data
+        
+    def get_sound_mixer(self):
+        return self.__owner.sound_mixer
 
     def get_all_sprites(self):
         return self.__all_sprites

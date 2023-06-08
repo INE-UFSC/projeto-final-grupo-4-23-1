@@ -15,8 +15,7 @@ class Scoreboard(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-
-        back = Button(20, 20, 180, 100, "<-- Back", self.back)
+        back = Button(self, 20, 20, 180, 100, "<-- Back", self.back)
         self.all_sprites.add(back)
 
 

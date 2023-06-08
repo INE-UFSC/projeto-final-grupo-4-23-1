@@ -14,13 +14,13 @@ class ProfileMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        play = Button(x_pos-150, y_pos-200, 300, 100, 'Play', self.play)
+        play = Button(self, x_pos-150, y_pos-200, 300, 100, 'Play', self.play)
         self.all_sprites.add(play)
 
-        store = Button(x_pos-150, y_pos-50, 300, 100, 'Store', self.store)
+        store = Button(self, x_pos-150, y_pos-50, 300, 100, 'Store', self.store)
         self.all_sprites.add(store)
 
-        exit = Button(x_pos-150, y_pos+100, 300, 100, 'Exit Profile', self.exit_profile)
+        exit = Button(self, x_pos-150, y_pos+100, 300, 100, 'Exit Profile', self.exit_profile)
         self.all_sprites.add(exit)
 
     def exit_profile(self) -> None:

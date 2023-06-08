@@ -63,6 +63,7 @@ class Ship(MovingSprite):
             self.set_direction(d)
 
         if (keys[pygame.K_SPACE]):
+
             self.shoot()
 
 
@@ -118,6 +119,7 @@ class Ship(MovingSprite):
 
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             if ((time() - self.last_shoot) > self.cooldown):
+                self.game.get_sound_mixer().play_bullet_sound()
                 
                 if (self.qtd_bullet == 1):
                     self.game.all_sprites.add(strait_front_bullet)
@@ -161,7 +163,6 @@ class Ship(MovingSprite):
                     self.game.ship_bullet_group.add(top_rigth_bullet)
                     self.game.ship_bullet_group.add(botton_left_bullet)
                     self.game.ship_bullet_group.add(botton_rigth_bullet)
-
 
 
                 self.__last_shoot = time()

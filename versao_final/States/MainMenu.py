@@ -15,16 +15,16 @@ class MainMenu(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-        newProfile = Button(x_pos, y_pos - 200, 300, 100, 'New Profile', self.new_profile)
+        newProfile = Button(self, x_pos, y_pos - 200, 300, 100, 'New Profile', self.new_profile)
         self.all_sprites.add(newProfile)
 
-        selectProfile = Button(x_pos, y_pos - 50, 300, 100, 'Select Profile', self.select_profile)
+        selectProfile = Button(self, x_pos, y_pos - 50, 300, 100, 'Select Profile', self.select_profile)
         self.all_sprites.add(selectProfile)
 
-        scoreboard = Button(x_pos, y_pos + 100, 300, 100, 'Scoreboard', self.scoreboard)
+        scoreboard = Button(self, x_pos, y_pos + 100, 300, 100, 'Scoreboard', self.scoreboard)
         self.all_sprites.add(scoreboard)
 
-        quit = Button(x_pos, y_pos + 250, 300, 100, 'Quit', self.quit)
+        quit = Button(self, x_pos, y_pos + 250, 300, 100, 'Quit', self.quit)
         self.all_sprites.add(quit)
 
     def select_profile(self):
