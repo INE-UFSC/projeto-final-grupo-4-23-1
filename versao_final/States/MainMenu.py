@@ -61,7 +61,7 @@ class MainMenu(State):
 
         self.text("Volume:", self.display_width-160, y_pos-60, 30, "white")
         volume = int(self.get_sound_mixer().volume * 100)
-        self.text(str(volume), self.display_width-80, y_pos-60, 30, "yellow")
+        self.text(str(volume), self.display_width-75, y_pos-60, 30, "yellow")
 
     @property
     def all_sprites(self):

@@ -33,6 +33,9 @@ class Ship(MovingSprite):
         self.__dx = 0
         self.__dy = 0
 
+        #indica se esta acelerando
+        self.__boost = False
+
         #indica se está invulneravel
         self.__invunerable = False
         self.__invunerable_time = time()
@@ -40,7 +43,7 @@ class Ship(MovingSprite):
         self.__blue = False #indica se está cinza
 
         #carrega imagem 
-        image = pygame.image.load(pasta+"//ship.png")
+        image = pygame.image.load(pasta+"//ship_images//ship.png")
         image = pygame.transform.rotate(image, -90)
         super().__init__(game, self.speed, 90, image, (x, y))
 
@@ -51,6 +54,9 @@ class Ship(MovingSprite):
         #tecla W -> acelera
         if (keys[pygame.K_w] or keys[pygame.K_UP]):
             self.accelerate()
+            self.__boost = True
+        else:
+            self.__boost = False
 
         #tecla a -> rotaciona no sentido antihorario
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]):
@@ -220,13 +226,21 @@ class Ship(MovingSprite):
                 self.__invunerable = False
                 self.__blue = False
 
-    def check_blue(self):
+    def change_color(self):
         if (self.blue):
-            image = pygame.image.load(pasta+"//blue_ship.png")
-            image = pygame.transform.rotate(image, -90)
+            if (self.boost):
+                image = pygame.image.load(pasta+"//ship_images//boost_blue_ship.png")
+                image = pygame.transform.rotate(image, -90)
+            else:
+                image = pygame.image.load(pasta+"//ship_images//blue_ship.png")
+                image = pygame.transform.rotate(image, -90)
         else:
-            image = pygame.image.load(pasta+"//ship.png")
-            image = pygame.transform.rotate(image, -90)
+            if (self.boost):
+                image = pygame.image.load(pasta+"//ship_images//boost_ship.png")
+                image = pygame.transform.rotate(image, -90)
+            else:
+                image = pygame.image.load(pasta+"//ship_images//ship.png")
+                image = pygame.transform.rotate(image, -90)
 
         self.set_original_image(image)
 
@@ -234,13 +248,17 @@ class Ship(MovingSprite):
     # é chamado com o o self.all_sprites é atualizado(esta no asteroid game)
     def update(self) -> None:
         self.check_invunerable()
-        self.check_blue()
+        self.change_color()
         self.user_input()
         super().update()
 
     def reset_speed(self):
         self.__dx = 0
         self.__dy = 0
+
+    @property
+    def boost(self):
+        return self.__boost
 
     @property
     def qtd_bullet(self):
