@@ -19,7 +19,6 @@ class Ship(MovingSprite):
         #tempo do ultimo tiro
         self.__last_shoot = 0
 
-
         #posição inicial
         x = pygame.display.Info().current_w // 2
         y = pygame.display.Info().current_h // 2
@@ -191,7 +190,7 @@ class Ship(MovingSprite):
     def hit(self) -> None:
         if (not self.invunerable):
             self.__life -= 1
-            self.game.get_owner().game_data.set_ship_life(self.life)
+            self.game.get_game_data().set_ship_life(self.life)
 
             x = self.display_width//2
             y = self.display_height//2
@@ -225,11 +224,11 @@ class Ship(MovingSprite):
         if (self.blue):
             image = pygame.image.load(pasta+"//blue_ship.png")
             image = pygame.transform.rotate(image, -90)
-            self.set_original_image(image)
         else:
             image = pygame.image.load(pasta+"//ship.png")
             image = pygame.transform.rotate(image, -90)
-            self.set_original_image(image)
+
+        self.set_original_image(image)
 
     #metodo UPDATE, todo sprite deve ter
     # é chamado com o o self.all_sprites é atualizado(esta no asteroid game)
@@ -250,10 +249,6 @@ class Ship(MovingSprite):
     @property
     def damage(self):
         return self.__damage
-
-    @property
-    def color(self):
-        return self.__color
 
     @property
     def change_color_time(self):

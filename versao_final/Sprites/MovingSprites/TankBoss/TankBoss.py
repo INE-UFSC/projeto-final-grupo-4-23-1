@@ -3,7 +3,7 @@ from Sprites.MovingSprites.MovingSprite import MovingSprite
 from random import randint
 from time import time
 from os import path
-from math import atan2, cos, sin, radians, pi
+from math import atan2, pi
 
 pasta = path.dirname(__file__)
 
