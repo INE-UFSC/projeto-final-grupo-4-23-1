@@ -11,6 +11,7 @@ from States.Result import Result
 from States.Scoreboard import Scoreboard
 from Utility.GameData import GameData
 from Utility.SoundMixer.SoundMixer import SoundMixer
+from Utility.AnimationEffects.AnimationEffectsManager import AnimationEffectsManager
 
 
 class Game:
@@ -21,6 +22,7 @@ class Game:
         self.__display_height = pygame.display.Info().current_h
         self.__game_data = GameData()
         self.__sound_mixer = SoundMixer()
+        self.__animation_effects_manager = AnimationEffectsManager()
 
         self.display = pygame.display.set_mode((self.display_width, self.display_height))
         #dicionário com os estados do jogo
@@ -76,6 +78,10 @@ class Game:
     def handle_update(self):
         return self.get_current_state().handle_update()
 
+    @property
+    def animation_effects_manager(self):
+        return self.__animation_effects_manager
+        
     @property
     def sound_mixer(self):
         return self.__sound_mixer

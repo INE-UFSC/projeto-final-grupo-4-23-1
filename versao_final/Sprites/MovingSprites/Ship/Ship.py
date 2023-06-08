@@ -190,6 +190,9 @@ class Ship(MovingSprite):
 
     def hit(self) -> None:
         if (not self.invunerable):
+            self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
+                                                                           position=(self.x,self.y),
+                                                                           scale=(50, 50))
             self.__life -= 1
             self.game.get_game_data().set_ship_life(self.life)
 
@@ -201,11 +204,6 @@ class Ship(MovingSprite):
 
             self.__invunerable = True
             self.__invunerable_time = time()
-
-    #def update_image_position(self) -> None:
-    #    self.set_image(pygame.transform.rotate(self.color, self.direction))
-    #    self.set_rect(self.image.get_rect(center = (self.x, self.y)))
-    #    self.set_mask(pygame.mask.from_surface(self.color))
     
     def blink(self) -> None:
         if ((time() - self.change_color_time) >= 0.4):

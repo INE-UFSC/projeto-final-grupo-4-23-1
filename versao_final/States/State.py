@@ -27,6 +27,9 @@ class State(ABC):
     def get_sound_mixer(self):
         return self.__owner.sound_mixer
 
+    def get_animation_effects_manager(self):
+        return self.__owner.animation_effects_manager
+
     def get_all_sprites(self):
         return self.__all_sprites
 
