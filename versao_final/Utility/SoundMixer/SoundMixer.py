@@ -13,6 +13,7 @@ class SoundMixer:
         self.__button_click_sound = pygame.mixer.Sound(pasta+"//Sounds//button_click_sound.ogg")
         self.__charge_tank_boss_rush_sound = pygame.mixer.Sound(pasta+"//Sounds//charge_tank_boss_rush_sound.ogg")
         self.__ship_explosion_sound = pygame.mixer.Sound(pasta+"//Sounds//ship_explosion_sound.ogg")
+        self.__hit_sound = pygame.mixer.Sound(pasta+"//Sounds//hit_sound.ogg")
 
 
     def play_bullet_sound(self):
@@ -30,6 +31,10 @@ class SoundMixer:
     def play_ship_explosion_sound(self):
         self.__ship_explosion_sound.set_volume(self.volume)
         self.__ship_explosion_sound.play()
+
+    def play_hit_sound(self):
+        self.__hit_sound.set_volume(self.volume)
+        self.__hit_sound.play()
 
     def increase_volume(self):
         self.__volume += 0.05

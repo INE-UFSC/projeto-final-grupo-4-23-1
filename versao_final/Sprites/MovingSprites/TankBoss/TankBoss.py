@@ -29,6 +29,7 @@ class TankBoss(MovingSprite):
 
     def hit(self) -> None:
         if ((self.activate_rush == False) and (self.invunerable == False)):
+            self.game.get_sound_mixer().play_hit_sound()
 
             self.__life -= self.game.ship.damage
 
