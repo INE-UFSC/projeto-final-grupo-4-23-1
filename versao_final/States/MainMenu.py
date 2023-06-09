@@ -15,22 +15,22 @@ class MainMenu(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-        newProfile = Button(self, x_pos, y_pos - 200, 300, 100, 'New Profile', self.new_profile)
+        newProfile = Button(self, x_pos, y_pos - 200, 300, 100, 'New Profile', True, self.new_profile)
         self.all_sprites.add(newProfile)
 
-        selectProfile = Button(self, x_pos, y_pos - 50, 300, 100, 'Select Profile', self.select_profile)
+        selectProfile = Button(self, x_pos, y_pos - 50, 300, 100, 'Select Profile', True, self.select_profile)
         self.all_sprites.add(selectProfile)
 
-        scoreboard = Button(self, x_pos, y_pos + 100, 300, 100, 'Scoreboard', self.scoreboard)
+        scoreboard = Button(self, x_pos, y_pos + 100, 300, 100, 'Scoreboard', True, self.scoreboard)
         self.all_sprites.add(scoreboard)
 
-        quit = Button(self, x_pos, y_pos + 250, 300, 100, 'Quit', self.quit)
+        quit = Button(self, x_pos, y_pos + 250, 300, 100, 'Quit', True, self.quit)
         self.all_sprites.add(quit)
 
-        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", self.increase_volume)
+        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", True, self.increase_volume)
         self.all_sprites.add(inc_volume)
 
-        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", self.decrease_volume)
+        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", True, self.decrease_volume)
         self.all_sprites.add(dec_volume)
 
     def decrease_volume(self):

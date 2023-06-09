@@ -24,20 +24,20 @@ class Store(State):
         self.all_sprites.add(back)
 
         #linha 1 coluna 1
-        rmv_vel_max = Button(self, 20, 180, 70, 70, "-", self.rmv_vel_max)
-        add_vel_max = Button(self, 325, 180, 70, 70, "+", self.add_vel_max)
+        rmv_vel_max = Button(self, 20, 180, 70, 70, "-", True, self.rmv_vel_max)
+        add_vel_max = Button(self, 325, 180, 70, 70, "+", True, self.add_vel_max)
         self.all_sprites.add(rmv_vel_max)
         self.all_sprites.add(add_vel_max)
 
         #linha 1 coluna 2
-        rmv_damage = Button(self, 500, 180, 70, 70, "-", self.rmv_damage)
-        add_damage = Button(self, 805, 180, 70, 70, "+", self.add_damage)
+        rmv_damage = Button(self, 500, 180, 70, 70, "-", True, self.rmv_damage)
+        add_damage = Button(self, 805, 180, 70, 70, "+", True, self.add_damage)
         self.all_sprites.add(rmv_damage)
         self.all_sprites.add(add_damage)
 
         #linha 2 coluna 1
-        rmv_life = Button(self, 20, 360, 70, 70, "-", self.rmv_life)
-        add_life = Button(self, 325, 360, 70, 70, "+", self.add_life)
+        rmv_life = Button(self, 20, 360, 70, 70, "-", True, self.rmv_life)
+        add_life = Button(self, 325, 360, 70, 70, "+", True, self.add_life)
         self.all_sprites.add(rmv_life)
         self.all_sprites.add(add_life)
 

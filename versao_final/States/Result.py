@@ -30,10 +30,10 @@ class Result(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        retry = Button(self, x_pos-310, y_pos+150, 300, 100, "RETRY", self.retry)
+        retry = Button(self, x_pos-310, y_pos+150, 300, 100, "RETRY", True, self.retry)
         self.all_sprites.add(retry)
 
-        menu =Button(self, x_pos+10, y_pos+150, 300, 100, "MENU", self.menu)
+        menu =Button(self, x_pos+10, y_pos+150, 300, 100, "MENU", True, self.menu)
         self.all_sprites.add(menu)
     
     def reset_data(self):

@@ -15,7 +15,7 @@ class Scoreboard(State):
         x_pos = self.display_width//2 - 150
         y_pos = self.display_height//2
 
-        back = Button(self, 20, 20, 180, 100, "<-- Back", self.back)
+        back = Button(self, 20, 20, 180, 100, "<-- Back", True, self.back)
         self.all_sprites.add(back)
 
 
@@ -59,9 +59,6 @@ class Scoreboard(State):
 
         score5 = self.get_all_profiles()[4].max_score if (len(self.get_all_profiles()) >= 5) else ""
         self.text("%s" % (score5), x_pos+40, y_pos+155, 50, 'yellow')
-
-
-    
 
     def handle_update(self):
         pygame.display.update()

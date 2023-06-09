@@ -35,10 +35,10 @@ class CreateProfile(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        select = Button(self, x_pos-310, y_pos+150, 300, 100, "Create", self.call_create_profile)
+        select = Button(self, x_pos-310, y_pos+150, 300, 100, "Create", True, self.call_create_profile)
         self.all_sprites.add(select)
 
-        back = Button(self, x_pos+10, y_pos+150, 300, 100, "Back", self.back)
+        back = Button(self, x_pos+10, y_pos+150, 300, 100, "Back", True, self.back)
         self.all_sprites.add(back)
 
     #chama a função create profile, caso os requisitos sejam cumpridos, senão mostra mensagens de erro

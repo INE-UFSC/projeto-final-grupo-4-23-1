@@ -14,19 +14,19 @@ class ProfileMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        play = Button(self, x_pos-150, y_pos-200, 300, 100, 'Play', self.play)
+        play = Button(self, x_pos-150, y_pos-200, 300, 100, 'Play', True, self.play)
         self.all_sprites.add(play)
 
-        store = Button(self, x_pos-150, y_pos-50, 300, 100, 'Store', self.store)
+        store = Button(self, x_pos-150, y_pos-50, 300, 100, 'Store', True, self.store)
         self.all_sprites.add(store)
 
-        exit = Button(self, x_pos-150, y_pos+100, 300, 100, 'Exit Profile', self.exit_profile)
+        exit = Button(self, x_pos-150, y_pos+100, 300, 100, 'Exit Profile', True, self.exit_profile)
         self.all_sprites.add(exit)
 
-        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", self.increase_volume)
+        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", True, self.increase_volume)
         self.all_sprites.add(inc_volume)
 
-        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", self.decrease_volume)
+        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", True, self.decrease_volume)
         self.all_sprites.add(dec_volume)
 
     def decrease_volume(self):
