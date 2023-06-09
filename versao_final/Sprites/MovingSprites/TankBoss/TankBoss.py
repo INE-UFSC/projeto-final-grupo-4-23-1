@@ -36,10 +36,11 @@ class TankBoss(MovingSprite):
             self.__invunerable = True
             self.__invunerable_time = time()
 
-            image = pygame.image.load(pasta+"//TankBoss_rush.png")
-            self.set_original_image(image)
-
             if (self.life <= 0):
+                self.game.get_sound_mixer().play_ship_explosion_sound()
+                self.game.get_animation_effects_manager().add_boss_explosion_effect(game=self.game,
+                                                                                    position=(self.x,self.y),
+                                                                                    scale=(100,100))
                 self.kill()
 
     def set_life(self, life: int):
@@ -57,15 +58,13 @@ class TankBoss(MovingSprite):
 
                 direction = randint(0, 360)
                 self.set_speed(5)
-                image = pygame.image.load(pasta+"//TankBoss.png")
-                self.set_original_image(image)
                 self.set_direction(direction)
 
                 self.__change_direction_time = time()
 
     def check_invunerable(self) -> None:
         if (self.invunerable == True):
-            if ((time() - self.invunerable_time) > 1.5):
+            if ((time() - self.invunerable_time) > 2):
                 self.__invunerable = False
 
     def rush(self) -> None:
@@ -86,7 +85,7 @@ class TankBoss(MovingSprite):
                 angle = atan2(ship_y-self.y, ship_x-self.x) 
                 direction = int(180*angle/pi)
 
-                self.__change_direction_time = time()-1.5
+                self.__change_direction_time = time()-1
                 self.set_speed(15)
                 self.set_direction(direction)
 
@@ -117,6 +116,9 @@ class TankBoss(MovingSprite):
         self.rush()
         self.check_invunerable()
         super().update()
+
+    def set_life(self, life: int):
+        self.__life = life
 
     @property
     def invunerable(self):

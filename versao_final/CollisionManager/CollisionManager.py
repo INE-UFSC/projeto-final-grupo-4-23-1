@@ -1,11 +1,13 @@
 from CollisionManager.Collision import Collision
-from time import time
+from time import time, sleep
 
 class CollisionManager:
     #recebe grupo de sprites para detectar colisao
     def __init__(self, game) -> None:
 
         self.__game = game
+        self.__boss_transion_time = 0
+        self.__boss_defeated = False
 
 
     #ações realisadas no jogo quando é detectado colisão
@@ -36,6 +38,9 @@ class CollisionManager:
         if (self.collision_boss_ship()):
             self.ship_life_detect()
             self.boss_life_detect()
+            if ((self.boss.activate_rush) or (self.boss.invunerable)):
+                life = self.boss.life+(self.ship.damage-1)
+                self.game.boss.set_life(life)
 
         if (self.collision_bullet_boss()):
             self.ship_life_detect()
@@ -43,6 +48,11 @@ class CollisionManager:
 
         if (self.collision_boss_bullet_ship()):
             self.ship_life_detect()
+
+        if (self.__boss_defeated):
+            if ((time() - self.__boss_transion_time) >= 1.5):
+                self.__boss_defeated = False
+                self.game.get_owner().change_state("BossTransition")
 
 
     def boss_life_detect(self):
@@ -53,7 +63,8 @@ class CollisionManager:
             enemies_destroyed = self.game.enemies_destroyed + 1
             self.game.set_enemies_destroyed(enemies_destroyed)
  
-            self.game.get_owner().change_state("BossTransition")
+            self.__boss_transion_time = time()
+            self.__boss_defeated = True
 
     def ship_life_detect(self):
         if (self.ship.life <= 0):

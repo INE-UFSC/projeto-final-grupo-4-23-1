@@ -108,16 +108,12 @@ class BossLevel(State):
 
         self.text("BOSS LIFE", x_pos-50, self.display_height-70, 30, "red")
 
-    def level_transition(self):
-        pass
-
     def handle_update(self):
         self.clock.tick(60)
         pygame.display.update()
         self.background(speed=0.2*8)
         self.screen_content()
         self.collision_manager.collisions_boss_level()
-        self.level_transition()
         pygame.display.update()
 
     def set_enemies_destroyed(self, num: int) -> None:

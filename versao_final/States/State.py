@@ -19,7 +19,7 @@ class State(ABC):
         img = pygame.image.load(pasta+"//Utility//Images//background.png")
         img = pygame.transform.scale(img, (self.display_width, self.display_height))
         self.__background = img
-        self.__b_pos = -1
+        self.__b_pos = 0
         self.__overlap = img
         self.__o_pos = self.display_width
 
@@ -41,7 +41,6 @@ class State(ABC):
 
 
     def get_display(self):
-        print(pasta)
         return pygame.display.get_surface()
 
     def get_owner(self):
