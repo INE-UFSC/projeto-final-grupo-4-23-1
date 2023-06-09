@@ -59,7 +59,6 @@ class NormalLevel(State):
         pass
 
     def screen_content(self):
-        self.get_display().fill("black")
 
         x_pos = self.display_width//2
         y_pos = self.display_width//2
@@ -97,6 +96,7 @@ class NormalLevel(State):
     def handle_update(self):
         self.clock.tick(60)
         pygame.display.update()
+        self.background(0.2*8)
         self.screen_content()
         self.collision_manager.collisions_normal_level()
         self.level_transition()

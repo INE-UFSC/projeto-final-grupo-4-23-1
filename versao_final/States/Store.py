@@ -142,7 +142,6 @@ class Store(State):
         self.get_owner().change_state("ProfileMenu")
 
     def screen_content(self) -> None:
-        self.get_display().fill("black")
 
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
@@ -178,6 +177,7 @@ class Store(State):
 
     def handle_update(self) -> None:
         pygame.display.update()
+        self.background()
         self.screen_content()
         pygame.display.update()
 

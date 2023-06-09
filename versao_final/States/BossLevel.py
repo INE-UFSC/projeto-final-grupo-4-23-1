@@ -85,7 +85,6 @@ class BossLevel(State):
         pygame.draw.rect(self.get_display(), "red", (x_poss-width//2, self.display_height-40, (width//self.original_boss_life)*self.boss.life, 15))
 
     def screen_content(self):
-        self.get_display().fill("black")
 
         self.render_boss_life()
 
@@ -115,6 +114,7 @@ class BossLevel(State):
     def handle_update(self):
         self.clock.tick(60)
         pygame.display.update()
+        self.background(speed=0.2*8)
         self.screen_content()
         self.collision_manager.collisions_boss_level()
         self.level_transition()

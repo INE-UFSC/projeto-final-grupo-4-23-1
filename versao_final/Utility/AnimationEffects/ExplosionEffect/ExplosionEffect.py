@@ -10,3 +10,4 @@ class ExplosionEffect(AnimationEffect):
                          scale=scale,
                          animation_speed=8,
                          img_dir=pasta+"//Images")
+

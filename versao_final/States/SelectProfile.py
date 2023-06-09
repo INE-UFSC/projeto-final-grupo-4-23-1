@@ -11,7 +11,6 @@ class SelectProfile(State):
         self.__profile_selected_index = 0
 
     def screen_content(self) -> None:
-        self.get_display().fill("black")
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
@@ -86,6 +85,7 @@ class SelectProfile(State):
 
     def handle_update(self) -> None:
         pygame.display.update()
+        self.background()
         self.screen_content()
         pygame.display.update()
 

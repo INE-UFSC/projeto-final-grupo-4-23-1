@@ -52,7 +52,6 @@ class MainMenu(State):
         self.get_owner().change_state("ScoreBoard")
 
     def screen_content(self):
-        self.get_display().fill("black")
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
@@ -69,6 +68,7 @@ class MainMenu(State):
 
     def handle_update(self):
         pygame.display.update()
+        self.background()
         self.screen_content()
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())

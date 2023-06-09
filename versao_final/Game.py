@@ -1,4 +1,5 @@
 import pygame
+from os import path
 from States.MainMenu import MainMenu
 from States.SelectProfile import SelectProfile
 from States.ProfileMenu import ProfileMenu
@@ -13,6 +14,7 @@ from Utility.GameData import GameData
 from Utility.SoundMixer.SoundMixer import SoundMixer
 from Utility.AnimationEffects.AnimationEffectsManager import AnimationEffectsManager
 
+pasta = path.dirname(__file__)
 
 class Game:
     def __init__(self, name = 'Asteroid'):
@@ -40,7 +42,6 @@ class Game:
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
 
-
     def run(self):
 
         pygame.display.set_caption("ASTEROIDS")
@@ -48,8 +49,6 @@ class Game:
         while self.running:
             self.handle_update()
             self.handle_transition()
- 
-        
         pygame.quit()
     
     #altera o estado atual com base na string que informa o nome do próximo estado

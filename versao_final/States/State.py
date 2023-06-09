@@ -1,7 +1,10 @@
 import pygame
+from os import path
 from Profiles.ProfileManager import ProfileManager
 from Profiles.Profile import Profile
 from abc import ABC, abstractmethod
+
+pasta = path.abspath("")
 
 class State(ABC):
     def __init__(self, owner):
@@ -12,10 +15,33 @@ class State(ABC):
         self.__display_width = pygame.display.Info().current_w
         self.__display_height = pygame.display.Info().current_h
 
+        #background images
+        img = pygame.image.load(pasta+"//Utility//Images//background.png")
+        img = pygame.transform.scale(img, (self.display_width, self.display_height))
+        self.__background = img
+        self.__b_pos = -1
+        self.__overlap = img
+        self.__o_pos = self.display_width
+
+ 
         #todos os sprites
         self.__all_sprites = pygame.sprite.Group()
 
+    def background(self, speed: int = 0.2):
+        if (self.__b_pos <= -self.display_width):
+            self.__b_pos = self.display_width
+        if (self.__o_pos <= -self.display_width):
+            self.__o_pos = self.display_width
+
+        self.__b_pos -= speed
+        self.__o_pos -= speed
+
+        self.get_display().blit(self.__background, (self.__b_pos, 0))
+        self.get_display().blit(self.__overlap, (self.__o_pos, 0))
+
+
     def get_display(self):
+        print(pasta)
         return pygame.display.get_surface()
 
     def get_owner(self):

@@ -19,7 +19,6 @@ class BossTransition(State):
         pass
 
     def screen_content(self) -> None:
-        self.get_display().fill("black")
 
         self.blink_text()
 
@@ -50,6 +49,7 @@ class BossTransition(State):
 
     def handle_update(self) -> None:
         pygame.display.update()
+        self.background()
         self.screen_content()
         self.transition()
         pygame.display.update()

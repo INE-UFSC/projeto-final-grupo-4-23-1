@@ -19,7 +19,6 @@ class CreateProfile(State):
 
 
     def screen_content(self) -> None:
-        self.get_display().fill("black")
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
@@ -77,6 +76,7 @@ class CreateProfile(State):
 
     def handle_update(self) -> None:
         pygame.display.update()
+        self.background()
         self.screen_content()
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
