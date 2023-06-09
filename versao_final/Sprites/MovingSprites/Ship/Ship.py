@@ -55,10 +55,10 @@ class Ship(MovingSprite):
         if (keys[pygame.K_w] or keys[pygame.K_UP]):
             self.accelerate()
             if (not self.boost):
-                self.game.get_sound_mixer().play_boost_sound()
+                self.game.get_sound_mixer().play_boost_sfx()
             self.__boost = True
         else:
-            self.game.get_sound_mixer().boost_sound.stop()
+            self.game.get_sound_mixer().boost_sfx.stop()
             self.__boost = False
 
         #tecla a -> rotaciona no sentido antihorario
@@ -128,7 +128,7 @@ class Ship(MovingSprite):
 
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             if ((time() - self.last_shoot) > self.cooldown):
-                self.game.get_sound_mixer().play_bullet_sound()
+                self.game.get_sound_mixer().play_bullet_sfx()
                 
                 if (self.qtd_bullet == 1):
                     self.game.all_sprites.add(strait_front_bullet)
@@ -199,7 +199,7 @@ class Ship(MovingSprite):
 
     def hit(self) -> None:
         if (not self.invunerable):
-            self.game.get_sound_mixer().play_ship_explosion_sound()
+            self.game.get_sound_mixer().play_explosion_sfx()
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
                                                                            scale=(50, 50))

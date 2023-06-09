@@ -50,7 +50,7 @@ class ProfileMenu(State):
         y_pos = self.display_height//2
 
         self.text("Volume:", self.display_width-160, y_pos-60, 30, "white")
-        volume = int(self.get_sound_mixer().volume * 100)
+        volume = int(self.get_sound_mixer().sfx_volume * 100)
         self.text(str(volume), self.display_width-75, y_pos-60, 30, "yellow")
 
         self.text("Max Score:", 20, 20, 40, "white")

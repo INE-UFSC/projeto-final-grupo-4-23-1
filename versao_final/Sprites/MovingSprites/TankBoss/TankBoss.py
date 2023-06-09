@@ -29,7 +29,7 @@ class TankBoss(MovingSprite):
 
     def hit(self) -> None:
         if ((self.activate_rush == False) and (self.invunerable == False)):
-            self.game.get_sound_mixer().play_hit_sound()
+            self.game.get_sound_mixer().play_hit_sfx()
 
             self.__life -= self.game.ship.damage
 
@@ -37,7 +37,7 @@ class TankBoss(MovingSprite):
             self.__invunerable_time = time()
 
             if (self.life <= 0):
-                self.game.get_sound_mixer().play_ship_explosion_sound()
+                self.game.get_sound_mixer().play_explosion_sfx()
                 self.game.get_animation_effects_manager().add_boss_explosion_effect(game=self.game,
                                                                                     position=(self.x,self.y),
                                                                                     scale=(100,100))
@@ -96,7 +96,7 @@ class TankBoss(MovingSprite):
 
     def play_rush_sound(self):
         if ((time() - self.__rush_sound_time) > 8):
-            self.game.get_sound_mixer().play_charge_tank_boss_rush_sound()
+            self.game.get_sound_mixer().play_charge_tank_boss_rush_sfx()
 
     def red(self):
         if (self.invunerable == True) or (self.activate_rush == True):

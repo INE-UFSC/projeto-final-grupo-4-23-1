@@ -42,7 +42,7 @@ class Button(pygame.sprite.Sprite):
                     self.__callback()
 
                     if (self.__sound):
-                        self.game.get_sound_mixer().play_button_click_sound()
+                        self.game.get_sound_mixer().play_button_click_sfx()
         else:
             self.__pressed = False
             self.__image = self.__norm_image
