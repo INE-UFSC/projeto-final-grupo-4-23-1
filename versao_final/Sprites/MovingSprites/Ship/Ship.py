@@ -54,8 +54,11 @@ class Ship(MovingSprite):
         #tecla W -> acelera
         if (keys[pygame.K_w] or keys[pygame.K_UP]):
             self.accelerate()
+            if (not self.boost):
+                self.game.get_sound_mixer().play_boost_sound()
             self.__boost = True
         else:
+            self.game.get_sound_mixer().boost_sound.stop()
             self.__boost = False
 
         #tecla a -> rotaciona no sentido antihorario

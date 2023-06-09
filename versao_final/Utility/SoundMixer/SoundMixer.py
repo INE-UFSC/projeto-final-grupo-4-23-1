@@ -14,6 +14,7 @@ class SoundMixer:
         self.__charge_tank_boss_rush_sound = pygame.mixer.Sound(pasta+"//Sounds//charge_tank_boss_rush_sound.ogg")
         self.__ship_explosion_sound = pygame.mixer.Sound(pasta+"//Sounds//ship_explosion_sound.ogg")
         self.__hit_sound = pygame.mixer.Sound(pasta+"//Sounds//hit_sound.ogg")
+        self.__boost_sound = pygame.mixer.Sound(pasta+"//Sounds//boost_sound.ogg")
 
 
     def play_bullet_sound(self):
@@ -35,6 +36,10 @@ class SoundMixer:
     def play_hit_sound(self):
         self.__hit_sound.set_volume(self.volume)
         self.__hit_sound.play()
+
+    def play_boost_sound(self):
+        self.__boost_sound.set_volume(self.volume)
+        self.__boost_sound.play(-1)
 
     def increase_volume(self):
         r_vol = round(self.volume, 2)
@@ -61,4 +66,7 @@ class SoundMixer:
     def volume(self):
         return self.__volume
 
+    @property
+    def boost_sound(self):
+        return self.__boost_sound
 
