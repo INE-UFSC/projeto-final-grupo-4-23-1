@@ -1,10 +1,13 @@
 import pygame
 from os import path
+from pathlib import Path
 from Profiles.ProfileManager import ProfileManager
 from Profiles.Profile import Profile
 from abc import ABC, abstractmethod
 
-pasta = path.abspath("")
+
+c_dir = path.dirname(__file__)
+pasta = str(Path(c_dir).resolve().parents[0])
 
 class State(ABC):
     def __init__(self, owner):
@@ -28,6 +31,7 @@ class State(ABC):
         self.__all_sprites = pygame.sprite.Group()
 
     def background(self, speed: int = 0.2):
+        print(pasta)
         if (self.__b_pos <= -self.display_width):
             self.__b_pos = self.display_width
         if (self.__o_pos <= -self.display_width):
