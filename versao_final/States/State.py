@@ -25,7 +25,6 @@ class State(ABC):
         self.__b_pos = 0
         self.__overlap = img
         self.__o_pos = self.display_width
-
  
         #todos os sprites
         self.__all_sprites = pygame.sprite.Group()
