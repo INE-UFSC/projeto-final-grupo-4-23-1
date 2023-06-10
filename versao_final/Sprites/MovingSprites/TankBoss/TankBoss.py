@@ -24,8 +24,10 @@ class TankBoss(MovingSprite):
 
         speed = 5
         direction = randint(0, 360)
-        original_image = pygame.image.load(pasta+"//TankBoss.png")
-        super().__init__(game, speed, -direction, original_image, position)
+
+        self.__tank_boss_rush_img = pygame.image.load(pasta+"//TankBoss_rush.png")
+        self.__tank_boss_img = pygame.image.load(pasta+"//TankBoss.png")
+        super().__init__(game, speed, -direction, self.__tank_boss_img, position)
 
     def hit(self) -> None:
         if ((self.activate_rush == False) and (self.invunerable == False)):
@@ -103,9 +105,9 @@ class TankBoss(MovingSprite):
 
     def red(self):
         if (self.invunerable == True) or (self.activate_rush == True):
-            image = pygame.image.load(pasta+"//TankBoss_rush.png")
+            image = self.__tank_boss_rush_img
         else:
-            image = pygame.image.load(pasta+"//TankBoss.png") 
+            image = self.__tank_boss_img
 
         self.set_original_image(image)
 

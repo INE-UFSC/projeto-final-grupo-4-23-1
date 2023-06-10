@@ -30,7 +30,7 @@ class ProfileMenu(State):
         self.get_owner().change_state("Store")
 
     def play(self) -> None:
-        self.get_owner().change_state("NormalLevel")
+        self.get_owner().change_state("BossLevel")
 
     def screen_content(self) -> None:
 
