@@ -31,7 +31,6 @@ class State(ABC):
         self.__all_sprites = pygame.sprite.Group()
 
     def background(self, speed: int = 0.2):
-        print(pasta)
         if (self.__b_pos <= -self.display_width):
             self.__b_pos = self.display_width
         if (self.__o_pos <= -self.display_width):
