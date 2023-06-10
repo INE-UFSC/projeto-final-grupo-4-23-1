@@ -23,18 +23,6 @@ class ProfileMenu(State):
         exit = Button(self, x_pos-150, y_pos+100, 300, 100, 'Exit Profile', True, self.exit_profile)
         self.all_sprites.add(exit)
 
-        inc_volume = Button(self, self.display_width-180, y_pos-35, 70, 70, "+V", True, self.increase_volume)
-        self.all_sprites.add(inc_volume)
-
-        dec_volume = Button(self, self.display_width-90, y_pos-35, 70, 70, "-V", True, self.decrease_volume)
-        self.all_sprites.add(dec_volume)
-
-    def decrease_volume(self):
-        self.get_sound_mixer().decrease_volume()
-
-    def increase_volume(self):
-        self.get_sound_mixer().increase_volume()
-
     def exit_profile(self) -> None:
         self.get_owner().change_state("MainMenu")
 
@@ -48,10 +36,6 @@ class ProfileMenu(State):
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
-
-        self.text("Volume:", self.display_width-160, y_pos-60, 30, "white")
-        volume = int(self.get_sound_mixer().sfx_volume * 100)
-        self.text(str(volume), self.display_width-75, y_pos-60, 30, "yellow")
 
         self.text("Max Score:", 20, 20, 40, "white")
         self.text(str(self.current_profile.max_score), 180, 20, 40, "yellow")

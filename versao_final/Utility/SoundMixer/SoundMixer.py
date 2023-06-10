@@ -104,7 +104,7 @@ class SoundMixer:
     def increase_sfx_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.inc(self.sfx_volume)
-            self.__sfx_volume = 1 if ((r_vol+inc) > 1) else self.sfx_volume+inc
+            self.__sfx_volume = 1 if ((r_vol+inc) > 1) else r_vol+inc
 
     def decrease_sfx_volume(self):
         if (not self.__mute_sfx):
@@ -114,7 +114,7 @@ class SoundMixer:
     def increase_music_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.inc(self.music_volume)
-            self.__music_volume = 1 if ((r_vol+inc) > 1) else self.sfx_volume+inc
+            self.__music_volume = 1 if ((r_vol+inc) > 1) else r_vol+inc
 
     def decrease_music_volume(self):
         if (not self.__mute_sfx):
@@ -154,6 +154,14 @@ class SoundMixer:
     @property
     def boost_sfx(self):
         return self.__boost_sfx
+
+    @property
+    def mute_music(self):
+        return self.__mute_music
+
+    @property
+    def mute_sfx(self):
+        return self.__mute_sfx
 
     @property
     def music_volume(self):
