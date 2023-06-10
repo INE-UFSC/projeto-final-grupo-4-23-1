@@ -44,9 +44,17 @@ class Ship(MovingSprite):
         self.__blue = False #indica se está cinza
 
         #carrega imagem 
+        image = pygame.image.load(pasta+"//ship_images//boost_blue_ship.png")
+        self.__blue_boost_ship_img = pygame.transform.rotate(image, -90)
+        image = pygame.image.load(pasta+"//ship_images//blue_ship.png")
+        self.__blue_ship_img = pygame.transform.rotate(image, -90)
+        image = pygame.image.load(pasta+"//ship_images//boost_ship.png")
+        self.__boost_ship_img = pygame.transform.rotate(image, -90)
         image = pygame.image.load(pasta+"//ship_images//ship.png")
-        image = pygame.transform.rotate(image, -90)
-        super().__init__(game, self.speed, 90, image, (x, y))
+        self.__ship_img = pygame.transform.rotate(image, -90)
+        image = pygame.image.load(pasta+"//ship_images//ship.png")
+        o_image = pygame.transform.rotate(image, -90)
+        super().__init__(game, self.speed, 90, o_image, (x, y))
 
 
     def user_input(self) -> None:
@@ -242,18 +250,14 @@ class Ship(MovingSprite):
     def change_color(self):
         if (self.blue):
             if (self.boost):
-                image = pygame.image.load(pasta+"//ship_images//boost_blue_ship.png")
-                image = pygame.transform.rotate(image, -90)
+                image = self.__blue_boost_ship_img
             else:
-                image = pygame.image.load(pasta+"//ship_images//blue_ship.png")
-                image = pygame.transform.rotate(image, -90)
+                image = self.__blue_ship_img
         else:
             if (self.boost):
-                image = pygame.image.load(pasta+"//ship_images//boost_ship.png")
-                image = pygame.transform.rotate(image, -90)
+                image = self.__boost_ship_img
             else:
-                image = pygame.image.load(pasta+"//ship_images//ship.png")
-                image = pygame.transform.rotate(image, -90)
+                image = self.__ship_img
 
         self.set_original_image(image)
 
