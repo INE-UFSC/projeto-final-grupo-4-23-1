@@ -31,7 +31,10 @@ class TankBoss(MovingSprite):
         if ((self.activate_rush == False) and (self.invunerable == False)):
             self.game.get_sound_mixer().play_hit_sfx()
 
-            self.__life -= self.game.ship.damage
+            if (self.game.ship.invunerable):
+                self.__life -= 1
+            else:
+                self.__life -= self.game.ship.damage
 
             self.__invunerable = True
             self.__invunerable_time = time()

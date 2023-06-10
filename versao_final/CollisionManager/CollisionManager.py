@@ -38,9 +38,6 @@ class CollisionManager:
         if (self.collision_boss_ship()):
             self.ship_life_detect()
             self.boss_life_detect()
-            if ((self.boss.activate_rush) or (self.boss.invunerable)):
-                life = self.boss.life+(self.ship.damage-1)
-                self.game.boss.set_life(life)
 
         if (self.collision_bullet_boss()):
             self.ship_life_detect()

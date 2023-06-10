@@ -3,6 +3,8 @@ from os import path
 import time
 
 pasta = path.dirname(__file__)
+SFX_dir = pasta+"//Sounds//SFX//"
+Music_dir = pasta+"//Sounds//Music//"
 
 class SoundMixer:
     def __init__(self):
@@ -10,12 +12,12 @@ class SoundMixer:
         self.__sfx_volume = 0.20
 
         #sfx
-        self.__bullet_sfx = pygame.mixer.Sound(pasta+"//Sounds//bullet_sfx.ogg")
-        self.__button_click_sfx = pygame.mixer.Sound(pasta+"//Sounds//button_click_sfx.ogg")
-        self.__charge_tank_boss_rush_sfx = pygame.mixer.Sound(pasta+"//Sounds//charge_tank_boss_rush_sfx.ogg")
-        self.__ship_explosion_sfx = pygame.mixer.Sound(pasta+"//Sounds//explosion_sfx.ogg")
-        self.__hit_sfx = pygame.mixer.Sound(pasta+"//Sounds//hit_sfx.ogg")
-        self.__boost_sfx = pygame.mixer.Sound(pasta+"//Sounds//boost_sfx.ogg")
+        self.__bullet_sfx = pygame.mixer.Sound(SFX_dir+"bullet_sfx.ogg")
+        self.__button_click_sfx = pygame.mixer.Sound(SFX_dir+"button_click_sfx.ogg")
+        self.__charge_tank_boss_rush_sfx = pygame.mixer.Sound(SFX_dir+"charge_tank_boss_rush_sfx.ogg")
+        self.__ship_explosion_sfx = pygame.mixer.Sound(SFX_dir+"explosion_sfx.ogg")
+        self.__hit_sfx = pygame.mixer.Sound(SFX_dir+"hit_sfx.ogg")
+        self.__boost_sfx = pygame.mixer.Sound(SFX_dir+"boost_sfx.ogg")
 
 
     def play_bullet_sfx(self):
