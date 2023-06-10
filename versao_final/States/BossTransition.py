@@ -12,11 +12,20 @@ class BossTransition(State):
         self.__text_color = "gray"
         self.__enter_boss_fight = True if ((self.level-1) % 5 == 4) else False
 
+        self.sfx()
+
         self.__profile: Profile = self.get_owner().game_data.profile
         self.create_button()
 
     def create_button(self):
         pass
+
+    def sfx(self):
+        pygame.mixer.fadeout(1000)
+        if (self.enter_boss_fight):
+            self.get_sound_mixer().play_boss_fight_sfx()
+        else:
+            self.get_sound_mixer().play_boss_defeated_sfx()
 
     def screen_content(self) -> None:
 
@@ -40,7 +49,7 @@ class BossTransition(State):
             self.__blink_time = time()
 
     def transition(self):
-        if ((time() - self.init_time) > 5):
+        if ((time() - self.init_time) > 7):
             if (self.enter_boss_fight):
                 self.get_owner().change_state("BossLevel")
             else:

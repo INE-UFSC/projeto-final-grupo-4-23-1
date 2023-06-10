@@ -83,6 +83,8 @@ class NormalLevel(State):
         if (self.next_level_time-time() <= 0):
             self.__next_level_time = time() + 30
             self.get_game_data().set_level(self.level+1)
+            if ((self.level % 5) != 0):
+                self.get_sound_mixer().play_lvl_up_sfx()
 
             if ((self.level % 5) == 0):
                 self.get_owner().change_state("BossTransition")

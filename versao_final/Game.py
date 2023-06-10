@@ -41,6 +41,7 @@ class Game:
                                    }
         #estado atual (começa no Main Menu)
         self.__current_state = MainMenu(self)
+        self.__sound_mixer.play_theme_music()
 
     def run(self):
 
@@ -52,9 +53,22 @@ class Game:
         pygame.quit()
     
     #altera o estado atual com base na string que informa o nome do próximo estado
-    def change_state(self, next_state_str):
+    def change_state(self, next_state_str: str):
         next_state = self.get_states_dictionary()[next_state_str](self)
+        self.control_music(next_state)
         self.set_current_state(next_state)
+
+    def control_music(self, next_state):
+        next_state = next_state
+        if (isinstance(next_state, NormalLevel)):
+            self.__sound_mixer.play_normal_level_music()
+        elif (isinstance(next_state, BossLevel)):
+            self.__sound_mixer.play_boss_level_music()
+        elif (isinstance(next_state, Result)):
+            self.__sound_mixer.play_result_music()
+        else:
+            if (isinstance(self.__current_state, Result)):
+                self.__sound_mixer.play_theme_music()
  
     def close(self):
         self.__running = False

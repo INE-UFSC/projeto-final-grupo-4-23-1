@@ -84,7 +84,7 @@ class Ship(MovingSprite):
                                     speed = 10,
                                     damage = self.damage,
                                     color = "yellow",
-                                    lifetime = 1)
+                                    lifetime = 2)
         
         strait_back_bullet = Bullet(game = self,
                                     position = (self.x, self.y),
@@ -92,7 +92,7 @@ class Ship(MovingSprite):
                                     speed = 10,
                                     damage = self.damage,
                                     color = "yellow",
-                                    lifetime = 1)
+                                    lifetime = 2)
 
         top_left_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -100,7 +100,7 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 1)
+                                lifetime = 2)
 
         top_rigth_bullet =  Bullet(game = self,
                                 position = (self.x, self.y),
@@ -108,7 +108,7 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 1)
+                                lifetime = 2)
 
         botton_left_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -116,7 +116,7 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 1)
+                                lifetime = 2)
 
         botton_rigth_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -124,7 +124,7 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 1)
+                                lifetime = 2)
 
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             if ((time() - self.last_shoot) > self.cooldown):

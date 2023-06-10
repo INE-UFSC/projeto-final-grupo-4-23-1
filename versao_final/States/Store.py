@@ -20,7 +20,7 @@ class Store(State):
         x_pos = self.display_width//2 
         y_pos = self.display_height//2
 
-        back = Button(self, 20, 20, 180, 100, "<-- Back", self.back)
+        back = Button(self, 20, 20, 180, 100, "<-- Back", True, self.back)
         self.all_sprites.add(back)
 
         #linha 1 coluna 1
