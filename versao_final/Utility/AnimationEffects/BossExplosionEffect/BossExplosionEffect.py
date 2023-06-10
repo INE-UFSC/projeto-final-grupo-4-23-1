@@ -9,4 +9,5 @@ class BossExplosionEffect(AnimationEffect):
                          position=position,
                          scale=scale,
                          animation_speed=10,
+                         looping=False,
                          list_imgs=list_imgs)

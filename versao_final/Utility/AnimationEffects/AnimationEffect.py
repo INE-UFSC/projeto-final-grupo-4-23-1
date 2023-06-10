@@ -3,11 +3,12 @@ import fnmatch
 import os
 
 class AnimationEffect(pygame.sprite.Sprite):
-    def __init__(self, game, position: tuple, scale: tuple, animation_speed: int, list_imgs: list):
+    def __init__(self, game, position: tuple, scale: tuple, animation_speed: int, looping: bool, list_imgs: list):
         super().__init__()
 
         self.__position = position
         self.__scale = scale
+        self.__looping = looping
 
         self.__images_list = list_imgs
         self.__index = 0
@@ -31,7 +32,10 @@ class AnimationEffect(pygame.sprite.Sprite):
                 self.__image = pygame.transform.scale(img, self.__scale)
 
             if (self.__index >= (len(self.__images_list)-1)):
-                self.kill()
+                if (self.__looping):
+                    self.__index = 0
+                else:
+                    self.kill()
 
     @property
     def image(self):

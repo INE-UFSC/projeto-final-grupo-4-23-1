@@ -9,5 +9,6 @@ class ExplosionEffect(AnimationEffect):
                          position=position,
                          scale=scale,
                          animation_speed=8,
+                         looping=False,
                          list_imgs=list_imgs)
 

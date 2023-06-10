@@ -9,4 +9,5 @@ class SmokeEffect(AnimationEffect):
                          position=position,
                          scale=scale,
                          animation_speed=5,
+                         looping=False,
                          list_imgs=list_imgs)
