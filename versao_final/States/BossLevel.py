@@ -3,6 +3,7 @@ from States.State import State
 from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
 from Sprites.MovingSprites.TankBoss.TankBoss import TankBoss
+from Sprites.MovingSprites.CannonBoss.CannonBoss import CannonBoss 
 from CollisionManager.CollisionManager import CollisionManager
 from random import randint
 from time import time
@@ -16,7 +17,8 @@ class BossLevel(State):
         self.__profile: Profile = self.get_game_data().profile
 
         tankboss = TankBoss(game=self, life=10, position=(self.display_width//2, 30))
-        self.__boss_list = [tankboss]
+        cannonboss = CannonBoss(game=self, life=7, position=(self.display_width//2, 30))
+        self.__boss_list = [tankboss, cannonboss]
 
         self.__ship_group = pygame.sprite.Group()
         self.__ship_bullet_group = pygame.sprite.Group()
