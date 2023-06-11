@@ -9,7 +9,8 @@ class Bullet(MovingSprite):
                  speed: float,
                  damage: int,
                  color: str,
-                 lifetime: int) -> None:
+                 lifetime: int,
+                 img = None) -> None:
 
         #dano e tempo de vida
         self.__damage = damage
@@ -20,10 +21,11 @@ class Bullet(MovingSprite):
         #cor do bulelt
         self.__color = color
 
-        original_image = pygame.Surface([20,3], pygame.SRCALPHA)
-        pygame.draw.rect(original_image, (self.color), (0, 0, 20, 3))
+        default_img = pygame.Surface([20, 3], pygame.SRCALPHA)
+        original_image = default_img if (img == None) else img
         #super do init
         super().__init__(game, speed, -direction, original_image, position)
+
 
     def update_image_position(self) -> None:
         image = pygame.transform.rotate(self.original_image, -self.direction)

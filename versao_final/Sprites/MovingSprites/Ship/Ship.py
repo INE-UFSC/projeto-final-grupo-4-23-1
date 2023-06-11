@@ -44,6 +44,7 @@ class Ship(MovingSprite):
         self.__blue = False #indica se está cinza
 
         #carrega imagem 
+        self.__bullet_image = pygame.image.load(pasta+"//ship_images//ship_bullet.png")
         image = pygame.image.load(pasta+"//ship_images//boost_blue_ship.png")
         self.__blue_boost_ship_img = pygame.transform.rotate(image, -90)
         image = pygame.image.load(pasta+"//ship_images//blue_ship.png")
@@ -102,7 +103,8 @@ class Ship(MovingSprite):
                                     speed = 10,
                                     damage = self.damage,
                                     color = "yellow",
-                                    lifetime = 2)
+                                    lifetime = 2,
+                                    img=self.__bullet_image)
         
         strait_back_bullet = Bullet(game = self,
                                     position = (self.x, self.y),
@@ -110,7 +112,8 @@ class Ship(MovingSprite):
                                     speed = 10,
                                     damage = self.damage,
                                     color = "yellow",
-                                    lifetime = 2)
+                                    lifetime = 2,
+                                    img=self.__bullet_image)
 
         top_left_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -118,7 +121,8 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 2)
+                                lifetime = 2,
+                                img=self.__bullet_image)
 
         top_rigth_bullet =  Bullet(game = self,
                                 position = (self.x, self.y),
@@ -126,7 +130,8 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 2)
+                                lifetime = 2,
+                                img=self.__bullet_image)
 
         botton_left_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -134,7 +139,8 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 2)
+                                lifetime = 2,
+                                img=self.__bullet_image)
 
         botton_rigth_bullet = Bullet(game = self,
                                 position = (self.x, self.y),
@@ -142,7 +148,8 @@ class Ship(MovingSprite):
                                 speed = 10,
                                 damage = self.damage,
                                 color = "yellow",
-                                lifetime = 2)
+                                lifetime = 2,
+                                img=self.__bullet_image)
 
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             if ((time() - self.last_shoot) > self.cooldown):
