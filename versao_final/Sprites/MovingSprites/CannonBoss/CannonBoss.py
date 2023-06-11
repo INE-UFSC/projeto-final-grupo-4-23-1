@@ -15,6 +15,8 @@ class CannonBoss(MovingSprite):
         self.__change_direction_time = time()
         self.__cannon_blast_time = time()
         self.__stop_time = time()
+        self.__charge_up_sound_time = time()
+        self.__cannon_blast_sound_time = time()
         self.__active_cannon_blast = False
         self.__stop = False
         self.__invunerable = False
@@ -51,6 +53,7 @@ class CannonBoss(MovingSprite):
                 self.__stop = False
                 self.__active_cannon_blast = False
                 self.destroi_laser_animation()
+                self.game.get_sound_mixer().cannon_blast_sfx.stop()
 
                 direction = randint(0, 360)
                 self.set_speed(5)
@@ -65,17 +68,21 @@ class CannonBoss(MovingSprite):
 
     def cannon_blast(self):
         if (self.__active_cannon_blast == False):
-            if ((time() - self.__cannon_blast_time) > 8):
+            if ((time() - self.__cannon_blast_time) > 10):
                 self.__invunerable = True
                 self.__active_cannon_blast = True
                 self.__stop_time = time()
         else:
-            if ((time() - self.__stop_time) < 2):
+            self.play_charge_up_sound()
+            self.__charge_up_sound_time = time()
+
+            if ((time() - self.__stop_time) < 4):
                 self.__stop = True
                 choice = 1 if (self.get_ship_angle() > self.direction) else -1
                 inc_angle = abs(self.get_ship_angle() - self.direction)*choice/25
                 self.set_direction(self.direction+inc_angle)
             else:
+                self.play_cannon_blast_sound()
                 laser_x = self.x + cos(radians(self.direction))*480
                 laser_y = self.y + sin(radians(self.direction))*480
                 self.__blast_animation = self.game.get_animation_effects_manager().add_laser_effect(game=self.game,
@@ -86,6 +93,16 @@ class CannonBoss(MovingSprite):
                 self.__active_cannon_blast = False
                 self.__cannon_blast_time = time()
                 self.__change_direction_time = time()+1
+
+    def play_charge_up_sound(self):
+        if ((time() - self.__charge_up_sound_time) > 10):
+            self.game.get_sound_mixer().play_charge_up_sfx()
+
+    def play_cannon_blast_sound(self):
+        if ((time() - self.__cannon_blast_sound_time) > 14):
+            self.game.get_sound_mixer().play_cannon_blast_sfx()
+
+    
 
     def get_ship_angle(self) -> int:
         ship_x = self.game.ship.x

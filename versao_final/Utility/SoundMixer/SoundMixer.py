@@ -20,8 +20,10 @@ class SoundMixer:
         self.__hit_sfx = pygame.mixer.Sound(SFX_dir+"hit_sfx.ogg")
         self.__boost_sfx = pygame.mixer.Sound(SFX_dir+"boost_sfx.ogg")
         self.__lvl_up_sfx = pygame.mixer.Sound(SFX_dir+"lvl_up_sfx.ogg")
-        self.__boss_defeated = pygame.mixer.Sound(SFX_dir+"boss_defeated_sfx.ogg")
-        self.__boss_fight = pygame.mixer.Sound(SFX_dir+"boss_fight_sfx.ogg")
+        self.__boss_defeated_sfx = pygame.mixer.Sound(SFX_dir+"boss_defeated_sfx.ogg")
+        self.__boss_fight_sfx = pygame.mixer.Sound(SFX_dir+"boss_fight_sfx.ogg")
+        self.__charge_up_sfx = pygame.mixer.Sound(SFX_dir+"charge_up_sfx.ogg")
+        self.__cannon_blast_sfx = pygame.mixer.Sound(SFX_dir+"cannon_blast_sfx.ogg")
 
         #music
         self.__music_volume = 0.05
@@ -55,16 +57,26 @@ class SoundMixer:
             self.__theme_music.set_volume(self.music_volume)
             self.__theme_music.play(-1)
 
+    def play_cannon_blast_sfx(self):
+        if (not self.__mute_sfx):
+            self.__cannon_blast_sfx.set_volume(self.sfx_volume)
+            self.__cannon_blast_sfx.play()
+
+    def play_charge_up_sfx(self):
+        if (not self.__mute_sfx):
+            self.__charge_up_sfx.set_volume(self.sfx_volume)
+            self.__charge_up_sfx.play()
+
     def play_boss_fight_sfx(self):
         if (not self.__mute_sfx):
             pygame.mixer.fadeout(1000)
-            self.__boss_fight.set_volume(self.sfx_volume)
-            self.__boss_fight.play()
+            self.__boss_fight_sfx.set_volume(self.sfx_volume)
+            self.__boss_fight_sfx.play()
 
     def play_boss_defeated_sfx(self):
         if (not self.__mute_sfx):
-            self.__boss_defeated.set_volume(self.sfx_volume)
-            self.__boss_defeated.play()
+            self.__boss_defeated_sfx.set_volume(self.sfx_volume)
+            self.__boss_defeated_sfx.play()
 
     def play_lvl_up_sfx(self):
         if (not self.__mute_sfx):
@@ -146,6 +158,10 @@ class SoundMixer:
         elif (r_vol<= 1):
             inc = 0.01
         return (r_vol, inc)
+
+    @property
+    def cannon_blast_sfx(self):
+        return self.__cannon_blast_sfx
 
     @property
     def sfx_volume(self):
