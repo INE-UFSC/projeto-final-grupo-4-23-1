@@ -17,6 +17,8 @@ class CannonBoss(MovingSprite):
         self.__stop_time = time()
         self.__charge_up_sound_time = time()
         self.__cannon_blast_sound_time = time()
+        self.__invunerable_time = time()
+
         self.__active_cannon_blast = False
         self.__stop = False
         self.__invunerable = False
@@ -29,7 +31,7 @@ class CannonBoss(MovingSprite):
         super().__init__(game, speed, direction, self.__cannon_boss_img,  position)
 
     def hit(self) -> None:
-        if (self.invunerable == False):
+        if ((not self.invunerable) and (not self.__active_cannon_blast)):
             self.game.get_sound_mixer().play_hit_sfx()
 
             if (self.game.ship.invunerable):
@@ -38,6 +40,7 @@ class CannonBoss(MovingSprite):
                 self.__life -= self.game.ship.damage
 
             self.__invunerable = True
+            self.__invunerable_time = time()
 
             if (self.life <= 0):
                 self.game.get_sound_mixer().play_explosion_sfx()
@@ -49,7 +52,6 @@ class CannonBoss(MovingSprite):
     def change_direction(self) -> None:
         if (not self.__active_cannon_blast):
             if ((time() - self.change_direction_time) > 3):
-                self.__invunerable = False
                 self.__stop = False
                 self.__active_cannon_blast = False
                 self.destroi_laser_animation()
@@ -68,8 +70,7 @@ class CannonBoss(MovingSprite):
 
     def cannon_blast(self):
         if (self.__active_cannon_blast == False):
-            if ((time() - self.__cannon_blast_time) > 10):
-                self.__invunerable = True
+            if ((time() - self.__cannon_blast_time) > 8):
                 self.__active_cannon_blast = True
                 self.__stop_time = time()
         else:
@@ -92,17 +93,20 @@ class CannonBoss(MovingSprite):
                 self.game.boss_bullet_group.add(self.__blast_animation)
                 self.__active_cannon_blast = False
                 self.__cannon_blast_time = time()
-                self.__change_direction_time = time()+1
+                self.__change_direction_time = time()-1
 
     def play_charge_up_sound(self):
-        if ((time() - self.__charge_up_sound_time) > 10):
+        if ((time() - self.__charge_up_sound_time) > 8):
             self.game.get_sound_mixer().play_charge_up_sfx()
 
     def play_cannon_blast_sound(self):
-        if ((time() - self.__cannon_blast_sound_time) > 14):
+        if ((time() - self.__cannon_blast_sound_time) > 12):
             self.game.get_sound_mixer().play_cannon_blast_sfx()
 
-    
+    def check_invunerable(self):
+        if (self.invunerable):
+            if ((time() - self.__invunerable_time) > 2):
+                self.__invunerable = False
 
     def get_ship_angle(self) -> int:
         ship_x = self.game.ship.x
@@ -121,8 +125,8 @@ class CannonBoss(MovingSprite):
         except:
             pass
 
-    def check_invunerable(self) -> None:
-        if (self.__invunerable):
+    def red(self) -> None:
+        if (self.__invunerable or self.__active_cannon_blast):
             self.set_original_image(self.__invunerable_image)
         else:
             self.set_original_image(self.__cannon_boss_img)
@@ -131,6 +135,7 @@ class CannonBoss(MovingSprite):
     def update(self) -> None:
         self.cannon_blast()
         self.change_direction()
+        self.red()
         self.check_invunerable()
         super().update()
 

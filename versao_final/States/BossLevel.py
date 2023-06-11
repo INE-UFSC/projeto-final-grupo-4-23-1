@@ -17,7 +17,7 @@ class BossLevel(State):
         self.__profile: Profile = self.get_game_data().profile
 
         tankboss = TankBoss(game=self, life=10, position=(self.display_width//2, 30))
-        cannonboss = CannonBoss(game=self, life=7, position=(self.display_width//2, 30))
+        cannonboss = CannonBoss(game=self, life=8, position=(self.display_width//2, 30))
         self.__boss_list = [tankboss, cannonboss]
 
         self.__ship_group = pygame.sprite.Group()
