@@ -1,13 +1,10 @@
 import pygame
 from os import path
-from pathlib import Path
 from Profiles.ProfileManager import ProfileManager
 from Profiles.Profile import Profile
 from abc import ABC, abstractmethod
 
-
-c_dir = path.dirname(__file__)
-pasta = str(Path(c_dir).resolve().parents[0])
+pasta = path.dirname(path.dirname(__file__))
 
 class State(ABC):
     def __init__(self, owner):
