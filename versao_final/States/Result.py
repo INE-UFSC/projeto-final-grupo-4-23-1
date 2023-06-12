@@ -14,9 +14,10 @@ class Result(State):
         score = 0 if (self.get_game_data().only_boss_mode) else self.score
 
         profile: Profile = self.get_game_data().profile
+        max_score = max(score, profile.max_score)
 
         profile.set_credit(profile.credit+self.__credit_earned)
-        profile.set_max_score(score)
+        profile.set_max_score(max_score)
         self.save_profile(profile)
 
     def screen_content(self):
