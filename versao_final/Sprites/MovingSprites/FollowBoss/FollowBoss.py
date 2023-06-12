@@ -24,7 +24,7 @@ class FollowBoss(MovingSprite):
         super().__init__(game, speed, -direction, self.__follow_boss_img, position)
 
     def hit(self) -> None:
-        if (self.invunerable == False):
+        if (not self.invunerable):
             self.game.get_sound_mixer().play_hit_sfx()
 
             if (self.game.ship.invunerable):
@@ -78,6 +78,7 @@ class FollowBoss(MovingSprite):
                               lifetime=5)
             self.game.all_sprites.add(fb)
             self.game.boss_bullet_group.add(fb)
+            self.game.get_sound_mixer().play_laser_shot_sfx()
             self.__shot_time = time()
 
     def update(self) -> None:

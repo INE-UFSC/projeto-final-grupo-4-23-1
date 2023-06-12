@@ -30,7 +30,7 @@ class TankBoss(MovingSprite):
         super().__init__(game, speed, -direction, self.__tank_boss_img, position)
 
     def hit(self) -> None:
-        if ((self.activate_rush == False) and (self.invunerable == False)):
+        if ((not self.activate_rush) and (not self.invunerable)):
             self.game.get_sound_mixer().play_hit_sfx()
 
             if (self.game.ship.invunerable):

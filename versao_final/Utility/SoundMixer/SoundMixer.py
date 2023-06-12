@@ -16,7 +16,8 @@ class SoundMixer:
         self.__bullet_sfx = pygame.mixer.Sound(SFX_dir+"bullet_sfx.ogg")
         self.__button_click_sfx = pygame.mixer.Sound(SFX_dir+"button_click_sfx.ogg")
         self.__charge_tank_boss_rush_sfx = pygame.mixer.Sound(SFX_dir+"charge_tank_boss_rush_sfx.ogg")
-        self.__ship_explosion_sfx = pygame.mixer.Sound(SFX_dir+"explosion_sfx.ogg")
+        self.__explosion_sfx = pygame.mixer.Sound(SFX_dir+"explosion_sfx.ogg")
+        self.__explosion_2_sfx = pygame.mixer.Sound(SFX_dir+"explosion_2_sfx.ogg")
         self.__hit_sfx = pygame.mixer.Sound(SFX_dir+"hit_sfx.ogg")
         self.__boost_sfx = pygame.mixer.Sound(SFX_dir+"boost_sfx.ogg")
         self.__lvl_up_sfx = pygame.mixer.Sound(SFX_dir+"lvl_up_sfx.ogg")
@@ -24,6 +25,7 @@ class SoundMixer:
         self.__boss_fight_sfx = pygame.mixer.Sound(SFX_dir+"boss_fight_sfx.ogg")
         self.__charge_up_sfx = pygame.mixer.Sound(SFX_dir+"charge_up_sfx.ogg")
         self.__cannon_blast_sfx = pygame.mixer.Sound(SFX_dir+"cannon_blast_sfx.ogg")
+        self.__laser_shot_sfx = pygame.mixer.Sound(SFX_dir+"laser_shot_sfx.ogg")
 
         #music
         self.__music_volume = 0.05
@@ -56,6 +58,11 @@ class SoundMixer:
             pygame.mixer.fadeout(1000)
             self.__theme_music.set_volume(self.music_volume)
             self.__theme_music.play(-1)
+
+    def play_laser_shot_sfx(self):
+        if (not self.mute_sfx):
+            self.__laser_shot_sfx.set_volume(self.sfx_volume)
+            self.__laser_shot_sfx.play()
 
     def play_cannon_blast_sfx(self):
         if (not self.__mute_sfx):
@@ -100,8 +107,13 @@ class SoundMixer:
 
     def play_explosion_sfx(self):
         if (not self.__mute_sfx):
-            self.__ship_explosion_sfx.set_volume(self.sfx_volume)
-            self.__ship_explosion_sfx.play()
+            self.__explosion_sfx.set_volume(self.sfx_volume)
+            self.__explosion_sfx.play()
+
+    def play_explosion_2_sfx(self):
+        if (not self.__mute_sfx):
+            self.__explosion_2_sfx.set_volume(self.sfx_volume)
+            self.__explosion_2_sfx.play()
 
     def play_hit_sfx(self):
         if (not self.__mute_sfx):

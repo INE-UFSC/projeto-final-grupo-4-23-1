@@ -67,14 +67,7 @@ class Ship(MovingSprite):
             if (not self.boost):
                 self.game.get_sound_mixer().play_boost_sfx()
             self.__boost = True
-
-            if ((time() - self.__smoke_time) > 0.05):
-                x = self.x - cos(radians(self.direction))*13
-                y = self.y + sin(radians(self.direction))*13
-                self.game.get_animation_effects_manager().add_smoke_effect(game=self.game,
-                                                                           position=(x,y),
-                                                                           scale=(18,18))
-                self.__smoke_time = time()
+            self.add_smoke_effect()
         else:
             self.game.get_sound_mixer().boost_sfx.stop()
             self.__boost = False
@@ -93,6 +86,15 @@ class Ship(MovingSprite):
         if (keys[pygame.K_SPACE]):
 
             self.shoot()
+
+    def add_smoke_effect(self):
+        if ((time() - self.__smoke_time) > 0.05):
+            x = self.x - cos(radians(self.direction))*13
+            y = self.y + sin(radians(self.direction))*13
+            self.game.get_animation_effects_manager().add_smoke_effect(game=self.game,
+                                                                        position=(x,y),
+                                                                        scale=(18,18))
+            self.__smoke_time = time()
 
 
     #metodo que chama bulet, com o tempo minimo entre eles de self.cooldown sec

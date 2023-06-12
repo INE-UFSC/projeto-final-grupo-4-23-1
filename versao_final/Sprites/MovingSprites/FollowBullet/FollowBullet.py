@@ -19,6 +19,7 @@ class FollowBullet(MovingSprite):
         self.__lifetime = lifetime  
         self.__dx = 0
         self.__dy = 0
+        self.__smoke_time = time()
 
         #tempo de criação
         self.__criacao = time()
@@ -62,12 +63,27 @@ class FollowBullet(MovingSprite):
 
     def detect_lifetime(self) -> None:
         if (time() - self.criacao > self.lifetime):
+            self.game.get_sound_mixer().play_explosion_2_sfx()
+            self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
+                                                                           position=(self.x,self.y),
+                                                                           scale=(50,50))
             self.kill()
+
+    def add_smoke_effect(self):
+        if ((time() - self.__smoke_time) > 0.05):
+            x = self.x - cos(radians(self.direction))*20
+            y = self.y - sin(radians(self.direction))*20
+            self.game.get_animation_effects_manager().add_smoke_effect(game=self.game,
+                                                                    position=(x,y),
+                                                                    scale=(10,10))
+            self.__smoke_time = time()
+
 
     def update(self) -> None:
         self.detect_lifetime()
         self.update_direction()
         self.accelerate()
+        self.add_smoke_effect()
         super().update()
 
 
