@@ -13,27 +13,27 @@ class SoundMixer:
         #sfx
         self.__sfx_volume = 0.05
         self.__mute_sfx = False
-        self.__bullet_sfx = self.load_sfx("bullet_sfx.ogg")
-        self.__button_click_sfx = self.load_sfx("button_click_sfx.ogg")
+        self.__bullet_sfx =                self.load_sfx("bullet_sfx.ogg")
+        self.__button_click_sfx =          self.load_sfx("button_click_sfx.ogg")
         self.__charge_tank_boss_rush_sfx = self.load_sfx("charge_tank_boss_rush_sfx.ogg")
-        self.__explosion_sfx = self.load_sfx("explosion_sfx.ogg")
-        self.__explosion_2_sfx = self.load_sfx("explosion_2_sfx.ogg")
-        self.__hit_sfx = self.load_sfx("hit_sfx.ogg")
-        self.__boost_sfx = self.load_sfx("boost_sfx.ogg")
-        self.__lvl_up_sfx = self.load_sfx("lvl_up_sfx.ogg")
-        self.__boss_defeated_sfx = self.load_sfx("boss_defeated_sfx.ogg")
-        self.__boss_fight_sfx = self.load_sfx("boss_fight_sfx.ogg")
-        self.__charge_up_sfx = self.load_sfx("charge_up_sfx.ogg")
-        self.__cannon_blast_sfx = self.load_sfx("cannon_blast_sfx.ogg")
-        self.__laser_shot_sfx = self.load_sfx("laser_shot_sfx.ogg")
+        self.__explosion_sfx =             self.load_sfx("explosion_sfx.ogg")
+        self.__explosion_2_sfx =           self.load_sfx("explosion_2_sfx.ogg")
+        self.__hit_sfx =                   self.load_sfx("hit_sfx.ogg")
+        self.__boost_sfx =                 self.load_sfx("boost_sfx.ogg")
+        self.__lvl_up_sfx =                self.load_sfx("lvl_up_sfx.ogg")
+        self.__boss_defeated_sfx =         self.load_sfx("boss_defeated_sfx.ogg")
+        self.__boss_fight_sfx =            self.load_sfx("boss_fight_sfx.ogg")
+        self.__charge_up_sfx =             self.load_sfx("charge_up_sfx.ogg")
+        self.__cannon_blast_sfx =          self.load_sfx("cannon_blast_sfx.ogg")
+        self.__laser_shot_sfx =            self.load_sfx("laser_shot_sfx.ogg")
 
         #music
         self.__music_volume = 0.05
         self.__mute_music = False
-        self.__boss_level_music = self.load_music("boss_level_music.ogg")
+        self.__boss_level_music =   self.load_music("boss_level_music.ogg")
         self.__normal_level_music = self.load_music("normal_level_music.ogg")
-        self.__result_music = self.load_music("result_music.ogg")
-        self.__theme_music = self.load_music("theme_music.ogg")
+        self.__result_music =       self.load_music("result_music.ogg")
+        self.__theme_music =        self.load_music("theme_music.ogg")
 
     def load_sfx(self, file_name: str):
         sfx = pygame.mixer.Sound(SFX_dir+file_name)
