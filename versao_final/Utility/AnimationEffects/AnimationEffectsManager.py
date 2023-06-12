@@ -19,10 +19,10 @@ class AnimationEffectsManager:
                           "SmokeEffect": SmokeEffect,
                           "LaserEffect": LaserEffect}
         #load images
-        self.__explosion_imgs_list = self.load_list_imgs(explosion_assets_dir)
+        self.__explosion_imgs_list =      self.load_list_imgs(explosion_assets_dir)
         self.__boss_explosion_imgs_list = self.load_list_imgs(boss_explosion_assets_dir)
-        self.__smoke_imgs_list = self.load_list_imgs(smoke_assets_dir)
-        self.__laser_imgs_list = self.load_list_imgs(laser_assets_dir)
+        self.__smoke_imgs_list =          self.load_list_imgs(smoke_assets_dir)
+        self.__laser_imgs_list =          self.load_list_imgs(laser_assets_dir)
 
     def add_explosion_effect(self, game, position: tuple, scale: tuple) -> ExplosionEffect:
         return self.__effects["ExplosionEffect"](game, position, scale, self.__explosion_imgs_list)
