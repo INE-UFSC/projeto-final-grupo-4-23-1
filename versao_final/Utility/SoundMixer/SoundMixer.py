@@ -13,27 +13,35 @@ class SoundMixer:
         #sfx
         self.__sfx_volume = 0.05
         self.__mute_sfx = False
-        self.__bullet_sfx = pygame.mixer.Sound(SFX_dir+"bullet_sfx.ogg")
-        self.__button_click_sfx = pygame.mixer.Sound(SFX_dir+"button_click_sfx.ogg")
-        self.__charge_tank_boss_rush_sfx = pygame.mixer.Sound(SFX_dir+"charge_tank_boss_rush_sfx.ogg")
-        self.__explosion_sfx = pygame.mixer.Sound(SFX_dir+"explosion_sfx.ogg")
-        self.__explosion_2_sfx = pygame.mixer.Sound(SFX_dir+"explosion_2_sfx.ogg")
-        self.__hit_sfx = pygame.mixer.Sound(SFX_dir+"hit_sfx.ogg")
-        self.__boost_sfx = pygame.mixer.Sound(SFX_dir+"boost_sfx.ogg")
-        self.__lvl_up_sfx = pygame.mixer.Sound(SFX_dir+"lvl_up_sfx.ogg")
-        self.__boss_defeated_sfx = pygame.mixer.Sound(SFX_dir+"boss_defeated_sfx.ogg")
-        self.__boss_fight_sfx = pygame.mixer.Sound(SFX_dir+"boss_fight_sfx.ogg")
-        self.__charge_up_sfx = pygame.mixer.Sound(SFX_dir+"charge_up_sfx.ogg")
-        self.__cannon_blast_sfx = pygame.mixer.Sound(SFX_dir+"cannon_blast_sfx.ogg")
-        self.__laser_shot_sfx = pygame.mixer.Sound(SFX_dir+"laser_shot_sfx.ogg")
+        self.__bullet_sfx = self.load_sfx("bullet_sfx.ogg")
+        self.__button_click_sfx = self.load_sfx("button_click_sfx.ogg")
+        self.__charge_tank_boss_rush_sfx = self.load_sfx("charge_tank_boss_rush_sfx.ogg")
+        self.__explosion_sfx = self.load_sfx("explosion_sfx.ogg")
+        self.__explosion_2_sfx = self.load_sfx("explosion_2_sfx.ogg")
+        self.__hit_sfx = self.load_sfx("hit_sfx.ogg")
+        self.__boost_sfx = self.load_sfx("boost_sfx.ogg")
+        self.__lvl_up_sfx = self.load_sfx("lvl_up_sfx.ogg")
+        self.__boss_defeated_sfx = self.load_sfx("boss_defeated_sfx.ogg")
+        self.__boss_fight_sfx = self.load_sfx("boss_fight_sfx.ogg")
+        self.__charge_up_sfx = self.load_sfx("charge_up_sfx.ogg")
+        self.__cannon_blast_sfx = self.load_sfx("cannon_blast_sfx.ogg")
+        self.__laser_shot_sfx = self.load_sfx("laser_shot_sfx.ogg")
 
         #music
         self.__music_volume = 0.05
         self.__mute_music = False
-        self.__boss_level_music = pygame.mixer.Sound(Music_dir+"boss_level_music.ogg")
-        self.__normal_level_music = pygame.mixer.Sound(Music_dir+"normal_level_music.ogg")
-        self.__result_music = pygame.mixer.Sound(Music_dir+"result_music.ogg")
-        self.__theme_music = pygame.mixer.Sound(Music_dir+"theme_music.ogg")
+        self.__boss_level_music = self.load_music("boss_level_music.ogg")
+        self.__normal_level_music = self.load_music("normal_level_music.ogg")
+        self.__result_music = self.load_music("result_music.ogg")
+        self.__theme_music = self.load_music("theme_music.ogg")
+
+    def load_sfx(self, file_name: str):
+        sfx = pygame.mixer.Sound(SFX_dir+file_name)
+        return sfx
+
+    def load_music(self, file_name: str):
+        msc = pygame.mixer.Sound(Music_dir+file_name)
+        return msc
 
     def play_boss_level_music(self):
         if (not self.__mute_music):
