@@ -1,12 +1,23 @@
 import pygame
+from Profiles.Profile import Profile
 from States.State import State
 from Sprites.Button.Button import Button
 
 class Result(State):
     def __init__(self, owner):
         super().__init__(owner)
+        self.save_data()
         self.create_button()
 
+    def save_data(self):
+        self.__credit_earned = (self.enemies_destroyed/10)*self.level
+        score = 0 if (self.get_game_data().only_boss_mode) else self.score
+
+        profile: Profile = self.get_game_data().profile
+
+        profile.set_credit(profile.credit+self.__credit_earned)
+        profile.set_max_score(score)
+        self.save_profile(profile)
 
     def screen_content(self):
 
@@ -24,6 +35,12 @@ class Result(State):
         self.text("Score:", x_pos-150, y_pos, 30, "white")
         self.text(str(self.score), x_pos-75, y_pos, 30, "yellow")
 
+        self.text("Credit earned:", x_pos-150, y_pos+50, 30, "white")
+        self.text(str(self.__credit_earned), x_pos, y_pos+50, 30, "yellow")
+
+        message = "Score isnt't save when is Only-Boss-Mode" if (self.get_game_data().only_boss_mode) else ""
+        self.text(message, x_pos-200, y_pos+120, 30, "red")
+
 
     def create_button(self) -> None:
         x_pos = self.display_width//2
@@ -39,12 +56,15 @@ class Result(State):
         self.get_game_data().set_enemies_destroyed(0) 
         self.get_game_data().set_level(1) 
         
-        life = 3 + self.get_owner().game_data.profile.ship_life
+        life = 3 + self.get_owner().game_data.profile.ship_life-1
         self.get_game_data().set_ship_life(life)
     
     def retry(self):
         self.reset_data()
-        self.get_owner().change_state('NormalLevel')
+        if (self.get_game_data().only_boss_mode):
+            self.get_owner().change_state('BossTransition')
+        else:
+            self.get_owner().change_state('NormalLevel')
     
     def menu(self):
         self.reset_data()

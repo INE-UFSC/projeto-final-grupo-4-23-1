@@ -54,8 +54,8 @@ class CollisionManager:
 
     def boss_life_detect(self):
         if (self.boss.life <= 0):
-            level = self.game.get_owner().game_data.level + 1
-            self.game.get_owner().game_data.set_level(level)
+            level = self.game.get_game_data().level+1
+            self.game.get_game_data().set_level(level)
 
             enemies_destroyed = self.game.enemies_destroyed + 1
             self.game.set_enemies_destroyed(enemies_destroyed)

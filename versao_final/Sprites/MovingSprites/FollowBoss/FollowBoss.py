@@ -16,7 +16,7 @@ class FollowBoss(MovingSprite):
         self.__shot_time = time()
         self.__invunerable = False
 
-        speed = 7
+        speed = 5
         direction = randint(0, 360)
 
         self.__follow_boss_invunerable_img = pygame.image.load(pasta+"//follow_boss_invunerable.png")

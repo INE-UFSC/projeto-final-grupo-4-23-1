@@ -66,9 +66,11 @@ class Game:
             self.__sound_mixer.play_boss_level_music()
         elif (isinstance(next_state, Result)):
             self.__sound_mixer.play_result_music()
+        elif (isinstance(next_state, BossTransition)):
+            pass
         else:
             if (isinstance(self.__current_state, Result)):
-                self.__sound_mixer.play_theme_music()
+                    self.__sound_mixer.play_theme_music()
  
     def close(self):
         self.__running = False

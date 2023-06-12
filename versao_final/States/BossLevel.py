@@ -54,7 +54,6 @@ class BossLevel(State):
 
     def sort_boss(self) -> None:
         self.__boss = self.boss_list[randint(0, len(self.boss_list)-1)]
-        self.__boss = self.boss_list[2]
         self.__original_boss_life = self.boss.life
         self.all_sprites.add(self.boss)
         self.boss_group.add(self.boss)

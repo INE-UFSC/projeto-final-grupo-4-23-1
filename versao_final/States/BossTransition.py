@@ -10,7 +10,11 @@ class BossTransition(State):
         self.__init_time = time()
         self.__blink_time = time()
         self.__text_color = "gray"
-        self.__enter_boss_fight = True if ((self.level-1) % 5 == 4) else False
+
+        if (self.only_boss_mode):
+            self.__enter_boss_fight = True
+        else:
+            self.__enter_boss_fight = True if ((self.level-1) % 5 == 4) else False
 
         self.sfx()
 
@@ -53,8 +57,7 @@ class BossTransition(State):
             if (self.enter_boss_fight):
                 self.get_owner().change_state("BossLevel")
             else:
-                self.get_owner().change_state("NormalLevel")
-
+                self.get_owner().change_state("BossTransition")
 
     def handle_update(self) -> None:
         pygame.display.update()
@@ -83,7 +86,15 @@ class BossTransition(State):
 
     @property
     def level(self):
-        return self.get_owner().game_data.level
+        return self.get_game_data().level
+
+    @property
+    def enemies_destroyed(self):
+        return self.get_game_data().enemies_destroyed
+
+    @property
+    def only_boss_mode(self):
+        return self.get_game_data().only_boss_mode
 
     @property
     def enter_boss_fight(self):

@@ -14,8 +14,11 @@ class ProfileMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        play = Button(self, x_pos-150, y_pos-200, 300, 100, 'Play', True, self.play)
-        self.all_sprites.add(play)
+        play_normal = Button(self, x_pos-315, y_pos-200, 300, 100, 'Normal Mode', True, self.play_normal)
+        self.all_sprites.add(play_normal)
+
+        play_only_boss = Button(self, x_pos+15, y_pos-200, 300, 100, 'Only Boss Mode', True, self.play_only_boss)
+        self.all_sprites.add(play_only_boss)
 
         store = Button(self, x_pos-150, y_pos-50, 300, 100, 'Store', True, self.store)
         self.all_sprites.add(store)
@@ -29,8 +32,13 @@ class ProfileMenu(State):
     def store(self) -> None:
         self.get_owner().change_state("Store")
 
-    def play(self) -> None:
-        self.get_owner().change_state("BossLevel")
+    def play_only_boss(self) -> None:
+        self.get_game_data().set_only_boss_mode(True)
+        self.get_owner().change_state("BossTransition")
+
+    def play_normal(self) -> None:
+        self.get_game_data().set_only_boss_mode(False)
+        self.get_owner().change_state("NormalLevel")
 
     def screen_content(self) -> None:
 
