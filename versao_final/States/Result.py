@@ -36,7 +36,7 @@ class Result(State):
         self.text(str(self.score), x_pos-75, y_pos, 30, "yellow")
 
         self.text("Credit earned:", x_pos-150, y_pos+50, 30, "white")
-        self.text(str(self.__credit_earned), x_pos, y_pos+50, 30, "yellow")
+        self.text("%.1f" % self.__credit_earned, x_pos, y_pos+50, 30, "yellow")
 
         message = "Score isnt't save when is Only-Boss-Mode" if (self.get_game_data().only_boss_mode) else ""
         self.text(message, x_pos-200, y_pos+120, 30, "red")
