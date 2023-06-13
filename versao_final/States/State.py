@@ -120,9 +120,7 @@ class State(ABC):
     def handle_update(self):
         pass
 
-    @abstractmethod
-    def create_button(self):
-        pass
+  
 
     @property
     def display_width(self):

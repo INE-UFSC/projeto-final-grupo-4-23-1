@@ -10,6 +10,7 @@ from States.BossTransition import BossTransition
 from States.BossLevel import BossLevel
 from States.Result import Result
 from States.Scoreboard import Scoreboard
+from States.Introduction import Introduction
 from Utility.GameData import GameData
 from Utility.SoundMixer.SoundMixer import SoundMixer
 from Utility.AnimationEffects.AnimationEffectsManager import AnimationEffectsManager
@@ -37,11 +38,15 @@ class Game:
                                     'BossTransition': BossTransition,
                                     'BossLevel': BossLevel,
                                     'Result': Result,
-                                    'ScoreBoard': Scoreboard
+                                    'ScoreBoard': Scoreboard,
+                                    'Introduction': Introduction 
                                    }
-        #estado atual (começa no Main Menu)
-        self.__current_state = MainMenu(self)
+        #estado atual (começa no Introduction)
+        self.__current_state = Introduction(self)
         self.__sound_mixer.play_theme_music()
+        
+    def initialize(self):
+        self.__current_state = MainMenu(self)
 
     def run(self):
 
@@ -60,6 +65,7 @@ class Game:
 
     def control_music(self, next_state):
         next_state = next_state
+    
         if (isinstance(next_state, NormalLevel)):
             self.__sound_mixer.play_normal_level_music()
         elif (isinstance(next_state, BossLevel)):
@@ -69,8 +75,9 @@ class Game:
         elif (isinstance(next_state, BossTransition)):
             pass
         else:
-            if (isinstance(self.__current_state, Result)):
+            if (isinstance(self.get_current_state(), Result)):
                     self.__sound_mixer.play_theme_music()
+
  
     def close(self):
         self.__running = False
