@@ -49,6 +49,7 @@ class CollisionManager:
         if (self.__boss_defeated):
             if ((time() - self.__boss_transion_time) >= 2):
                 self.__boss_defeated = False
+                self.game.update_score()
                 self.game.get_owner().change_state("BossTransition")
 
 
@@ -65,6 +66,7 @@ class CollisionManager:
 
     def ship_life_detect(self):
         if (self.ship.life <= 0):
+            self.game.update_score()
             self.game.get_owner().change_state("Result")
 
     #boss <-> ship

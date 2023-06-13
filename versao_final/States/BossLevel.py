@@ -36,7 +36,6 @@ class BossLevel(State):
 
         enemies_destroyed = 0 if (self.enemies_destroyed == None) else self.enemies_destroyed
         self.set_enemies_destroyed(enemies_destroyed)
-        self.set_score()
 
         #apagar dps
         self.init_time = time()
@@ -49,7 +48,7 @@ class BossLevel(State):
 
         self.__clock = pygame.time.Clock()
 
-    def set_score(self):
+    def update_score(self):
         self.get_game_data().set_score(self.enemies_destroyed*self.level)
 
     def sort_boss(self) -> None:
@@ -118,6 +117,7 @@ class BossLevel(State):
         pygame.display.update()
         self.background(speed=0.2*8)
         self.screen_content()
+        self.update_score()
         self.collision_manager.collisions_boss_level()
         pygame.display.update()
 

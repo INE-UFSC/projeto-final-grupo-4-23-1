@@ -34,7 +34,6 @@ class NormalLevel(State):
 
         enemies_destroyed = 0 if (self.enemies_destroyed == None) else self.enemies_destroyed
         self.set_enemies_destroyed(enemies_destroyed)
-        self.set_score()
 
         self.__next_level_time = time()+30
 
@@ -87,8 +86,6 @@ class NormalLevel(State):
             self.basic_enemy_group.add(basic_enemy)
             self.__add_basic_enemy_time = time()
 
-
-
     def create_button(self):
         pass
 
@@ -121,12 +118,13 @@ class NormalLevel(State):
                 self.get_sound_mixer().play_lvl_up_sfx()
 
             if ((self.level % 5) == 0):
+                self.update_score()
                 self.get_owner().change_state("BossTransition")
 
     def set_enemies_destroyed(self, num: int) -> None:
         self.get_game_data().set_enemies_destroyed(num)
 
-    def set_score(self) -> None:
+    def update_score(self) -> None:
         self.get_game_data().set_score(self.enemies_destroyed*self.level)
 
     def handle_update(self):
@@ -137,6 +135,7 @@ class NormalLevel(State):
         self.add_asteroid()
         self.add_basic_enemy()
         self.collision_manager.collisions_normal_level()
+        self.update_score()
         self.level_transition()
         pygame.display.update()
         

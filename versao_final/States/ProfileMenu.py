@@ -51,7 +51,7 @@ class ProfileMenu(State):
         self.text(self.current_profile.name, x_pos-50, 20, 50, "yellow")
 
         self.text("Credit:", self.display_width-220, 20, 40, "white")
-        self.text(str(self.current_profile.credit), self.display_width-120, 20, 40, "yellow")
+        self.text("%.1f"%self.current_profile.credit, self.display_width-120, 20, 40, "yellow")
 
     def handle_update(self) -> None:
         pygame.display.update()
