@@ -17,7 +17,7 @@ class Asteroid(MovingSprite):
         #direção do asteroid (aleatória)
         direction = randint(0,360)
         #carrega a imagem do asteroid
-        original_image = pygame.image.load(pasta+f"//asteroid_{self.size}.png")
+        original_image = self.ld_image()
 
         super().__init__(game, speed, -direction, original_image, position)
 
@@ -30,6 +30,20 @@ class Asteroid(MovingSprite):
                 self.game.asteroid_group.add(asteroid)
 
         self.kill()
+    
+    def ld_image(self):
+        n = randint(1,7)
+        image = pygame.image.load(pasta+f"//images//asteroid_{n}.png")
+        if self.size == 2:
+            image = pygame.transform.scale(image, (90,90))
+        
+        elif self.size == 1:
+            image = pygame.transform.scale(image, (60,60))
+        
+        else:
+            image = pygame.transform.scale(image, (35,35))
+        
+        return image
 
     @property
     def size(self):

@@ -130,7 +130,7 @@ class Store(State):
 
 
 
-def update_rects(self) -> None:
+    def update_rects(self) -> None:
         self.vel_max_rect()
         self.damage_rect()
         self.life_rect()
