@@ -256,7 +256,7 @@ class Store(State):
         self.text("STORE", x_pos-50, 20, 50, "white")
 
         self.text("Credit:", self.display_width-220, 20, 40, "white")
-        self.text(str(self.current_profile.credit), self.display_width-120, 20, 40, "yellow")
+        self.text("%.1f"%self.current_profile.credit, self.display_width-120, 20, 40, "yellow")
 
         #velmax
         self.text("Vel. Max:", self.x_pos - 365, self.y_pos - 270, 30, "white")
