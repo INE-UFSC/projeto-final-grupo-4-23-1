@@ -1,6 +1,6 @@
 import pygame
-from Sprites.MovingSprite import MovingSprite
-from Sprites.Bullet.Bullet import Bullet
+from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Sprites.MovingSprites.Bullet.Bullet import Bullet
 from random import randint
 from time import time
 from os import path
@@ -28,9 +28,9 @@ class BasicEnemy(MovingSprite):
         if ((time() - self.last_shoot_time) > 2):
             direction = randint(0, 360)
 
-            bullet = Bullet(self.game, (self.x, self.y), direction, 10, 1, "red", 1)
+            bullet = Bullet(self, (self.x, self.y), direction, 10, 1, "red", 1)
             self.game.all_sprites.add(bullet)
-            self.game.enemy_bullets_group.add(bullet)
+            self.game.basic_enemy_bullet_group.add(bullet)
 
             self.__last_shoot_time = time()
     

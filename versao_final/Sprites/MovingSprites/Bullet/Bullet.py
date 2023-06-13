@@ -21,7 +21,10 @@ class Bullet(MovingSprite):
         #cor do bulelt
         self.__color = color
 
-        default_img = pygame.Surface([20, 3], pygame.SRCALPHA)
+        if img == None:
+            default_img = pygame.Surface([20, 3], pygame.SRCALPHA)
+            pygame.draw.rect(default_img, (self.color), (0, 0, 20, 3))
+            
         original_image = default_img if (img == None) else img
         #super do init
         super().__init__(game, speed, -direction, original_image, position)

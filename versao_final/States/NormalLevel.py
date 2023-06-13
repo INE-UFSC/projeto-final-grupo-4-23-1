@@ -4,6 +4,10 @@ from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
 from CollisionManager.CollisionManager import CollisionManager
 from time import time
+from Sprites.MovingSprites.Asteroid.Asteroid import Asteroid
+from Sprites.MovingSprites.BasicEnemy.BasicEnemy import BasicEnemy
+from Sprites.MovingSprites.Bullet.Bullet import Bullet
+
 
 class NormalLevel(State):
     def __init__(self, owner) -> None:
@@ -19,6 +23,9 @@ class NormalLevel(State):
         self.__basic_enemy_group = pygame.sprite.Group()
         self.__basic_enemy_bullet_group = pygame.sprite.Group()
 
+        self.__add_asteroid_time = time()
+        self.__add_basic_enemy_time = time()
+
         life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
         self.get_game_data().set_ship_life(life)
 
@@ -32,6 +39,10 @@ class NormalLevel(State):
         self.__next_level_time = time()+30
 
         self.add_ship()
+
+        asteroid = Asteroid(game = self, size = 2)
+        self.all_sprites.add(asteroid)
+        self.asteroid_group.add(asteroid)
 
         self.__clock = pygame.time.Clock()
 
@@ -54,6 +65,29 @@ class NormalLevel(State):
 
         self.all_sprites.add(self.ship)
         self.ship_group.add(self.ship)
+    
+    def add_asteroid(self):
+        addtime = 10*(0.9**(self.level - 1))
+        if (time() - self.add_asteroid_time) >= addtime:
+            asteroid = Asteroid(game = self,
+                                size = 2)
+            
+            self.all_sprites.add(asteroid)
+            self.asteroid_group.add(asteroid)
+            self.__add_asteroid_time = time()
+
+        self.text(str(addtime),10,100,30,"white")
+
+    def add_basic_enemy(self):
+        basic_enemy_time = 15*(0.9**(self.level - 1))
+        if (time() - self.add_basic_enemy_time) >= basic_enemy_time:
+            basic_enemy = BasicEnemy(game = self,
+                                      life = 1)
+            self.all_sprites.add(basic_enemy)
+            self.basic_enemy_group.add(basic_enemy)
+            self.__add_basic_enemy_time = time()
+
+
 
     def create_button(self):
         pass
@@ -100,9 +134,12 @@ class NormalLevel(State):
         pygame.display.update()
         self.background(0.2*8)
         self.screen_content()
+        self.add_asteroid()
+        self.add_basic_enemy()
         self.collision_manager.collisions_normal_level()
         self.level_transition()
         pygame.display.update()
+        
 
     @property
     def collision_manager(self):
@@ -155,3 +192,11 @@ class NormalLevel(State):
     @property
     def next_level_time(self):
         return self.__next_level_time
+    
+    @property
+    def add_asteroid_time(self):
+        return self.__add_asteroid_time
+    
+    @property
+    def add_basic_enemy_time(self):
+        return self.__add_basic_enemy_time

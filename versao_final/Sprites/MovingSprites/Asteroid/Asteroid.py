@@ -1,5 +1,5 @@
 import pygame
-from Sprites.MovingSprite import MovingSprite
+from Sprites.MovingSprites.MovingSprite import MovingSprite
 from math import cos, sin, radians
 from os import path
 from random import randint
@@ -27,7 +27,7 @@ class Asteroid(MovingSprite):
             for _ in range(self.asteroids_ramaining):
                 asteroid = Asteroid(self.game, self.size - 1, (self.x, self.y))
                 self.game.all_sprites.add(asteroid)
-                self.game.all_asteroids.add(asteroid)
+                self.game.asteroid_group.add(asteroid)
 
         self.kill()
 
