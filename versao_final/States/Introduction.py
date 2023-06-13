@@ -73,7 +73,7 @@ class Introduction(State):
             self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
             self.get_display().blit(self.fade, (0, 0))
             pygame.display.flip()
-            pygame.time.delay(18)
+            pygame.time.delay(7)
     
     #renderiza o desaparecimento do texto na tela
     def render_intro_end(self):    
@@ -83,7 +83,7 @@ class Introduction(State):
             self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
             self.get_display().blit(self.fade, (0, 0))
             pygame.display.flip()
-            pygame.time.delay(18)
+            pygame.time.delay(7)
     
     #conteúdo da tela é formado pelas apresentações
     def screen_content(self):
