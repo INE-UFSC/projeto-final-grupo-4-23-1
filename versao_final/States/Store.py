@@ -8,6 +8,7 @@ class Store(State):
     def __init__(self, owner):
         super().__init__(owner)
 
+        self.__cooldown_price = 20
         self.__vel_max_price = 15
         self.__damage_price = 20
         self.__life_price = 50
@@ -40,6 +41,12 @@ class Store(State):
         add_life = Button(self, 325, 360, 70, 70, "+", True, self.add_life)
         self.all_sprites.add(rmv_life)
         self.all_sprites.add(add_life)
+
+        # linha 2 coluna 2
+        rmv_cooldown = Button(self, 500, 360, 70, 70, "-", True, self.rmv_cooldown)
+        add_cooldown = Button(self, 805, 360, 70, 70, "+", True, self.add_cooldown)
+        self.all_sprites.add(rmv_cooldown)
+        self.all_sprites.add(add_cooldown)
 
 
 
@@ -101,11 +108,33 @@ class Store(State):
                 self.current_profile.set_ship_life(life)
 
 
+    def rmv_cooldown(self):
+        if (self.current_profile.ship_cooldown > 1):
 
-    def update_rects(self) -> None:
+            credit = self.current_profile.credit + self.cooldown_price
+            self.current_profile.set_credit(credit)
+
+            cooldown = self.current_profile.ship_cooldown - 1
+            self.current_profile.set_ship_cooldown(cooldown)
+
+    def add_cooldown(self):
+        if(self.current_profile.credit >= self.cooldown_price):
+            if(self.current_profile.ship_cooldown < 5):
+
+                credit = self.current_profile.credit - self.cooldown_price
+                self.current_profile.set_credit(credit)
+
+                cooldown = self.current_profile.ship_cooldown + 1
+                self.current_profile.set_ship_cooldown(cooldown)
+
+
+
+
+def update_rects(self) -> None:
         self.vel_max_rect()
         self.damage_rect()
         self.life_rect()
+        self.cooldown_rect()
 
     def vel_max_rect(self):
         #1 rect
@@ -136,6 +165,18 @@ class Store(State):
         self.rect(210, 380, 50, 25, self.current_profile.ship_life, 4)
         #4 rect
         self.rect(265, 380, 50, 25, self.current_profile.ship_life, 5)
+
+    def cooldown_rect(self):
+        # 1 rect
+        self.rect(580, 380, 50, 25, self.current_profile.ship_cooldown, 2)
+        # 2 rect
+        self.rect(635, 380, 50, 25, self.current_profile.ship_cooldown, 3)
+        # 3 rect
+        self.rect(690, 380, 50, 25, self.current_profile.ship_cooldown, 4)
+        # 4 rect
+        self.rect(745, 380, 50, 25, self.current_profile.ship_cooldown, 5)
+
+
 
     def back(self):
         self.save_profile(self.current_profile)
@@ -170,6 +211,11 @@ class Store(State):
         self.text("+%d" % self.life_price, 40, 320, 30, "green")
         self.text("-%d" % self.life_price, 345, 320, 30, "red")
 
+        # cooldown
+        self.text("Cooldown:", 640, 160, 30, "white")
+        self.text("+%d" % self.cooldown_price, 520, 320, 30, "green")
+        self.text("-%d" % self.cooldown_price, 825, 320, 30, "red")
+
     def rect(self, x: int, y: int, width: int, heigth: int, profile_value: int, green_value: int):
         color = "gray" if (profile_value < green_value) else "green"
         pygame.draw.rect(self.get_display(), color, (x, y, width, heigth))
@@ -196,4 +242,10 @@ class Store(State):
     @property
     def life_price(self):
         return self.__life_price
+
+    @property
+    def cooldown_price(self):
+        return self.__life_price
+
+
 
