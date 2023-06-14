@@ -15,7 +15,15 @@ class Introduction(State):
         self.__present_intro_text = 'PRESENT'
         self.__game_name_intro_text = 'ASTEROID-PLUS'
         
+        self.__skip = False
+
+        back = Button(self, 10, 10, 100, 70, "SKIP", True, self.skip)
+        self.all_sprites.add(back)
+
         self.screen_content()
+
+    def skip(self):
+        self.__skip = True
     
     #mostra a introdução da compania na tela
     def company_intro(self):
@@ -72,6 +80,12 @@ class Introduction(State):
             self.fade.set_alpha(alpha)
             self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
             self.get_display().blit(self.fade, (0, 0))
+
+            if (self.__skip):
+                break
+            self.all_sprites.update()
+            self.all_sprites.draw(self.get_display())
+
             pygame.display.flip()
             pygame.time.delay(7)
     
@@ -82,6 +96,12 @@ class Introduction(State):
             self.fade.set_alpha(alpha)
             self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
             self.get_display().blit(self.fade, (0, 0))
+
+            if (self.__skip):
+                break
+            self.all_sprites.update()
+            self.all_sprites.draw(self.get_display())
+ 
             pygame.display.flip()
             pygame.time.delay(7)
     
@@ -95,6 +115,7 @@ class Introduction(State):
     #após a introdução vai para o menu principal
     def handle_transition(self):
         self.get_owner().change_state('MainMenu')
+
     
     def handle_update(self):
         pass
