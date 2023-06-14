@@ -17,8 +17,8 @@ class Introduction(State):
         
         self.__skip = False
 
-        back = Button(self, 10, 10, 100, 70, "SKIP", True, self.skip)
-        self.all_sprites.add(back)
+        skip = Button(self, 10, 10, 100, 70, "SKIP", True, self.skip)
+        self.all_sprites.add(skip)
 
         self.screen_content()
 
@@ -87,7 +87,7 @@ class Introduction(State):
             self.all_sprites.draw(self.get_display())
 
             pygame.display.flip()
-            pygame.time.delay(7)
+            pygame.time.delay(8)
     
     #renderiza o desaparecimento do texto na tela
     def render_intro_end(self):    
@@ -103,7 +103,7 @@ class Introduction(State):
             self.all_sprites.draw(self.get_display())
  
             pygame.display.flip()
-            pygame.time.delay(7)
+            pygame.time.delay(8)
     
     #conteúdo da tela é formado pelas apresentações
     def screen_content(self):

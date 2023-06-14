@@ -57,7 +57,7 @@ class BossTransition(State):
             if (self.enter_boss_fight):
                 self.get_owner().change_state("BossLevel")
             else:
-                self.get_owner().change_state("BossTransition")
+                self.get_owner().change_state("NormalLevel")
 
     def handle_update(self) -> None:
         pygame.display.update()

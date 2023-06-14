@@ -42,8 +42,8 @@ class Game:
                                     'Introduction': Introduction 
                                    }
         #estado atual (começa no Introduction)
-        self.__current_state = Introduction(self)
         self.__sound_mixer.play_theme_music()
+        self.__current_state = Introduction(self)
         
     def initialize(self):
         self.__current_state = MainMenu(self)
