@@ -48,6 +48,9 @@ class AnimationEffect(pygame.sprite.Sprite):
     def set_direction(self, direct: int):
         self.__direction = direct
 
+    def hit(self):
+        pass
+
     @property
     def direction(self):
         return self.__direction
