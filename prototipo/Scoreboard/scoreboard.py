@@ -34,7 +34,6 @@ class Scoreboard(State):
         return self.__all_sprites
 
     def handle_update(self):
-        pygame.display.update()
         self.screen_content()
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
