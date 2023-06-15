@@ -11,7 +11,7 @@ class SoundMixer:
         pygame.mixer.init()
 
         #sfx
-        self.__sfx_volume = 0.05
+        self.__sfx_volume = 0.2
         self.__mute_sfx = False
         self.__bullet_sfx =                self.load_sfx("bullet_sfx.ogg")
         self.__button_click_sfx =          self.load_sfx("button_click_sfx.ogg")
@@ -28,7 +28,7 @@ class SoundMixer:
         self.__laser_shot_sfx =            self.load_sfx("laser_shot_sfx.ogg")
 
         #music
-        self.__music_volume = 0.05
+        self.__music_volume = 0.2
         self.__mute_music = False
         self.__boss_level_music =   self.load_music("boss_level_music.ogg")
         self.__normal_level_music = self.load_music("normal_level_music.ogg")

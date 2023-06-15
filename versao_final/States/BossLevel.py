@@ -114,7 +114,6 @@ class BossLevel(State):
 
     def handle_update(self):
         self.clock.tick(60)
-        pygame.display.update()
         self.background(speed=0.2*8)
         self.screen_content()
         self.update_score()

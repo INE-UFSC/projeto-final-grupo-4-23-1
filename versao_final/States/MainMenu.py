@@ -90,7 +90,7 @@ class MainMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-430, 100, 45, "white")
+        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-400, 100, 45, "white")
 
         self.text("SFX Volume:", self.display_width-260, y_pos-105, 18, "white")
         volume = "X" if (self.get_sound_mixer().mute_sfx) else int(self.get_sound_mixer().sfx_volume * 100)
