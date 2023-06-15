@@ -1,4 +1,7 @@
+from os import path
 import pygame
+
+pasta = path.dirname(path.dirname(path.dirname(__file__)))
 
 
 class Button(pygame.sprite.Sprite):
@@ -22,7 +25,7 @@ class Button(pygame.sprite.Sprite):
         pygame.draw.rect(self.__hover_image, (50, 50, 50), (0, 0, self.width, self.heigth))
         pygame.draw.rect(self.__hover_image, (150, 150, 150), (self.heigth*0.1, self.heigth*0.1, self.width-2*(self.heigth*0.1), self.heigth-2*(self.heigth*0.1)))
 
-        self.__font = pygame.font.SysFont(None, 30)
+        self.__font = pygame.font.Font(pasta+"//assets//fonts//joystix.otf", 20)
         textSurface = self.__font.render(text, True, (0, 255, 255))
         textRect = textSurface.get_rect(center = (self.width//2, self.heigth//2))
         self.__norm_image.blit(textSurface, textRect)

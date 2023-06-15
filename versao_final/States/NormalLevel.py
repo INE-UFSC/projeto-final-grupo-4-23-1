@@ -28,6 +28,7 @@ class NormalLevel(State):
 
         life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
         self.get_game_data().set_ship_life(life)
+        self.get_game_data().set_level(4)
 
         level = 1 if (self.level == None) else self.level
         self.get_game_data().set_level(level)
@@ -75,7 +76,6 @@ class NormalLevel(State):
             self.asteroid_group.add(asteroid)
             self.__add_asteroid_time = time()
 
-        self.text(str(addtime),10,100,30,"white")
 
     def add_basic_enemy(self):
         basic_enemy_time = 15*(0.9**(self.level - 1))
@@ -97,18 +97,18 @@ class NormalLevel(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
 
-        self.text("Level:", x_pos-50, 10, 30, "white")
-        self.text(str(self.level), x_pos+10, 10, 30, "yellow")
-        self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, self.display_height-25, 30, "white")
+        self.text("Level:", x_pos-85, 15, 25, "white")
+        self.text(str(self.level), x_pos+45, 15, 25, "yellow")
+        self.text("Next Level in %d sec"%int(self.next_level_time-time()), 10, self.display_height-35, 25, "white")
 
-        self.text("Enemies Destroyed:", 10, 10, 30, "white")
-        self.text(str(self.enemies_destroyed), 210, 10, 30, "yellow")
+        self.text("Enemies Destroyed:", 10, 10, 25, "white")
+        self.text(str(self.enemies_destroyed), 390, 10, 25, "yellow")
 
-        self.text("Score:", 10, 35, 30, "white")
-        self.text(str(self.score), 75, 35, 30, "yellow")
+        self.text("Score:", 10, 35, 25, "white")
+        self.text(str(self.score), 140, 35, 25, "yellow")
 
-        self.text("Life:", self.display_width-80, 10, 30, "white")
-        self.text(str(self.ship.life),self.display_width-30, 10, 30, "yellow")
+        self.text("Life:", self.display_width-150, 10, 25, "white")
+        self.text(str(self.ship.life),self.display_width-40, 10, 25, "yellow")
 
     def level_transition(self):
         if (self.next_level_time-time() <= 0):

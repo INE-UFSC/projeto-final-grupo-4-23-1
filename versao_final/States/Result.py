@@ -25,22 +25,22 @@ class Result(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=RESULT=-=-", x_pos-150, y_pos-250, 50, "white")
+        self.text("-=-=RESULT=-=-", x_pos-250, y_pos-250, 50, "white")
         
-        self.text("Level:", x_pos-150, y_pos - 100, 30, "white")
-        self.text(str(self.level), x_pos-75, y_pos - 100, 30, "yellow")
+        self.text("Level:", x_pos-200, y_pos - 100, 25, "white")
+        self.text(str(self.level), x_pos-70, y_pos - 100, 25, "yellow")
         
-        self.text("Enemies Destroyed:", x_pos-150, y_pos -50, 30, "white")
-        self.text(str(self.enemies_destroyed), x_pos + 50, y_pos -50, 30, "yellow")
+        self.text("Enemies Destroyed:", x_pos-200, y_pos -50, 25, "white")
+        self.text(str(self.enemies_destroyed), x_pos + 200, y_pos -50, 25, "yellow")
         
-        self.text("Score:", x_pos-150, y_pos, 30, "white")
-        self.text(str(self.score), x_pos-75, y_pos, 30, "yellow")
+        self.text("Score:", x_pos-200, y_pos, 25, "white")
+        self.text(str(self.score), x_pos-70, y_pos, 25, "yellow")
 
-        self.text("Credit earned:", x_pos-150, y_pos+50, 30, "white")
-        self.text("%.1f" % self.__credit_earned, x_pos, y_pos+50, 30, "yellow")
+        self.text("Credit earned:", x_pos-200, y_pos+50, 25, "white")
+        self.text("%.1f" % self.__credit_earned, x_pos+100, y_pos+50, 25, "yellow")
 
         message = "Score isnt't save when is Only-Boss-Mode" if (self.get_game_data().only_boss_mode) else ""
-        self.text(message, x_pos-200, y_pos+120, 30, "red")
+        self.text(message, x_pos-400, y_pos+120, 25, "red")
 
 
     def create_button(self) -> None:

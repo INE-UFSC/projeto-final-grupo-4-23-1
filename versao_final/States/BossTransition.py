@@ -39,9 +39,9 @@ class BossTransition(State):
         y_pos = self.display_height//2
 
         if (self.enter_boss_fight):
-            self.text("BOSS FIGHT", x_pos-100, y_pos-50, 50, self.text_color)
+            self.text("BOSS FIGHT", x_pos-200, y_pos-50, 50, self.text_color)
         else:
-            self.text("BOSS DEFEATED", x_pos-150, y_pos-50, 50, self.text_color)
+            self.text("BOSS DEFEATED", x_pos-280, y_pos-50, 50, self.text_color)
 
     def blink_text(self) -> None:
         if ((time() - self.blink_time) >= 0.5):

@@ -16,7 +16,7 @@ class SelectProfile(State):
         y_pos = self.display_height//2
 
         
-        self.text("SELECT YOUR PROFILE", x_pos-200, y_pos-250, 50, "white")
+        self.text("SELECT YOUR PROFILE", x_pos-400, y_pos-250, 50, "white")
         self.show_profile_selected_name()
 
     def show_profile_selected_name(self) -> None:
@@ -28,9 +28,9 @@ class SelectProfile(State):
         y_pos = self.display_height//2
 
         if (len(self.all_profiles) == 0):
-            self.text("None", x_pos-40, y_pos-50, 40, "yellow")
+            self.text("None", x_pos-80, y_pos-70, 40, "yellow")
         else:
-            self.text(self.profile_selected.name , x_pos-40, y_pos-50, 40, "yellow")
+            self.text(self.profile_selected.name , x_pos-80, y_pos-70, 40, "yellow")
 
     def create_button(self) -> None:
         x_pos = self.display_width//2

@@ -98,19 +98,19 @@ class BossLevel(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
 
-        self.text("Level:", x_pos-50, 10, 30, "white")
-        self.text(str(self.level), x_pos+10, 10, 30, "yellow")
+        self.text("Level:", x_pos-85, 15, 25, "white")
+        self.text(str(self.level), x_pos+45, 15, 25, "yellow")
 
-        self.text("Enemies destroyed:", 10, 10, 30, "white")
-        self.text(str(self.enemies_destroyed), 210, 10, 30, "yellow")
+        self.text("Enemies Destroyed:", 10, 10, 25, "white")
+        self.text(str(self.enemies_destroyed), 390, 10, 25, "yellow")
 
-        self.text("Score:", 10, 35, 30, "white")
-        self.text(str(self.score), 75, 35, 30, "yellow")
+        self.text("Score:", 10, 35, 25, "white")
+        self.text(str(self.score), 140, 35, 25, "yellow")
 
-        self.text("Life:", self.display_width-80, 10, 30, "white")
-        self.text(str(self.ship.life), self.display_width-30, 10, 30, "yellow")    
+        self.text("Life:", self.display_width-150, 10, 25, "white")
+        self.text(str(self.ship.life),self.display_width-40, 10, 25, "yellow")
 
-        self.text("BOSS LIFE", x_pos-50, self.display_height-70, 30, "red")
+        self.text("BOSS LIFE", x_pos-120, self.display_height-90, 30, "red")
 
     def handle_update(self):
         self.clock.tick(60)

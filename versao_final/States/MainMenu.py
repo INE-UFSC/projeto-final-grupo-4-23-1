@@ -90,15 +90,15 @@ class MainMenu(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-225, 100, 50, "white")
+        self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-430, 100, 45, "white")
 
-        self.text("SFX Volume:", self.display_width-225, y_pos-105, 30, "white")
+        self.text("SFX Volume:", self.display_width-260, y_pos-105, 18, "white")
         volume = "X" if (self.get_sound_mixer().mute_sfx) else int(self.get_sound_mixer().sfx_volume * 100)
-        self.text(str(volume), self.display_width-75, y_pos-105, 30, "yellow")
+        self.text(str(volume), self.display_width-75, y_pos-105, 18, "yellow")
 
-        self.text("MUSIC Volume:", self.display_width-250, y_pos+10, 30, "white")
+        self.text("MUSIC Volume:", self.display_width-265, y_pos+10, 18, "white")
         volume = "X" if (self.get_sound_mixer().mute_music) else int(self.get_sound_mixer().music_volume * 100)
-        self.text(str(volume), self.display_width-75, y_pos+10, 30, "yellow")
+        self.text(str(volume), self.display_width-65, y_pos+10, 18, "yellow")
 
     @property
     def all_sprites(self):

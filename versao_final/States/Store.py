@@ -2,17 +2,16 @@ import pygame
 from Sprites.Button.Button import Button
 from States.State import State
 from Profiles.Profile import Profile
-from time import time
 
 class Store(State):
     def __init__(self, owner):
         super().__init__(owner)
 
-        self.__cooldown_price = 20
+        self.__cooldown_price = 30
         self.__vel_max_price = 15
         self.__damage_price = 20
         self.__life_price = 50
-        self.__qtd_bullet_price = 10
+        self.__qtd_bullet_price = 40
 
         self.__current_profile: Profile = self.get_owner().game_data.profile
 
@@ -253,35 +252,35 @@ class Store(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("STORE", x_pos-50, 20, 50, "white")
+        self.text("-=-=STORE=-=-", x_pos-250, 20, 50, "white")
 
-        self.text("Credit:", self.display_width-220, 20, 40, "white")
-        self.text("%.1f"%self.current_profile.credit, self.display_width-120, 20, 40, "yellow")
+        self.text("Credit:", self.display_width-315, 20, 30, "white")
+        self.text("%.1f"%self.current_profile.credit, self.display_width-135, 20, 30, "yellow")
 
         #velmax
-        self.text("Vel. Max:", self.x_pos - 365, self.y_pos - 270, 30, "white")
-        self.text("+%d"%self.vel_max_price, self.x_pos - 485, self.y_pos - 270, 30, "green")
-        self.text("-%d"%self.vel_max_price, self.x_pos - 180, self.y_pos - 270, 30, "red")
+        self.text("Vel. Max:", self.x_pos - 420, self.y_pos - 300, 28, "white")
+        self.text("+%d"%self.vel_max_price, self.x_pos - 505, self.y_pos - 280, 25, "green")
+        self.text("-%d"%self.vel_max_price, self.x_pos - 200, self.y_pos - 280, 25, "red")
 
         #damage
-        self.text("Damage:", self.x_pos + 340, self.y_pos - 270, 30, "white")
-        self.text("+%d"%self.damage_price, self.x_pos + 220, self.y_pos - 270, 30, "green")
-        self.text("-%d"%self.damage_price, self.x_pos + 525, self.y_pos - 270, 30, "red")
+        self.text("Damage:", self.x_pos + 300, self.y_pos - 300, 28, "white")
+        self.text("+%d"%self.damage_price, self.x_pos + 195, self.y_pos - 280, 25, "green")
+        self.text("-%d"%self.damage_price, self.x_pos + 505, self.y_pos - 280, 25, "red")
 
         #life
-        self.text("Life:", self.x_pos - 365, self.y_pos - 120, 30, "white")
-        self.text("+%d" % self.life_price, self.x_pos - 485, self.y_pos - 120, 30, "green")
-        self.text("-%d" % self.life_price, self.x_pos - 180, self.y_pos - 120, 30, "red")
+        self.text("Life:", self.x_pos - 380, self.y_pos - 150, 28, "white")
+        self.text("+%d" % self.life_price, self.x_pos - 505, self.y_pos - 130, 25, "green")
+        self.text("-%d" % self.life_price, self.x_pos - 200, self.y_pos - 130, 25, "red")
 
         # cooldown
-        self.text("Cooldown:", self.x_pos + 340, self.y_pos - 120, 30, "white")
-        self.text("+%d" % self.cooldown_price, self.x_pos + 220, self.y_pos - 120, 30, "green")
-        self.text("-%d" % self.cooldown_price, self.x_pos + 525, self.y_pos - 120, 30, "red")
+        self.text("Cooldown:", self.x_pos + 290, self.y_pos - 150, 28, "white")
+        self.text("+%d" % self.cooldown_price, self.x_pos + 195, self.y_pos - 130, 25, "green")
+        self.text("-%d" % self.cooldown_price, self.x_pos + 505, self.y_pos - 130, 25, "red")
 
         #qtd bullet
-        self.text("Qtd Bullet:", self.x_pos - 22, self.y_pos + 30, 30, "white")
-        self.text("+%d" % self.qtd_bullet_price, self.x_pos - 142, self.y_pos + 30, 30, "green")
-        self.text("-%d" % self.qtd_bullet_price, self.x_pos + 163, self.y_pos + 30, 30, "red")
+        self.text("Qtd Bullet:", self.x_pos - 95, self.y_pos, 28, "white")
+        self.text("+%d" % self.qtd_bullet_price, self.x_pos - 167, self.y_pos + 20, 25, "green")
+        self.text("-%d" % self.qtd_bullet_price, self.x_pos + 143, self.y_pos + 20, 25, "red")
 
     def rect(self, x: int, y: int, width: int, heigth: int, profile_value: int, green_value: int):
         color = "gray" if (profile_value < green_value) else "green"
@@ -312,7 +311,7 @@ class Store(State):
 
     @property
     def cooldown_price(self):
-        return self.__life_price
+        return self.__cooldown_price
 
     @property
     def qtd_bullet_price(self):

@@ -1,7 +1,10 @@
 import pygame
+from os import path
 from Sprites.Button.Button import Button
 from States.State import State
 from tkinter import messagebox
+
+pasta = path.dirname(path.dirname(__file__))
 
 class CreateProfile(State):
     def __init__(self, owner) -> None:
@@ -27,7 +30,7 @@ class CreateProfile(State):
         pygame.draw.rect(self.get_display(), self.box_color, self.input_box)
         self.update_input_box()
         
-        self.text("ENTER A NEW NAME", x_pos-180, y_pos-250, 50, "white")
+        self.text("ENTER A NEW NAME", x_pos-315, y_pos-250, 50, "white")
     
     
     def create_button(self) -> None:
@@ -69,8 +72,9 @@ class CreateProfile(State):
         self.get_owner().change_state("MainMenu")
 
     def update_input_box(self):
-        font = pygame.font.Font(None, 52)
-        text_surface = font.render(self.name, True, "yellow")
+        font = pygame.font.Font(pasta+"//assets//fonts//joystix.otf", 40)
+        name = "<name>" if (self.name == "") else self.name
+        text_surface = font.render(name, True, "yellow")
         text_rect = text_surface.get_rect(center = (self.display_width//2, (self.display_height//2)-50))
         self.get_display().blit(text_surface, text_rect)
 
@@ -97,6 +101,8 @@ class CreateProfile(State):
                 if (self.active_box):
                     if (event.key == pygame.K_BACKSPACE):
                         self.__name = self.name[:-1]
+                    elif (event.key == pygame.K_RETURN):
+                        pass
                     else:
                         if (len(self.name) < self.name_max_length):
                             self.__name += event.unicode
