@@ -35,8 +35,9 @@ class BasicEnemy(MovingSprite):
             self.__last_shoot_time = time()
     
     def update_image_position(self) -> None:
-        super().update_image_position()
         self.set_image(self.original_image)
+        self.set_rect(self.image.get_rect(center = (self.x, self.y)))
+        self.set_mask(pygame.mask.from_surface(self.image))
 
     def change_direction(self) -> None:
         if ((time() - self.change_direction_time) > 5):

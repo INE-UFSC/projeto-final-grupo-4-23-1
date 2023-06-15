@@ -25,7 +25,7 @@ class Result(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=RESULT=-=-", x_pos-250, y_pos-250, 50, "white")
+        self.text("-=-=RESULT=-=-", x_pos-280, y_pos-250, 50, "white")
         
         self.text("Level:", x_pos-200, y_pos - 100, 25, "white")
         self.text(str(self.level), x_pos-70, y_pos - 100, 25, "yellow")
