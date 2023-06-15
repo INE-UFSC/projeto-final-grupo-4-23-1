@@ -26,6 +26,7 @@ class SoundMixer:
         self.__charge_up_sfx =             self.load_sfx("charge_up_sfx.ogg")
         self.__cannon_blast_sfx =          self.load_sfx("cannon_blast_sfx.ogg")
         self.__laser_shot_sfx =            self.load_sfx("laser_shot_sfx.ogg")
+        self.__pause_sfx =                 self.load_sfx("pause_sfx.ogg")
 
         #music
         self.__music_volume = 0.2
@@ -66,6 +67,11 @@ class SoundMixer:
             pygame.mixer.fadeout(1000)
             self.__theme_music.set_volume(self.music_volume)
             self.__theme_music.play(-1)
+
+    def play_pause_sfx(self):
+        if (not self.__mute_sfx):
+            self.__pause_sfx.set_volume(self.sfx_volume)
+            self.__pause_sfx.play()
 
     def play_laser_shot_sfx(self):
         if (not self.mute_sfx):

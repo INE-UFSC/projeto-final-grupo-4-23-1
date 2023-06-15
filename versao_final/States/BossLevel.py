@@ -159,6 +159,7 @@ class BossLevel(State):
 
     def pause(self):
         pygame.mixer.pause()
+        self.get_owner().sound_mixer.play_pause_sfx()
         self.get_display().blit(self.__fade, (0, 0))
         self.__pause = True
 
