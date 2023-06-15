@@ -28,7 +28,6 @@ class NormalLevel(State):
 
         life = (3+self.profile.ship_life-1) if (self.get_game_data().ship_life == None) else self.get_game_data().ship_life
         self.get_game_data().set_ship_life(life)
-        self.get_game_data().set_level(4)
 
         level = 1 if (self.level == None) else self.level
         self.get_game_data().set_level(level)
