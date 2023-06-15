@@ -73,7 +73,10 @@ class CreateProfile(State):
 
     def update_input_box(self):
         font = pygame.font.Font(pasta+"//assets//fonts//joystix.otf", 40)
-        name = "<name>" if (self.name == "") else self.name
+        if (self.active_box):
+            name = self.name
+        else:
+            name = "<name>" if (self.name == "") else self.name
         text_surface = font.render(name, True, "yellow")
         text_rect = text_surface.get_rect(center = (self.display_width//2, (self.display_height//2)-50))
         self.get_display().blit(text_surface, text_rect)
@@ -92,15 +95,14 @@ class CreateProfile(State):
                 self.get_owner().close()
 
             if (event.type == pygame.MOUSEBUTTONDOWN):
-                if (self.input_box.collidepoint(event.pos)):
-                    self.__active_box = True
-                else:
-                    self.__active_box = False
+                self.__active_box = True if (self.input_box.collidepoint(event.pos)) else False
 
             if (event.type == pygame.KEYDOWN):
                 if (self.active_box):
                     if (event.key == pygame.K_BACKSPACE):
                         self.__name = self.name[:-1]
+                    elif (event.key == pygame.K_ESCAPE):
+                        self.__active_box = False
                     elif (event.key == pygame.K_RETURN):
                         pass
                     else:
