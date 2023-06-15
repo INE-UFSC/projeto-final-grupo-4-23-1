@@ -3,10 +3,10 @@ from States.State import State
 from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
 from CollisionManager.CollisionManager import CollisionManager
-from time import time
 from Sprites.MovingSprites.Asteroid.Asteroid import Asteroid
 from Sprites.MovingSprites.BasicEnemy.BasicEnemy import BasicEnemy
-from Sprites.MovingSprites.Bullet.Bullet import Bullet
+from Sprites.Button.Button import Button
+from time import time
 
 
 class NormalLevel(State):
@@ -16,6 +16,16 @@ class NormalLevel(State):
         self.__colision_manager = CollisionManager(self)
 
         self.__profile: Profile = self.get_game_data().profile
+
+        #pause data
+        self.__pause = False
+        self.__pause_time = time()
+        self.__click_buton_time = time()
+        self.__pause_button_group = pygame.sprite.Group()
+        self.__fade = pygame.Surface((self.display_width, self.display_height), pygame.SRCALPHA)
+        self.__fade.set_alpha(50)
+        pygame.draw.rect(self.__fade, "gray", (0, 0, self.display_width, self.display_height))
+        self.create_button()
 
         self.__ship_group = pygame.sprite.Group()
         self.__ship_bullet_group = pygame.sprite.Group()
@@ -86,7 +96,25 @@ class NormalLevel(State):
             self.__add_basic_enemy_time = time()
 
     def create_button(self):
-        pass
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        resume = Button(self, x_pos-310, y_pos+10, 300, 100, "Resume", True, self.unpause)
+        self.__pause_button_group.add(resume)
+
+        quit = Button(self, x_pos+10, y_pos+10, 300, 100, "Quit", True, self.quit)
+        self.__pause_button_group.add(quit)
+
+    def quit(self):
+        self.reset_data()
+        self.get_owner().sound_mixer.play_theme_music()
+        self.get_owner().change_state("ProfileMenu")
+
+    def reset_data(self):
+        life = 3 + self.get_game_data().profile.ship_life-1
+        self.get_game_data().set_ship_life(life)
+        self.get_game_data().set_enemies_destroyed(0)
+        self.get_game_data().set_level(1)
 
     def screen_content(self):
 
@@ -109,6 +137,37 @@ class NormalLevel(State):
         self.text("Life:", self.display_width-150, 10, 25, "white")
         self.text(str(self.ship.life),self.display_width-40, 10, 25, "yellow")
 
+        self.text("Press P to pause", self.display_width-350, self.display_height-35, 25, "yellow")
+
+    def detect_pause(self):
+        keys = pygame.key.get_pressed()
+        if ((time() - self.__click_buton_time) > 0.5):
+            if (keys[pygame.K_p]):
+                    if (self.__pause):
+                        self.unpause()
+                    else:
+                        self.pause()
+
+                    self.__click_buton_time = time()
+
+    def unpause(self):
+        self.__pause = False
+        pygame.mixer.unpause()
+        time_dif = (time() - self.__pause_time)
+        self.__next_level_time = self.next_level_time+(time_dif)
+
+    def pause(self):
+        pygame.mixer.pause()
+        self.get_display().blit(self.__fade, (0, 0))
+        self.__pause_time = time()
+        self.__pause = True
+
+    def pause_content(self):
+        self.text("-=-=PAUSE=-=-", (self.display_width//2)-220, (self.display_height//2)-200, 40, "yellow")
+        self.text("Data isnt't saved if quit", (self.display_width//2)-260, (self.display_height//2)-30, 25, "red")
+        self.__pause_button_group.update()
+        self.__pause_button_group.draw(self.get_display())
+
     def level_transition(self):
         if (self.next_level_time-time() <= 0):
             self.__next_level_time = time() + 30
@@ -128,14 +187,19 @@ class NormalLevel(State):
 
     def handle_update(self):
         self.clock.tick(60)
+        self.detect_pause()
+
         pygame.display.update()
-        self.background(0.2*8)
-        self.screen_content()
-        self.add_asteroid()
-        self.add_basic_enemy()
-        self.collision_manager.collisions_normal_level()
-        self.update_score()
-        self.level_transition()
+        if (not self.__pause):
+            self.background(0.2*8)
+            self.screen_content()
+            self.add_asteroid()
+            self.add_basic_enemy()
+            self.collision_manager.collisions_normal_level()
+            self.update_score()
+            self.level_transition()
+        else:
+            self.pause_content()
         pygame.display.update()
         
 

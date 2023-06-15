@@ -5,6 +5,7 @@ from Sprites.MovingSprites.Ship.Ship import Ship
 from Sprites.MovingSprites.TankBoss.TankBoss import TankBoss
 from Sprites.MovingSprites.CannonBoss.CannonBoss import CannonBoss 
 from Sprites.MovingSprites.FollowBoss.FollowBoss import FollowBoss 
+from Sprites.Button.Button import Button
 from CollisionManager.CollisionManager import CollisionManager
 from random import randint
 from time import time
@@ -16,6 +17,15 @@ class BossLevel(State):
         self.__collision_manager = CollisionManager(self)
 
         self.__profile: Profile = self.get_game_data().profile
+
+        #pause data
+        self.__pause = False
+        self.__click_buton_time = time()
+        self.__pause_button_group = pygame.sprite.Group()
+        self.__fade = pygame.Surface((self.display_width, self.display_height), pygame.SRCALPHA)
+        self.__fade.set_alpha(50)
+        pygame.draw.rect(self.__fade, "gray", (0, 0, self.display_width, self.display_height))
+        self.create_button()
 
         initial_pos = (self.display_width//2, 30)
         tankboss = TankBoss(game=self, life=20, position=initial_pos)
@@ -77,7 +87,25 @@ class BossLevel(State):
         self.ship_group.add(self.ship)
 
     def create_button(self):
-        pass
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        resume = Button(self, x_pos-310, y_pos+10, 300, 100, "Resume", True, self.unpause)
+        self.__pause_button_group.add(resume)
+
+        quit = Button(self, x_pos+10, y_pos+10, 300, 100, "Quit", True, self.quit)
+        self.__pause_button_group.add(quit)
+
+    def quit(self):
+        self.reset_data()
+        self.get_owner().sound_mixer.play_theme_music()
+        self.get_owner().change_state("ProfileMenu")
+
+    def reset_data(self):
+        life = 3 + self.get_game_data().profile.ship_life-1
+        self.get_game_data().set_ship_life(life)
+        self.get_game_data().set_enemies_destroyed(0)
+        self.get_game_data().set_level(1)
 
     def render_boss_life(self):
         x_poss = self.display_width//2
@@ -112,12 +140,45 @@ class BossLevel(State):
 
         self.text("BOSS LIFE", x_pos-120, self.display_height-90, 30, "red")
 
+        self.text("Press P to pause", self.display_width-350, self.display_height-35, 25, "yellow")
+
+    def detect_pause(self):
+        keys = pygame.key.get_pressed()
+        if ((time() - self.__click_buton_time) > 0.5):
+            if (keys[pygame.K_p]):
+                    if (self.__pause):
+                        self.unpause()
+                    else:
+                        self.pause()
+
+                    self.__click_buton_time = time()
+
+    def unpause(self):
+        self.__pause = False
+        pygame.mixer.unpause()
+
+    def pause(self):
+        pygame.mixer.pause()
+        self.get_display().blit(self.__fade, (0, 0))
+        self.__pause = True
+
+    def pause_content(self):
+        self.text("-=-=PAUSE=-=-", (self.display_width//2)-220, (self.display_height//2)-200, 40, "yellow")
+        self.text("Data isnt't saved if quit", (self.display_width//2)-260, (self.display_height//2)-30, 25, "red")
+        self.__pause_button_group.update()
+        self.__pause_button_group.draw(self.get_display())
+
     def handle_update(self):
         self.clock.tick(60)
-        self.background(speed=0.2*8)
-        self.screen_content()
-        self.update_score()
-        self.collision_manager.collisions_boss_level()
+        self.detect_pause()
+        pygame.display.update()
+        if (not self.__pause):
+            self.background(speed=0.2*8)
+            self.screen_content()
+            self.update_score()
+            self.collision_manager.collisions_boss_level()
+        else:
+            self.pause_content()
         pygame.display.update()
 
     def set_enemies_destroyed(self, num: int) -> None:
