@@ -28,12 +28,12 @@ class AnimationEffectsManager:
     def add_laser_effect(self, game, position: tuple, scale: tuple, direction: int) -> AnimationEffect:
         return AnimationEffect(game, position, scale, 8, True, self.__laser_imgs_list, direction)
 
-    def load_list_imgs(self, assets_dir: str) -> list:
+    def load_list_imgs(self, frames_dir: str) -> list:
         imgs_list = list()
-        n_images = len(fnmatch.filter(os.listdir(assets_dir), "*.png"))+1
+        n_images = len(fnmatch.filter(os.listdir(frames_dir), "*.png"))+1
 
         for n in range(1, n_images):
-            img = pygame.image.load(assets_dir+f"//{n}.png")
+            img = pygame.image.load(frames_dir+f"//{n}.png")
             imgs_list.append(img)
 
         return imgs_list
