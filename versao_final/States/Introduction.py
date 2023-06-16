@@ -1,124 +1,79 @@
 import pygame
 from States.State import State
 import os
-from Utility.Utils.utils import get_assets_path
+from Utility.Utils.utils import*
 from Sprites.Button.Button import Button
 class Introduction(State):
     def __init__(self, owner):
         super().__init__(owner)
         self.__intro_credits = pygame.font.Font(f'{get_assets_path(__file__)}/fonts/game_font.ttf', 70)
-        self.__fade = pygame.Surface((self.display_width, self.display_height))
-        self.__fade.fill((0, 0, 0))
+        self.__fade = Fade(self.display_width, self.display_height)
+        self.__fade.fill_black()
+        self.__fade.alpha = 255
         
         self.__company_intro_text = 'ABLP Company'
         self.__association_intro_text = 'IN ASSOCIATION WITH UFSC'
         self.__present_intro_text = 'PRESENT'
         self.__game_name_intro_text = 'ASTEROID-PLUS'
         
-        self.__skip = False
+        self.__intros = [self.__company_intro_text, self.__association_intro_text, self.__present_intro_text, self.__game_name_intro_text]
+        self.__current_intro = self.intros[0]
+        self.__intros_completed = 0
+        self.__intro_ended = False
 
-        skip = Button(self, 10, 10, 100, 70, "SKIP", True, self.skip)
+        self.create_button()
+
+
+    def create_button(self) -> None:
+        x_pos = self.display_width//2
+        y_pos = self.display_height//2
+
+        skip = Button(self, x_pos - 725, y_pos - 400, 100, 70, "SKIP", True, self.skip)
         self.all_sprites.add(skip)
 
-        self.screen_content()
-
     def skip(self):
-        self.__skip = True
+        self.get_owner().change_state('MainMenu')
     
-    #mostra a introdução da compania na tela
-    def company_intro(self):
+    def intro_content(self):
         self.intro_credits_surf = self.intro_credits.render(
-            self.company_intro_text, True, 'Grey'
+            self.current_intro, True, 'Grey'
         )
 
         self.intro_credits_rect = self.intro_credits_surf.get_rect(
             center=(self.display_width / 2, 360)
         )
-        self.render_intro_start()
-        self.render_intro_end()
     
-    #mostra a introdução da associação na tela
-    def association_intro(self):
-        self.intro_credits_surf = self.intro_credits.render(
-            self.association_intro_text, True, 'Grey'
-        )
-
-        self.intro_credits_rect = self.intro_credits_surf.get_rect(
-            center=(self.display_width / 2, 280)
-        )
-        self.render_intro_start()
-        self.render_intro_end()
-        
-    #mostra a introdução 'present' na tela, antecedendo o nome do jogo
-    def present_intro(self):
-        self.intro_credits_surf = self.intro_credits.render(
-            self.present_intro_text, True, 'Grey'
-        )
-
-        self.intro_credits_rect = self.intro_credits_surf.get_rect(
-            center=(self.display_width / 2, 360)
-        )
-        self.render_intro_start()
-        self.render_intro_end()
-    
-    #mostra o nome do jogo na tela
-    def game_name_intro(self):
-        self.intro_credits_surf = self.intro_credits.render(
-            self.game_name_intro_text, True, 'Grey'
-        )
-
-        self.intro_credits_rect = self.intro_credits_surf.get_rect(
-            center=(self.display_width / 2, 280)
-        )
-        self.render_intro_start()
-        self.render_intro_end()
-        
-    #renderiza o aparecimento do texto na tela
-    def render_intro_start(self):
-        for alpha in range(255, 0, -1):
-            pygame.event.get()
-            self.fade.set_alpha(alpha)
-            self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
-            self.get_display().blit(self.fade, (0, 0))
-
-            if (self.__skip):
-                break
-            self.all_sprites.update()
-            self.all_sprites.draw(self.get_display())
-
-            pygame.display.flip()
-            pygame.time.delay(8)
-    
-    #renderiza o desaparecimento do texto na tela
-    def render_intro_end(self):    
-        for alpha in range(0, 255):
-            pygame.event.get()
-            self.fade.set_alpha(alpha)
-            self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
-            self.get_display().blit(self.fade, (0, 0))
-
-            if (self.__skip):
-                break
-            self.all_sprites.update()
-            self.all_sprites.draw(self.get_display())
- 
-            pygame.display.flip()
-            pygame.time.delay(8)
+    def change_intro(self):
+        if self.intros_completed < len(self.intros):
+            self.current_intro = self.intros[self.intros_completed]
     
     #conteúdo da tela é formado pelas apresentações
     def screen_content(self):
-        self.company_intro()
-        self.association_intro()
-        self.present_intro()
-        self.game_name_intro()
+        self.intro_content()
+        pygame.event.get()
+        self.fade.surface.set_alpha(self.fade.alpha)
+        self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
+        self.get_display().blit(self.fade.surface, (0, 0))
+        pygame.display.flip()
+        pygame.time.delay(8)
+        self.intro_ended = self.fade.alpha_count() 
+        if self.intro_ended:
+            self.intros_completed += 1
+            self.change_intro()
     
     #após a introdução vai para o menu principal
     def handle_transition(self):
-        self.get_owner().change_state('MainMenu')
+        if self.intros_completed == len(self.intros) and self.intro_ended:
+            self.get_owner().change_state('MainMenu')
 
     
     def handle_update(self):
-        pass
+        pygame.display.update()
+        self.screen_content()
+        self.all_sprites.update()
+        self.all_sprites.draw(self.get_display())
+        pygame.display.update()
+
     
     @property
     def intro_credits(self):
@@ -129,6 +84,18 @@ class Introduction(State):
         return self.__fade
     
     @property
+    def intros(self):
+        return self.__intros
+    
+    @property
+    def current_intro(self):
+        return self.__current_intro
+    
+    @property
+    def intro_quant(self):
+        return self.__intro_quant
+    
+    @property
     def company_intro_text(self):
         return self.__company_intro_text
     
@@ -137,11 +104,31 @@ class Introduction(State):
         return self.__association_intro_text
     
     @property
+    def intro_ended(self):
+        return self.__intro_ended
+    
+    @property
     def present_intro_text(self):
         return self.__present_intro_text
     
     @property
     def game_name_intro_text(self):
         return self.__game_name_intro_text
+    
+    @property
+    def intros_completed(self) -> int:
+        return self.__intros_completed
+
+    @intros_completed.setter
+    def intros_completed(self, intros_completed: int):
+        self.__intros_completed = intros_completed
+    
+    @current_intro.setter
+    def current_intro(self, next_intro: str):
+        self.__current_intro = next_intro   
+    
+    @intro_ended.setter
+    def intro_ended(self, bool_value: bool):
+        self.__intro_ended = bool_value
  
  

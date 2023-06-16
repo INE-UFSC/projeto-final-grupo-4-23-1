@@ -91,9 +91,6 @@ class CreateProfile(State):
 
     def handle_transition(self):
         for event in pygame.event.get():
-            if (event.type == pygame.QUIT):
-                self.get_owner().close()
-
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 self.__active_box = True if (self.input_box.collidepoint(event.pos)) else False
 
