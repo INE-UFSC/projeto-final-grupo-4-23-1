@@ -8,7 +8,7 @@ from os import path
 pasta = path.dirname(__file__)
 
 class BasicEnemy(MovingSprite):
-    def __init__(self, game, life: int, position: tuple = None) -> None:
+    def __init__(self, game, img, life: int, position: tuple = None) -> None:
         self.__life = life
 
         self.__change_direction_time = time()
@@ -16,7 +16,7 @@ class BasicEnemy(MovingSprite):
 
         speed = randint(2, 4)
         direction = randint(0, 360)
-        original_image = pygame.image.load(pasta+"//BasicEnemy.png")
+        original_image = img
         super().__init__(game, speed, -direction, original_image, position)
 
     def hit(self) -> None:

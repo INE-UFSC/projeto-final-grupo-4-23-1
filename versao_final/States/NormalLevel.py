@@ -1,4 +1,5 @@
 import pygame
+from os import path
 from States.State import State
 from Profiles.Profile import Profile
 from Sprites.MovingSprites.Ship.Ship import Ship
@@ -7,6 +8,8 @@ from Sprites.MovingSprites.Asteroid.Asteroid import Asteroid
 from Sprites.MovingSprites.BasicEnemy.BasicEnemy import BasicEnemy
 from Sprites.Button.Button import Button
 from time import time
+
+pasta = path.dirname(path.dirname(__file__))
 
 
 class NormalLevel(State):
@@ -47,13 +50,24 @@ class NormalLevel(State):
 
         self.__next_level_time = time()+30
 
+        self.__basic_enemy_img = pygame.image.load(pasta+"//Utility//Images//BasicEnemy.png")
+        self.__list_asteroid_img = self.load_asteroids_images()
+
         self.add_ship()
 
-        asteroid = Asteroid(game = self, size = 2)
+        asteroid = Asteroid(game = self, lst_imgs = self.__list_asteroid_img, size = 2)
         self.all_sprites.add(asteroid)
         self.asteroid_group.add(asteroid)
 
         self.__clock = pygame.time.Clock()
+
+    def load_asteroids_images(self) -> list:
+        asteroid_imgs_list = list()
+        for n in range(1, 8):
+            image = pygame.image.load(pasta+f"//Utility//Images//asteroid_images//asteroid_{n}.png")
+            asteroid_imgs_list.append(image)
+
+        return asteroid_imgs_list
 
 
     def add_ship(self) -> None:
@@ -79,6 +93,7 @@ class NormalLevel(State):
         addtime = 10*(0.9**(self.level - 1))
         if (time() - self.add_asteroid_time) >= addtime:
             asteroid = Asteroid(game = self,
+                                lst_imgs=self.__list_asteroid_img,
                                 size = 2)
             
             self.all_sprites.add(asteroid)
@@ -90,7 +105,8 @@ class NormalLevel(State):
         basic_enemy_time = 15*(0.9**(self.level - 1))
         if (time() - self.add_basic_enemy_time) >= basic_enemy_time:
             basic_enemy = BasicEnemy(game = self,
-                                      life = 1)
+                                    img = self.__basic_enemy_img,
+                                    life = 1)
             self.all_sprites.add(basic_enemy)
             self.basic_enemy_group.add(basic_enemy)
             self.__add_basic_enemy_time = time()
