@@ -11,6 +11,7 @@ from States.BossLevel import BossLevel
 from States.Result import Result
 from States.Scoreboard import Scoreboard
 from States.Introduction import Introduction
+from States.Credits import Credits
 from Utility.GameData import GameData
 from Utility.SoundMixer.SoundMixer import SoundMixer
 from Utility.AnimationEffects.AnimationEffectsManager import AnimationEffectsManager
@@ -39,6 +40,7 @@ class Game:
                                     'BossLevel': BossLevel,
                                     'Result': Result,
                                     'ScoreBoard': Scoreboard,
+                                    'Credits': Credits,
                                     'Introduction': Introduction 
                                    }
         #estado atual (começa no Introduction)

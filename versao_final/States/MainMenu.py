@@ -25,7 +25,10 @@ class MainMenu(State):
         scoreboard = Button(self, x_pos, y_pos + 100, 300, 100, 'Scoreboard', True, self.scoreboard)
         self.all_sprites.add(scoreboard)
 
-        quit = Button(self, x_pos, y_pos + 250, 300, 100, 'Quit', True, self.quit)
+        credits = Button(self, x_pos, y_pos + 250, 300, 100, 'Credits', True, self.credits)
+        self.all_sprites.add(credits)
+
+        quit = Button(self, x_pos, y_pos + 400, 300, 100, 'Quit', True, self.quit)
         self.all_sprites.add(quit)
 
         #volume buttons
@@ -84,6 +87,9 @@ class MainMenu(State):
 
     def scoreboard(self):
         self.get_owner().change_state("ScoreBoard")
+
+    def credits(self):
+        self.get_owner().change_state("Credits")
 
     def screen_content(self):
 
