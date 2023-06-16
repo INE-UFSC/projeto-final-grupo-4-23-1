@@ -38,7 +38,7 @@ class Credits(State):
 
         self.text("-=-=CREDITS=-=-", self.x_pos - 300, self.y_pos - 270, 40, 'white')
 
-        self.text("Arthur", self.x_pos - 350, self.y_pos - 125, 40, 'yellow')
+        self.text("Artur", self.x_pos - 350, self.y_pos - 125, 40, 'yellow')
         self.text("Breno", self.x_pos - 350, self.y_pos, 40, 'yellow')
         self.text("Leonardo", self.x_pos - 350, self.y_pos + 125, 40, 'yellow')
         self.text("Pedro", self.x_pos - 350, self.y_pos + 250, 40, 'yellow')
