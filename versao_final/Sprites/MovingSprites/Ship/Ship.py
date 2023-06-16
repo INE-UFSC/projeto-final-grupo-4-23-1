@@ -93,7 +93,8 @@ class Ship(MovingSprite):
             y = self.y + sin(radians(self.direction))*13
             self.game.get_animation_effects_manager().add_smoke_effect(game=self.game,
                                                                         position=(x,y),
-                                                                        scale=(18,18))
+                                                                        scale=(18,18),
+                                                                        looping=False)
             self.__smoke_time = time()
 
 
@@ -229,7 +230,8 @@ class Ship(MovingSprite):
             self.game.get_sound_mixer().play_explosion_sfx()
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
-                                                                           scale=(50, 50))
+                                                                           scale=(50, 50),
+                                                                           looping=False)
             self.__life -= 1
             self.game.get_game_data().set_ship_life(self.life)
 

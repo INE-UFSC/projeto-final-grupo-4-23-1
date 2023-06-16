@@ -66,7 +66,8 @@ class FollowBullet(MovingSprite):
             self.game.get_sound_mixer().play_explosion_2_sfx()
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
-                                                                           scale=(50,50))
+                                                                           scale=(50,50),
+                                                                           looping=False)
             self.kill()
 
     def add_smoke_effect(self):
@@ -75,7 +76,8 @@ class FollowBullet(MovingSprite):
             y = self.y - sin(radians(self.direction))*20
             self.game.get_animation_effects_manager().add_smoke_effect(game=self.game,
                                                                     position=(x,y),
-                                                                    scale=(10,10))
+                                                                    scale=(10,10),
+                                                                    looping=False)
             self.__smoke_time = time()
 
 

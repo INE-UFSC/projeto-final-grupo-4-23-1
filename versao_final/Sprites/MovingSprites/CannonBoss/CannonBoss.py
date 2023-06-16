@@ -46,7 +46,8 @@ class CannonBoss(MovingSprite):
                 self.game.get_sound_mixer().play_explosion_sfx()
                 self.game.get_animation_effects_manager().add_boss_explosion_effect(game=self.game,
                                                                                     position=(self.x,self.y),
-                                                                                    scale=(100,100))
+                                                                                    scale=(100,100),
+                                                                                    looping=False)
                 self.kill()
 
     def change_direction(self) -> None:
@@ -89,7 +90,8 @@ class CannonBoss(MovingSprite):
                 self.__blast_animation = self.game.get_animation_effects_manager().add_laser_effect(game=self.game,
                                                                                                     position=(laser_x, laser_y),
                                                                                                     scale=(1000,100),
-                                                                                                    direction= 180-self.direction)
+                                                                                                    direction= 180-self.direction,
+                                                                                                    looping=True)
                 self.game.boss_bullet_group.add(self.__blast_animation)
                 self.__active_cannon_blast = False
                 self.__cannon_blast_time = time()

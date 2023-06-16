@@ -45,7 +45,8 @@ class TankBoss(MovingSprite):
                 self.game.get_sound_mixer().play_explosion_sfx()
                 self.game.get_animation_effects_manager().add_boss_explosion_effect(game=self.game,
                                                                                     position=(self.x,self.y),
-                                                                                    scale=(100,100))
+                                                                                    scale=(100,100),
+                                                                                    looping=False)
                 self.kill()
 
     def set_life(self, life: int):
