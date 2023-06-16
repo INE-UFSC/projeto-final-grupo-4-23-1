@@ -1,4 +1,5 @@
 import pygame
+import webbrowser
 from Sprites.Button.Button import Button
 from States.State import State
 
@@ -35,24 +36,20 @@ class Credits(State):
         #nome deixa igual a posição
 
         self.text("Arthur", self.x_pos - 350, self.y_pos - 125, 40, 'yellow')
-        buttonArthur = Button(self, self.x_pos + 50, self.y_pos - 125, 180, 60, "GITHUB", False, self.back)
+        buttonArthur = Button(self, self.x_pos + 50, self.y_pos - 125, 180, 60, "GITHUB", False, self.gitArthur)
         self.all_sprites.add(buttonArthur)
 
         self.text("Breno", self.x_pos - 350, self.y_pos, 40, 'yellow')
-        buttonBreno = Button(self, self.x_pos + 50, self.y_pos, 180, 60, "GITHUB", False, self.back)
+        buttonBreno = Button(self, self.x_pos + 50, self.y_pos, 180, 60, "GITHUB", False, self.gitBreno)
         self.all_sprites.add(buttonBreno)
 
         self.text("Leonardo", self.x_pos - 350, self.y_pos + 125, 40, 'yellow')
-        buttonLeonardo = Button(self, self.x_pos + 50, self.y_pos + 125, 180, 60, "GITHUB", False, self.back)
+        buttonLeonardo = Button(self, self.x_pos + 50, self.y_pos + 125, 180, 60, "GITHUB", False, self.gitLeonardo)
         self.all_sprites.add(buttonLeonardo)
 
         self.text("Pedro", self.x_pos - 350, self.y_pos + 250, 40, 'yellow')
-        buttonPedro = Button(self, self.x_pos + 50, self.y_pos + 250, 180, 60, "GITHUB", False, self.back)
+        buttonPedro = Button(self, self.x_pos + 50, self.y_pos + 250, 180, 60, "GITHUB", False, self.gitPedro)
         self.all_sprites.add(buttonPedro)
-
-
-
-
 
     def handle_update(self):
         pygame.display.update()
@@ -61,6 +58,23 @@ class Credits(State):
         self.all_sprites.update()
         self.all_sprites.draw(self.get_display())
         pygame.display.update()
+
+    def gitArthur(self):
+        url = "https://github.com/ArturRSoda"
+        webbrowser.open_new(url)
+
+    def gitBreno(self):
+        url = "https://github.com/BrenoSPXx"
+        webbrowser.open_new(url)
+
+    def gitLeonardo(self):
+        url = "https://github.com/leonardopfeng"
+        webbrowser.open_new(url)
+
+    def gitPedro(self):
+        url = "https://github.com/Fontoura21"
+        webbrowser.open_new(url)
+
 
     @property
     def x_pos(self):
