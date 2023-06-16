@@ -12,23 +12,23 @@ class MainMenu(State):
 
     def create_button(self):
 
-        x_pos = self.display_width//2 - 150
+        x_pos = self.display_width//2
         y_pos = self.display_height//2
 
         #menu buttons
-        newProfile = Button(self, x_pos, y_pos - 200, 300, 100, 'New Profile', True, self.new_profile)
+        newProfile = Button(self, x_pos-310, y_pos - 170, 300, 100, 'New Profile', True, self.new_profile)
         self.all_sprites.add(newProfile)
 
-        selectProfile = Button(self, x_pos, y_pos - 50, 300, 100, 'Select Profile', True, self.select_profile)
+        selectProfile = Button(self, x_pos+10, y_pos-170, 300, 100, 'Select Profile', True, self.select_profile)
         self.all_sprites.add(selectProfile)
 
-        scoreboard = Button(self, x_pos, y_pos + 100, 300, 100, 'Scoreboard', True, self.scoreboard)
+        scoreboard = Button(self, x_pos-310, y_pos-20, 300, 100, 'Scoreboard', True, self.scoreboard)
         self.all_sprites.add(scoreboard)
 
-        credits = Button(self, x_pos, y_pos + 250, 300, 100, 'Credits', True, self.credits)
+        credits = Button(self, x_pos+10, y_pos-20, 300, 100, 'Credits', True, self.credits)
         self.all_sprites.add(credits)
 
-        quit = Button(self, x_pos, y_pos + 400, 300, 100, 'Quit', True, self.quit)
+        quit = Button(self, x_pos-150, y_pos+130, 300, 100, 'Quit', True, self.quit)
         self.all_sprites.add(quit)
 
         #volume buttons
