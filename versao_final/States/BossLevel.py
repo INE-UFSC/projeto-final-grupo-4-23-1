@@ -20,7 +20,7 @@ class BossLevel(State):
 
         #pause data
         self.__pause = False
-        self.__click_buton_time = time()
+        self.__click_button_time = time()
         self.__pause_button_group = pygame.sprite.Group()
         self.__fade = pygame.Surface((self.display_width, self.display_height), pygame.SRCALPHA)
         self.__fade.set_alpha(50)
@@ -46,9 +46,6 @@ class BossLevel(State):
 
         enemies_destroyed = 0 if (self.enemies_destroyed == None) else self.enemies_destroyed
         self.set_enemies_destroyed(enemies_destroyed)
-
-        #apagar dps
-        self.init_time = time()
 
         level = 1 if (self.level == None) else self.level
         self.get_game_data().set_level(level)
@@ -144,14 +141,14 @@ class BossLevel(State):
 
     def detect_pause(self):
         keys = pygame.key.get_pressed()
-        if ((time() - self.__click_buton_time) > 0.5):
+        if ((time() - self.__click_button_time) > 0.5):
             if (keys[pygame.K_p]):
                     if (self.__pause):
                         self.unpause()
                     else:
                         self.pause()
 
-                    self.__click_buton_time = time()
+                    self.__click_button_time = time()
 
     def unpause(self):
         self.__pause = False

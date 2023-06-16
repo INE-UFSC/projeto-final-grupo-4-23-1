@@ -45,9 +45,6 @@ class Game:
         self.__sound_mixer.play_theme_music()
         self.__current_state = Introduction(self)
         
-    def initialize(self):
-        self.__current_state = MainMenu(self)
-
     def run(self):
 
         pygame.display.set_caption("ASTEROIDS")
