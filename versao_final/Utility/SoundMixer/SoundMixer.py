@@ -142,22 +142,22 @@ class SoundMixer:
     def increase_sfx_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.inc(self.sfx_volume)
-            self.__sfx_volume = 1 if ((r_vol+inc) > 1) else r_vol+inc
+            self.__sfx_volume = 1 if ((r_vol+inc) > 100) else (r_vol+inc)/100
 
     def decrease_sfx_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.dec(self.sfx_volume)
-            self.__sfx_volume = 0 if ((r_vol-inc) < 0) else r_vol-inc
+            self.__sfx_volume = 0 if ((r_vol-inc) < 0) else (r_vol-inc)/100
 
     def increase_music_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.inc(self.music_volume)
-            self.__music_volume = 1 if ((r_vol+inc) > 1) else r_vol+inc
+            self.__music_volume = 1 if ((r_vol+inc) > 100) else (r_vol+inc)/100
 
     def decrease_music_volume(self):
         if (not self.__mute_sfx):
             r_vol, inc = self.dec(self.music_volume)
-            self.__music_volume = 0 if ((r_vol-inc) < 0) else r_vol-inc
+            self.__music_volume = 0 if ((r_vol-inc) < 0) else (r_vol-inc)/100
 
     def mute_unmute_music(self):
         self.__mute_music = False if (self.__mute_music) else True
@@ -166,23 +166,23 @@ class SoundMixer:
         self.__mute_sfx = False if (self.__mute_sfx) else True
 
     def inc(self, vol: float):
-        r_vol = round(vol, 2)
-        if (r_vol >= 0.95):
-            inc = 0.01
-        elif (r_vol >= 0.05):
-            inc = 0.05
+        r_vol = vol*100
+        if (r_vol >= 95):
+            inc = 1
+        elif (r_vol >= 5):
+            inc = 5
         elif (r_vol >= 0):
-            inc = 0.01
+            inc = 1
         return (r_vol, inc)
 
     def dec(self, vol: float):
-        r_vol = round(vol, 2)
-        if (r_vol <= 0.05):
-            inc = 0.01
-        elif (r_vol <= 0.95):
-            inc = 0.05
+        r_vol = vol*100
+        if (r_vol <= 5):
+            inc = 1
+        elif (r_vol <= 95):
+            inc = 5
         elif (r_vol<= 1):
-            inc = 0.01
+            inc = 1
         return (r_vol, inc)
 
     @property
