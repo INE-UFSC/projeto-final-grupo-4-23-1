@@ -123,9 +123,6 @@ class TankBoss(MovingSprite):
         self.check_invunerable()
         super().update()
 
-    def set_life(self, life: int):
-        self.__life = life
-
     @property
     def invunerable(self):
         return self.__invunerable

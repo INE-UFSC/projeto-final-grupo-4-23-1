@@ -3,9 +3,7 @@ from Sprites.MovingSprites.MovingSprite import MovingSprite
 from Sprites.MovingSprites.Bullet.Bullet import Bullet
 from random import randint
 from time import time
-from os import path
 
-pasta = path.dirname(__file__)
 
 class BasicEnemy(MovingSprite):
     def __init__(self, game, img, life: int, position: tuple = None) -> None:

@@ -1,10 +1,7 @@
 import pygame
 from Sprites.MovingSprites.MovingSprite import MovingSprite
-from math import cos, sin, radians
-from os import path
 from random import randint
 
-pasta = path.dirname(__file__)
 
 class Asteroid(MovingSprite):
     def __init__(self, game, lst_imgs: list, size: int = 2, position: tuple = None) -> None:

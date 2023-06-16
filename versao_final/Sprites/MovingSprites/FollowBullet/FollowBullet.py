@@ -22,7 +22,7 @@ class FollowBullet(MovingSprite):
         self.__smoke_time = time()
 
         #tempo de criação
-        self.__criacao = time()
+        self.__init_time = time()
 
         img = pygame.image.load(pasta+"//follow_bullet.png")
         super().__init__(game, speed, direction, img, position)
@@ -62,7 +62,7 @@ class FollowBullet(MovingSprite):
         self.kill()
 
     def detect_lifetime(self) -> None:
-        if (time() - self.criacao > self.lifetime):
+        if (time() - self.__init_time > self.lifetime):
             self.game.get_sound_mixer().play_explosion_2_sfx()
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
@@ -98,5 +98,5 @@ class FollowBullet(MovingSprite):
         return self.__lifetime
     
     @property
-    def criacao(self):
-        return self.__criacao
+    def init_time(self):
+        return self.__init_time

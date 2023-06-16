@@ -1,5 +1,6 @@
 import pygame
 from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Utility.AnimationEffects.AnimationEffect import AnimationEffect
 from random import randint
 from time import time
 from os import path
@@ -10,7 +11,7 @@ pasta = path.dirname(__file__)
 class CannonBoss(MovingSprite):
     def __init__(self, game, life: int, position: tuple = None) -> None:
         self.__life = life
-        self.__blast_animation = None
+        self.__blast_animation: AnimationEffect = None
 
         self.__change_direction_time = time()
         self.__cannon_blast_time = time()
