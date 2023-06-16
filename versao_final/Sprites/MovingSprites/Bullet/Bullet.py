@@ -17,7 +17,7 @@ class Bullet(MovingSprite):
         self.__lifetime = lifetime  # 5 pra desaparecer
 
         #tempo de criação
-        self.__criacao = time()
+        self.__init_time = time()
         #cor do bulelt
         self.__color = color
 
@@ -40,7 +40,7 @@ class Bullet(MovingSprite):
         self.kill()
 
     def detect_lifetime(self) -> None:
-        if (time() - self.criacao > self.lifetime):
+        if (time() - self.init_time > self.lifetime):
             self.kill()
 
     def update(self) -> None:
@@ -61,6 +61,6 @@ class Bullet(MovingSprite):
         return self.__lifetime
     
     @property
-    def criacao(self):
-        return self.__criacao
+    def init_time(self):
+        return self.__init_time
 
