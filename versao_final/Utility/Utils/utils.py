@@ -16,6 +16,27 @@ class Fade:
     
     def fill_black(self) -> None:
         self.surface.fill((0,0,0))
+    
+    def alpha_count(self) -> bool:
+        if self.fade_start:
+            self.alpha -= 1
+        else:
+            self.alpha += 1
+        if self.alpha == 0 or self.alpha == 255:
+            return self.change_fade()
+        else:
+            return False
+        
+    
+    def change_fade(self) -> bool:
+        if self.fade_start:
+            self.fade_end = True
+            self.fade_start = False
+            return False
+        else:
+            self.fade_end = False
+            self.fade_start = True
+            return True
         
     @property
     def alpha(self):
@@ -28,27 +49,6 @@ class Fade:
     @property
     def fade_end(self):
         return self.__fade_end
-    
-    def alpha_count(self):
-        if self.fade_start:
-            self.alpha -= 1
-        else:
-            self.alpha += 1
-        if self.alpha == 0 or self.alpha == 255:
-            return self.change_fade()
-        else:
-            return False
-        
-    
-    def change_fade(self):
-        if self.fade_start:
-            self.fade_end = True
-            self.fade_start = False
-            return False
-        else:
-            self.fade_end = False
-            self.fade_start = True
-            return True
     
     @property
     def surface(self):

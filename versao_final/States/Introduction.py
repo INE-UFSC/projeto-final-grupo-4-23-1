@@ -25,10 +25,7 @@ class Introduction(State):
 
 
     def create_button(self) -> None:
-        x_pos = self.display_width//2
-        y_pos = self.display_height//2
-
-        skip = Button(self, x_pos - 725, y_pos - 400, 100, 70, "SKIP", True, self.skip)
+        skip = Button(self, 10, 10, 100, 70, "SKIP", True, self.skip)
         self.all_sprites.add(skip)
 
     def skip(self):
@@ -54,7 +51,6 @@ class Introduction(State):
         self.fade.surface.set_alpha(self.fade.alpha)
         self.get_display().blit(self.intro_credits_surf, self.intro_credits_rect)
         self.get_display().blit(self.fade.surface, (0, 0))
-        pygame.display.flip()
         pygame.time.delay(8)
         self.intro_ended = self.fade.alpha_count() 
         if self.intro_ended:
