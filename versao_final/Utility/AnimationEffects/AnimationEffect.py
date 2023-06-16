@@ -1,6 +1,4 @@
 import pygame
-import fnmatch
-import os
 
 class AnimationEffect(pygame.sprite.Sprite):
     def __init__(self, game, position: tuple, scale: tuple, animation_speed: int, looping: bool, list_imgs: list, direction: int = 0):
