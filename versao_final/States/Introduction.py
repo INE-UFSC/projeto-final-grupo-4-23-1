@@ -59,6 +59,7 @@ class Introduction(State):
     
     #após a introdução vai para o menu principal
     def handle_transition(self):
+        super().handle_transition()
         if self.intros_completed == len(self.intros) and self.intro_ended:
             self.get_owner().change_state('MainMenu')
 

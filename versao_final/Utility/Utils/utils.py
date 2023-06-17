@@ -7,7 +7,7 @@ def get_assets_path(file_path):
 
 
 class Fade:
-    def __init__(self, display_width, display_height) -> None:
+    def __init__(self, display_width: int, display_height: int) -> None:
         self.__surface = pygame.Surface((display_width, display_height))
         self.__alpha = None
         self.__fade_start = True
