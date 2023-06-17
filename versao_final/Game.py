@@ -44,7 +44,6 @@ class Game:
                                     'Introduction': Introduction 
                                    }
         #estado atual (começa no Introduction)
-        self.__sound_mixer.play_theme_music()
         self.__current_state = Introduction(self)
         
     def run(self):
@@ -77,6 +76,8 @@ class Game:
             if (isinstance(self.get_current_state(), Result)):
                 self.__sound_mixer.play_theme_music()
             elif(isinstance(self.get_current_state(), Credits)):
+                self.__sound_mixer.play_theme_music()
+            elif(isinstance(self.get_current_state(), Introduction)):
                 self.__sound_mixer.play_theme_music()
 
  
