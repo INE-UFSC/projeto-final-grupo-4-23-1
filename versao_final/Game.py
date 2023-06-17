@@ -75,7 +75,9 @@ class Game:
             pass
         else:
             if (isinstance(self.get_current_state(), Result)):
-                    self.__sound_mixer.play_theme_music()
+                self.__sound_mixer.play_theme_music()
+            elif(isinstance(self.get_current_state(), Credits)):
+                self.__sound_mixer.play_theme_music()
 
  
     def close(self):
