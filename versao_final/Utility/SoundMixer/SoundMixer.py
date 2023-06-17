@@ -2,7 +2,7 @@ import pygame
 from os import path
 import time
 
-pasta = path.dirname(__file__)
+pasta = path.dirname(path.dirname(path.dirname(__file__)))
 SFX_dir = pasta+"//Sounds//SFX//"
 Music_dir = pasta+"//Sounds//Music//"
 
