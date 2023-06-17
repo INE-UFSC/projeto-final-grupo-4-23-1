@@ -1,11 +1,11 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
-from Sprites.MovingSprites.Bullet.Bullet import Bullet
+from Entities.MovingEntities.MovingEntity import MovingEntity
+from Entities.MovingEntities.Bullet.Bullet import Bullet
 from random import randint
 from time import time
 
 
-class BasicEnemy(MovingSprite):
+class BasicEnemy(MovingEntity):
     def __init__(self, game, img, life: int, position: tuple = None) -> None:
         self.__life = life
 

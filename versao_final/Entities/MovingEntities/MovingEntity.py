@@ -3,7 +3,7 @@ import pygame
 from math import cos, sin, radians
 from random import randint
 
-class MovingSprite(pygame.sprite.Sprite, ABC):
+class MovingEntity(pygame.sprite.Sprite, ABC):
     def __init__(self, game, speed: float,
                  direction: int,
                  original_image,

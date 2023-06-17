@@ -1,7 +1,7 @@
 import pygame
 from Profiles.Profile import Profile
 from States.State import State
-from Sprites.Button.Button import Button
+from Entities.Button.Button import Button
 
 class Result(State):
     def __init__(self, owner):

@@ -1,8 +1,8 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Entities.MovingEntities.MovingEntity import MovingEntity
 from time import time
 
-class Bullet(MovingSprite):
+class Bullet(MovingEntity):
     def __init__(self, game,
                  position: tuple,
                  direction: int,

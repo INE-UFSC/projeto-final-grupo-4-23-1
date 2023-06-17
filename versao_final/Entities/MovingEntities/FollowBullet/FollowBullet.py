@@ -1,12 +1,12 @@
 import pygame
 from os import path
-from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Entities.MovingEntities.MovingEntity import MovingEntity
 from math import atan2, pi, cos, sin, radians
 from time import time
 
-pasta = path.dirname(__file__)
+pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
 
-class FollowBullet(MovingSprite):
+class FollowBullet(MovingEntity):
     def __init__(self, game,
                  position: tuple,
                  direction: int,
@@ -24,7 +24,7 @@ class FollowBullet(MovingSprite):
         #tempo de criação
         self.__init_time = time()
 
-        img = pygame.image.load(pasta+"//follow_bullet.png")
+        img = pygame.image.load(pasta+"//Images//follow_bullet.png")
         super().__init__(game, speed, direction, img, position)
 
     def update_image_position(self) -> None:

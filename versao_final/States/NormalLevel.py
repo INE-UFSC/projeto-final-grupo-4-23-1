@@ -2,11 +2,11 @@ import pygame
 from os import path
 from States.State import State
 from Profiles.Profile import Profile
-from Sprites.MovingSprites.Ship.Ship import Ship
+from Entities.MovingEntities.Ship.Ship import Ship
 from CollisionManager.CollisionManager import CollisionManager
-from Sprites.MovingSprites.Asteroid.Asteroid import Asteroid
-from Sprites.MovingSprites.BasicEnemy.BasicEnemy import BasicEnemy
-from Sprites.Button.Button import Button
+from Entities.MovingEntities.Asteroid.Asteroid import Asteroid
+from Entities.MovingEntities.BasicEnemy.BasicEnemy import BasicEnemy
+from Entities.Button.Button import Button
 from time import time
 
 pasta = path.dirname(path.dirname(__file__))
@@ -50,7 +50,7 @@ class NormalLevel(State):
 
         self.__next_level_time = time()+30
 
-        self.__basic_enemy_img = pygame.image.load(pasta+"//Utility//Images//BasicEnemy.png")
+        self.__basic_enemy_img = pygame.image.load(pasta+"//Images//BasicEnemy.png")
         self.__list_asteroid_img = self.load_asteroids_images()
 
         self.add_ship()
@@ -64,7 +64,7 @@ class NormalLevel(State):
     def load_asteroids_images(self) -> list:
         asteroid_imgs_list = list()
         for n in range(1, 8):
-            image = pygame.image.load(pasta+f"//Utility//Images//asteroid_images//asteroid_{n}.png")
+            image = pygame.image.load(pasta+f"//Images//asteroid_images//asteroid_{n}.png")
             asteroid_imgs_list.append(image)
 
         return asteroid_imgs_list

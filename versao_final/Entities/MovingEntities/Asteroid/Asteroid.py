@@ -1,9 +1,9 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Entities.MovingEntities.MovingEntity import MovingEntity
 from random import randint
 
 
-class Asteroid(MovingSprite):
+class Asteroid(MovingEntity):
     def __init__(self, game, lst_imgs: list, size: int = 2, position: tuple = None) -> None:
         self.__size = size
         self.__asteroids_ramaining = 2

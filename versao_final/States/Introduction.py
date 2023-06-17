@@ -2,7 +2,7 @@ import pygame
 from States.State import State
 import os
 from Utility.Utils.utils import*
-from Sprites.Button.Button import Button
+from Entities.Button.Button import Button
 class Introduction(State):
     def __init__(self, owner):
         super().__init__(owner)

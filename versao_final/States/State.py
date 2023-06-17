@@ -16,7 +16,7 @@ class State(ABC):
         self.__display_height = pygame.display.Info().current_h
 
         #background images
-        img = pygame.image.load(pasta+"//Utility//Images//background.png")
+        img = pygame.image.load(pasta+"//Images//background.png")
         img = pygame.transform.scale(img, (self.display_width, self.display_height))
         self.__background = img
         self.__b_pos = 0

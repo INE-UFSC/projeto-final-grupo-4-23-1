@@ -1,14 +1,14 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Entities.MovingEntities.MovingEntity import MovingEntity
 from Utility.AnimationEffects.AnimationEffect import AnimationEffect
 from random import randint
 from time import time
 from os import path
 from math import atan2, pi, cos, sin, radians
 
-pasta = path.dirname(__file__)
+pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
 
-class CannonBoss(MovingSprite):
+class CannonBoss(MovingEntity):
     def __init__(self, game, life: int, position: tuple = None) -> None:
         self.__life = life
         self.__blast_animation: AnimationEffect = None
@@ -27,8 +27,8 @@ class CannonBoss(MovingSprite):
         speed = 5
         direction = randint(0, 360)
 
-        self.__invunerable_image = pygame.image.load(pasta+"//Cannon_boss_invunerable.png")
-        self.__cannon_boss_img = pygame.image.load(pasta+"//Cannon_boss.png")
+        self.__invunerable_image = pygame.image.load(pasta+"//Images//Cannon_boss_invunerable.png")
+        self.__cannon_boss_img = pygame.image.load(pasta+"//Images//Cannon_boss.png")
         super().__init__(game, speed, direction, self.__cannon_boss_img,  position)
 
     def hit(self) -> None:

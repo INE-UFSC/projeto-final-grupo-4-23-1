@@ -1,13 +1,13 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
-from Sprites.MovingSprites.Bullet.Bullet import Bullet
+from Entities.MovingEntities.MovingEntity import MovingEntity
+from Entities.MovingEntities.Bullet.Bullet import Bullet
 from math import cos, sin, radians
 from os import path
 from time import time
 
-pasta = path.dirname(__file__)
+pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
 
-class Ship(MovingSprite):
+class Ship(MovingEntity):
     def __init__(self, game,
                  speed: float,
                  vel_max: float,
@@ -44,16 +44,16 @@ class Ship(MovingSprite):
         self.__blue = False #indica se está cinza
 
         #carrega imagem 
-        self.__bullet_image = pygame.image.load(pasta+"//ship_images//ship_bullet.png")
-        image = pygame.image.load(pasta+"//ship_images//boost_blue_ship.png")
+        self.__bullet_image = pygame.image.load(pasta+"//Images//ship_images//ship_bullet.png")
+        image = pygame.image.load(pasta+"//Images//ship_images//boost_blue_ship.png")
         self.__blue_boost_ship_img = pygame.transform.rotate(image, -90)
-        image = pygame.image.load(pasta+"//ship_images//blue_ship.png")
+        image = pygame.image.load(pasta+"//Images//ship_images//blue_ship.png")
         self.__blue_ship_img = pygame.transform.rotate(image, -90)
-        image = pygame.image.load(pasta+"//ship_images//boost_ship.png")
+        image = pygame.image.load(pasta+"//Images//ship_images//boost_ship.png")
         self.__boost_ship_img = pygame.transform.rotate(image, -90)
-        image = pygame.image.load(pasta+"//ship_images//ship.png")
+        image = pygame.image.load(pasta+"//Images//ship_images//ship.png")
         self.__ship_img = pygame.transform.rotate(image, -90)
-        image = pygame.image.load(pasta+"//ship_images//ship.png")
+        image = pygame.image.load(pasta+"//Images//ship_images//ship.png")
         o_image = pygame.transform.rotate(image, -90)
         super().__init__(game, self.speed, 90, o_image, (x, y))
 

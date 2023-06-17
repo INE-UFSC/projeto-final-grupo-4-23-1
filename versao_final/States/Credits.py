@@ -1,6 +1,6 @@
 import pygame
 import webbrowser
-from Sprites.Button.Button import Button
+from Entities.Button.Button import Button
 from States.State import State
 
 

@@ -1,11 +1,11 @@
 import pygame
 from States.State import State
 from Profiles.Profile import Profile
-from Sprites.MovingSprites.Ship.Ship import Ship
-from Sprites.MovingSprites.TankBoss.TankBoss import TankBoss
-from Sprites.MovingSprites.CannonBoss.CannonBoss import CannonBoss 
-from Sprites.MovingSprites.FollowBoss.FollowBoss import FollowBoss 
-from Sprites.Button.Button import Button
+from Entities.MovingEntities.Ship.Ship import Ship
+from Entities.MovingEntities.TankBoss.TankBoss import TankBoss
+from Entities.MovingEntities.CannonBoss.CannonBoss import CannonBoss 
+from Entities.MovingEntities.FollowBoss.FollowBoss import FollowBoss 
+from Entities.Button.Button import Button
 from CollisionManager.CollisionManager import CollisionManager
 from random import randint
 from time import time

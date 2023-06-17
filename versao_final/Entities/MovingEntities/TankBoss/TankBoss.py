@@ -1,13 +1,13 @@
 import pygame
-from Sprites.MovingSprites.MovingSprite import MovingSprite
+from Entities.MovingEntities.MovingEntity import MovingEntity
 from random import randint
 from time import time
 from os import path
 from math import atan2, pi
 
-pasta = path.dirname(__file__)
+pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
 
-class TankBoss(MovingSprite):
+class TankBoss(MovingEntity):
     def __init__(self, game, life: int, position: tuple = None) -> None:
         self.__life = life
 
@@ -25,8 +25,8 @@ class TankBoss(MovingSprite):
         speed = 5
         direction = randint(0, 360)
 
-        self.__tank_boss_rush_img = pygame.image.load(pasta+"//TankBoss_rush.png")
-        self.__tank_boss_img = pygame.image.load(pasta+"//TankBoss.png")
+        self.__tank_boss_rush_img = pygame.image.load(pasta+"//Images//TankBoss_rush.png")
+        self.__tank_boss_img = pygame.image.load(pasta+"//Images//TankBoss.png")
         super().__init__(game, speed, -direction, self.__tank_boss_img, position)
 
     def hit(self) -> None:

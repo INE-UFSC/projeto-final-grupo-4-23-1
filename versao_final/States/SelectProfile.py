@@ -1,5 +1,5 @@
 import pygame
-from Sprites.Button.Button import Button
+from Entities.Button.Button import Button
 from States.State import State
 from tkinter import messagebox
 
