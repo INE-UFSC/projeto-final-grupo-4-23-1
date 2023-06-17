@@ -17,39 +17,32 @@ class Credits(State):
         back = Button(self, 20, 20, 180, 100, "<-- Back", True, self.back)
         self.all_sprites.add(back)
 
-        buttonArthur = Button(self, self.x_pos + 50, self.y_pos - 125, 180, 60, "GITHUB", False, self.gitArthur)
+        buttonArthur = Button(self, self.x_pos-800, self.y_pos - 135, 180, 60, "GITHUB", True, self.gitArthur)
         self.all_sprites.add(buttonArthur)
 
-        buttonBreno = Button(self, self.x_pos + 50, self.y_pos, 180, 60, "GITHUB", False, self.gitBreno)
+        buttonBreno = Button(self, self.x_pos-800, self.y_pos-10, 180, 60, "GITHUB", True, self.gitBreno)
         self.all_sprites.add(buttonBreno)
 
-        buttonLeonardo = Button(self, self.x_pos + 50, self.y_pos + 125, 180, 60, "GITHUB", False, self.gitLeonardo)
+        buttonLeonardo = Button(self, self.x_pos-800, self.y_pos + 115, 180, 60, "GITHUB", True, self.gitLeonardo)
         self.all_sprites.add(buttonLeonardo)
 
-        buttonPedro = Button(self, self.x_pos + 50, self.y_pos + 250, 180, 60, "GITHUB", False, self.gitPedro)
+        buttonPedro = Button(self, self.x_pos-800, self.y_pos + 240, 180, 60, "GITHUB", True, self.gitPedro)
         self.all_sprites.add(buttonPedro)
+
+        megaman = Button(self, self.x_pos+135, self.y_pos-135, 60, 60, "P", True, self.get_sound_mixer().play_theme_music)
+        self.all_sprites.add(megaman)
+
+        skyshark = Button(self, self.x_pos+135, self.y_pos-10, 60, 60, "P", True, self.get_sound_mixer().play_normal_level_music)
+        self.all_sprites.add(skyshark)
+
+        lufia2 = Button(self, self.x_pos+135, self.y_pos+115, 60, 60, "P", True, self.get_sound_mixer().play_boss_level_music)
+        self.all_sprites.add(lufia2)
+
+        smw = Button(self, self.x_pos+135, self.y_pos+240, 60, 60, "P", True, self.get_sound_mixer().play_result_music)
+        self.all_sprites.add(smw)
 
     def back(self):
         self.get_owner().change_state("MainMenu")
-
-    def screen_content(self):
-        x_pos = self.display_width // 2
-        y_pos = self.display_height // 2
-
-        self.text("-=-=CREDITS=-=-", self.x_pos - 300, self.y_pos - 270, 40, 'white')
-
-        self.text("Artur", self.x_pos - 350, self.y_pos - 125, 40, 'yellow')
-        self.text("Breno", self.x_pos - 350, self.y_pos, 40, 'yellow')
-        self.text("Leonardo", self.x_pos - 350, self.y_pos + 125, 40, 'yellow')
-        self.text("Pedro", self.x_pos - 350, self.y_pos + 250, 40, 'yellow')
-
-    def handle_update(self):
-        pygame.display.update()
-        self.background()
-        self.screen_content()
-        self.all_sprites.update()
-        self.all_sprites.draw(self.get_display())
-        pygame.display.update()
 
     def gitArthur(self):
         url = "https://github.com/ArturRSoda"
@@ -66,6 +59,34 @@ class Credits(State):
     def gitPedro(self):
         url = "https://github.com/Fontoura21"
         webbrowser.open_new(url)
+
+
+    def screen_content(self):
+        x_pos = self.display_width // 2
+        y_pos = self.display_height // 2
+
+        self.text("-=-=CREDITS=-=-", self.x_pos - 300, 20, 40, 'white')
+
+        self.text("Creaters", self.x_pos-560, self.y_pos-200, 40, "white")
+        self.text("-Artur R. Soda", self.x_pos-615, self.y_pos - 125, 30, 'yellow')
+        self.text("-Breno S. Pereira", self.x_pos - 615, self.y_pos, 30, 'yellow')
+        self.text("-Leonardo Pfeng", self.x_pos - 615, self.y_pos + 125, 30, 'yellow')
+        self.text("-Pedro A. Fontoura", self.x_pos - 615, self.y_pos + 250, 30, 'yellow')
+
+        self.text("Musics", self.x_pos+300, self.y_pos-200, 40, "white")
+        self.text("-Megamen 3 Theme", self.x_pos+200, self.y_pos-125, 30, "yellow")
+        self.text("-Sky Shark NES Tile Music", self.x_pos+200, self.y_pos, 30, "yellow")
+        self.text("-Lufia2: Boss battle theme", self.x_pos+200, self.y_pos+125, 30, "yellow")
+        self.text("-Super Mario World: Game Over music", self.x_pos+200, self.y_pos+250, 30, "yellow")
+
+
+    def handle_update(self):
+        pygame.display.update()
+        self.background()
+        self.screen_content()
+        self.all_sprites.update()
+        self.all_sprites.draw(self.get_display())
+        pygame.display.update()
 
 
     @property

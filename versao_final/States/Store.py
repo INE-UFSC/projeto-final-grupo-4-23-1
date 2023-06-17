@@ -1,3 +1,4 @@
+#oh-my-posh init pwsh | Invoke-Expression
 import pygame
 from Sprites.Button.Button import Button
 from States.State import State
