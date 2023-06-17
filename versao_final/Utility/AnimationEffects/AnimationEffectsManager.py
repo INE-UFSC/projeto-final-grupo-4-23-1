@@ -3,11 +3,11 @@ import fnmatch
 import os
 from Utility.AnimationEffects.AnimationEffect import AnimationEffect
 
-pasta = os.path.dirname(__file__)
-explosion_assets_dir = pasta+"//Frames//ExplosionFrames"
-boss_explosion_assets_dir = pasta+"//Frames//BossExplosionFrames"
-smoke_assets_dir = pasta+"//Frames//SmokeFrames"
-laser_assets_dir = pasta+"//Frames//LaserFrames"
+pasta = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+explosion_assets_dir = pasta+"//Images//Frames//ExplosionFrames"
+boss_explosion_assets_dir = pasta+"//Images//Frames//BossExplosionFrames"
+smoke_assets_dir = pasta+"//Images//Frames//SmokeFrames"
+laser_assets_dir = pasta+"//Images//Frames//LaserFrames"
 
 class AnimationEffectsManager:
     def __init__(self):
