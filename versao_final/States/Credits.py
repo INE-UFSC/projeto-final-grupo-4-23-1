@@ -17,28 +17,28 @@ class Credits(State):
         back = Button(self, 20, 20, 180, 100, "<-- Back", True, self.back)
         self.all_sprites.add(back)
 
-        buttonArthur = Button(self, self.x_pos-800, self.y_pos - 135, 180, 60, "GITHUB", True, self.gitArthur)
+        buttonArthur = Button(self, self.x_pos-670, self.y_pos - 135, 120, 60, "GITHUB", True, self.gitArthur)
         self.all_sprites.add(buttonArthur)
 
-        buttonBreno = Button(self, self.x_pos-800, self.y_pos-10, 180, 60, "GITHUB", True, self.gitBreno)
+        buttonBreno = Button(self, self.x_pos-670, self.y_pos-10, 120, 60, "GITHUB", True, self.gitBreno)
         self.all_sprites.add(buttonBreno)
 
-        buttonLeonardo = Button(self, self.x_pos-800, self.y_pos + 115, 180, 60, "GITHUB", True, self.gitLeonardo)
+        buttonLeonardo = Button(self, self.x_pos-670, self.y_pos + 115, 120, 60, "GITHUB", True, self.gitLeonardo)
         self.all_sprites.add(buttonLeonardo)
 
-        buttonPedro = Button(self, self.x_pos-800, self.y_pos + 240, 180, 60, "GITHUB", True, self.gitPedro)
+        buttonPedro = Button(self, self.x_pos-670, self.y_pos + 240, 120, 60, "GITHUB", True, self.gitPedro)
         self.all_sprites.add(buttonPedro)
 
-        megaman = Button(self, self.x_pos+135, self.y_pos-135, 60, 60, "P", True, self.get_sound_mixer().play_theme_music)
+        megaman = Button(self, self.x_pos+55, self.y_pos-135, 60, 60, "P", True, self.get_sound_mixer().play_theme_music)
         self.all_sprites.add(megaman)
 
-        skyshark = Button(self, self.x_pos+135, self.y_pos-10, 60, 60, "P", True, self.get_sound_mixer().play_normal_level_music)
+        skyshark = Button(self, self.x_pos+55, self.y_pos-10, 60, 60, "P", True, self.get_sound_mixer().play_normal_level_music)
         self.all_sprites.add(skyshark)
 
-        lufia2 = Button(self, self.x_pos+135, self.y_pos+115, 60, 60, "P", True, self.get_sound_mixer().play_boss_level_music)
+        lufia2 = Button(self, self.x_pos+55, self.y_pos+115, 60, 60, "P", True, self.get_sound_mixer().play_boss_level_music)
         self.all_sprites.add(lufia2)
 
-        smw = Button(self, self.x_pos+135, self.y_pos+240, 60, 60, "P", True, self.get_sound_mixer().play_result_music)
+        smw = Button(self, self.x_pos+55, self.y_pos+240, 60, 60, "P", True, self.get_sound_mixer().play_result_music)
         self.all_sprites.add(smw)
 
     def back(self):
@@ -67,17 +67,17 @@ class Credits(State):
 
         self.text("-=-=CREDITS=-=-", self.x_pos - 300, 20, 40, 'white')
 
-        self.text("Creaters", self.x_pos-560, self.y_pos-200, 40, "white")
-        self.text("-Artur R. Soda", self.x_pos-615, self.y_pos - 125, 30, 'yellow')
-        self.text("-Breno S. Pereira", self.x_pos - 615, self.y_pos, 30, 'yellow')
-        self.text("-Leonardo Pfeng", self.x_pos - 615, self.y_pos + 125, 30, 'yellow')
-        self.text("-Pedro A. Fontoura", self.x_pos - 615, self.y_pos + 250, 30, 'yellow')
+        self.text("Creaters", self.x_pos-490, self.y_pos-200, 40, "white")
+        self.text("-Artur R. Soda", self.x_pos-545, self.y_pos - 125, 30, 'yellow')
+        self.text("-Breno S. Pereira", self.x_pos - 545, self.y_pos, 30, 'yellow')
+        self.text("-Leonardo Pfeng", self.x_pos - 545, self.y_pos + 125, 30, 'yellow')
+        self.text("-Pedro A. Fontoura", self.x_pos - 545, self.y_pos + 250, 30, 'yellow')
 
-        self.text("Musics", self.x_pos+300, self.y_pos-200, 40, "white")
-        self.text("-Megamen 3 Theme", self.x_pos+200, self.y_pos-125, 30, "yellow")
-        self.text("-Sky Shark NES Tile Music", self.x_pos+200, self.y_pos, 30, "yellow")
-        self.text("-Lufia2: Boss battle theme", self.x_pos+200, self.y_pos+125, 30, "yellow")
-        self.text("-Super Mario World: Game Over music", self.x_pos+200, self.y_pos+250, 30, "yellow")
+        self.text("Musics", self.x_pos+200, self.y_pos-200, 40, "white")
+        self.text("-Megamen 3 Theme", self.x_pos+120, self.y_pos-125, 25, "yellow")
+        self.text("-Sky Shark NES Tile Music", self.x_pos+120, self.y_pos, 25, "yellow")
+        self.text("-Lufia2: Boss battle theme", self.x_pos+120, self.y_pos+125, 25, "yellow")
+        self.text("-S.M.W.: Game Over music", self.x_pos+120, self.y_pos+250, 25, "yellow")
 
 
     def handle_update(self):
