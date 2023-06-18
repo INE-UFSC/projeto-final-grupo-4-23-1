@@ -28,53 +28,11 @@ class MainMenu(State):
         credits = Button(self, x_pos+10, y_pos-20, 300, 100, 'Credits', True, self.credits)
         self.all_sprites.add(credits)
 
-        quit = Button(self, x_pos-150, y_pos+130, 300, 100, 'Quit', True, self.quit)
+        settings = Button(self, x_pos-150, y_pos+130, 300, 100, 'Settings', True, self.settings)
+        self.all_sprites.add(settings)
+
+        quit = Button(self, x_pos-150, y_pos+280, 300, 100, 'Quit', True, self.quit)
         self.all_sprites.add(quit)
-
-        #volume buttons
-        mute_sfx = Button(self, self.display_width-270, y_pos-80, 70, 70, "M", True, self.mute_unmute_sfx)
-        self.all_sprites.add(mute_sfx)
-
-        inc_sfx_volume = Button(self, self.display_width-180, y_pos-80, 70, 70, "+V", True, self.increase_sfx_volume)
-        self.all_sprites.add(inc_sfx_volume)
-
-        dec_sfx_volume = Button(self, self.display_width-90, y_pos-80, 70, 70, "-V", True, self.decrease_sfx_volume)
-        self.all_sprites.add(dec_sfx_volume)
-
-        mute_music = Button(self, self.display_width-270, y_pos+35, 70, 70, "M", True, self.mute_unmute_music)
-        self.all_sprites.add(mute_music)
-
-        inc_music_volume = Button(self, self.display_width-180, y_pos+35, 70, 70, "+V", True, self.increase_music_volume)
-        self.all_sprites.add(inc_music_volume)
-
-        dec_music_volume = Button(self, self.display_width-90, y_pos+35, 70, 70, "-V", True, self.decrease_music_volume)
-        self.all_sprites.add(dec_music_volume)
-
-    def mute_unmute_sfx(self):
-        self.get_sound_mixer().mute_unmute_sfx()
-
-    def mute_unmute_music(self):
-        self.get_sound_mixer().mute_unmute_music()
-        if (self.get_sound_mixer().mute_music):
-            pygame.mixer.stop()
-        else:
-            self.get_sound_mixer().play_theme_music()
-
-    def increase_music_volume(self):
-        pygame.mixer.stop()
-        self.get_sound_mixer().increase_music_volume()
-        self.get_sound_mixer().play_theme_music()
-        
-    def decrease_music_volume(self):
-        pygame.mixer.stop()
-        self.get_sound_mixer().decrease_music_volume()
-        self.get_sound_mixer().play_theme_music()
-
-    def decrease_sfx_volume(self):
-        self.get_sound_mixer().decrease_sfx_volume()
-
-    def increase_sfx_volume(self):
-        self.get_sound_mixer().increase_sfx_volume()
 
     def select_profile(self):
         self.get_owner().change_state("SelectProfile")
@@ -91,20 +49,15 @@ class MainMenu(State):
     def credits(self):
         self.get_owner().change_state("Credits")
 
+    def settings(self):
+        self.get_owner().change_state("Settings")
+
     def screen_content(self):
 
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
         self.text("-=-=ASTEROIDS-PLUS=-=-", x_pos-400, 100, 45, "white")
-
-        self.text("SFX Volume:", self.display_width-260, y_pos-105, 18, "white")
-        volume = "X" if (self.get_sound_mixer().mute_sfx) else int(self.get_sound_mixer().sfx_volume * 100)
-        self.text(str(volume), self.display_width-75, y_pos-105, 18, "yellow")
-
-        self.text("MUSIC Volume:", self.display_width-265, y_pos+10, 18, "white")
-        volume = "X" if (self.get_sound_mixer().mute_music) else int(self.get_sound_mixer().music_volume * 100)
-        self.text(str(volume), self.display_width-65, y_pos+10, 18, "yellow")
 
     @property
     def all_sprites(self):

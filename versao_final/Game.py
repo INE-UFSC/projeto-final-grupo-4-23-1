@@ -12,6 +12,7 @@ from States.Result import Result
 from States.Scoreboard import Scoreboard
 from States.Introduction import Introduction
 from States.Credits import Credits
+from States.Settings import Settings
 from Utility.GameData import GameData
 from Utility.SoundMixer.SoundMixer import SoundMixer
 from Utility.AnimationEffects.AnimationEffectsManager import AnimationEffectsManager
@@ -41,6 +42,7 @@ class Game:
                                     'Result': Result,
                                     'ScoreBoard': Scoreboard,
                                     'Credits': Credits,
+                                    'Settings': Settings,
                                     'Introduction': Introduction 
                                    }
         #estado atual (começa no Introduction)
