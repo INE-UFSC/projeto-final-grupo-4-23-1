@@ -146,18 +146,18 @@ class SoundMixer:
 
     def decrease_sfx_volume(self):
         if (not self.__mute_sfx):
-            r_vol, inc = self.dec(self.sfx_volume)
-            self.__sfx_volume = 0 if ((r_vol-inc) < 0) else (r_vol-inc)/100
+            r_vol, dec = self.dec(self.sfx_volume)
+            self.__sfx_volume = 0 if ((r_vol-dec) < 0) else (r_vol-dec)/100
 
     def increase_music_volume(self):
-        if (not self.__mute_sfx):
+        if (not self.__mute_music):
             r_vol, inc = self.inc(self.music_volume)
             self.__music_volume = 1 if ((r_vol+inc) > 100) else (r_vol+inc)/100
 
     def decrease_music_volume(self):
-        if (not self.__mute_sfx):
-            r_vol, inc = self.dec(self.music_volume)
-            self.__music_volume = 0 if ((r_vol-inc) < 0) else (r_vol-inc)/100
+        if (not self.__mute_music):
+            r_vol, dec = self.dec(self.music_volume)
+            self.__music_volume = 0 if ((r_vol-dec) < 0) else (r_vol-dec)/100
 
     def mute_unmute_music(self):
         self.__mute_music = False if (self.__mute_music) else True
@@ -167,6 +167,7 @@ class SoundMixer:
 
     def inc(self, vol: float):
         r_vol = vol*100
+        inc = 0
         if (r_vol >= 95):
             inc = 1
         elif (r_vol >= 5):
@@ -177,13 +178,14 @@ class SoundMixer:
 
     def dec(self, vol: float):
         r_vol = vol*100
+        dec = 0
         if (r_vol <= 5):
-            inc = 1
+            dec = 1
         elif (r_vol <= 95):
-            inc = 5
-        elif (r_vol<= 1):
-            inc = 1
-        return (r_vol, inc)
+            dec = 5
+        elif (r_vol<= 100):
+            dec = 1
+        return (r_vol, dec)
 
     @property
     def cannon_blast_sfx(self):

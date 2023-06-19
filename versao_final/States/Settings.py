@@ -19,24 +19,24 @@ class Settings(State):
         self.all_sprites.add(back)
 
         # volume buttons
-        mute_sfx = Button(self, x_pos - 95, y_pos - 80, 70, 70, "M", True, self.mute_unmute_sfx)
+        mute_sfx = Button(self, x_pos - 310, y_pos - 80, 70, 70, "M", True, self.mute_unmute_sfx)
         self.all_sprites.add(mute_sfx)
 
-        inc_sfx_volume = Button(self, x_pos - 5, y_pos - 80, 70, 70, "+V", True,
+        inc_sfx_volume = Button(self, x_pos + 160, y_pos - 80, 70, 70, "+V", True,
                                 self.increase_sfx_volume)
         self.all_sprites.add(inc_sfx_volume)
 
-        dec_sfx_volume = Button(self, x_pos + 85, y_pos - 80, 70, 70, "-V", True, self.decrease_sfx_volume)
+        dec_sfx_volume = Button(self, x_pos - 230, y_pos - 80, 70, 70, "-V", True, self.decrease_sfx_volume)
         self.all_sprites.add(dec_sfx_volume)
 
-        mute_music = Button(self, x_pos - 95, y_pos + 35, 70, 70, "M", True, self.mute_unmute_music)
+        mute_music = Button(self, x_pos - 310, y_pos + 45, 70, 70, "M", True, self.mute_unmute_music)
         self.all_sprites.add(mute_music)
 
-        inc_music_volume = Button(self, x_pos - 5, y_pos + 35, 70, 70, "+V", True,
+        inc_music_volume = Button(self, x_pos + 160 , y_pos + 45, 70, 70, "+V", True,
                                   self.increase_music_volume)
         self.all_sprites.add(inc_music_volume)
 
-        dec_music_volume = Button(self, x_pos + 85, y_pos + 35, 70, 70, "-V", True,
+        dec_music_volume = Button(self, x_pos - 230, y_pos + 45, 70, 70, "-V", True,
                                   self.decrease_music_volume)
         self.all_sprites.add(dec_music_volume)
 
@@ -67,19 +67,27 @@ class Settings(State):
         self.get_sound_mixer().increase_sfx_volume()
 
     def screen_content(self):
-
         x_pos = self.display_width // 2
         y_pos = self.display_height // 2
 
-        self.text("-=-=SETTINGS=-=-", x_pos - 250, 100, 45, "white")
+        self.text("-=-=SETTINGS=-=-", x_pos - 330, 100, 45, "white")
 
-        self.text("SFX Volume:", x_pos - 85, y_pos - 105, 18, "white")
+        self.text("SFX Volume:", x_pos - 105, y_pos - 105, 18, "white")
         volume = "X" if (self.get_sound_mixer().mute_sfx) else int(self.get_sound_mixer().sfx_volume * 100)
-        self.text(str(volume), x_pos + 100, y_pos - 105, 18, "yellow")
+        self.text(str(volume), x_pos + 80, y_pos - 107, 18, "yellow")
 
-        self.text("MUSIC Volume:", x_pos - 90, y_pos + 10, 18, "white")
+        pygame.draw.rect(self.get_display(), "gray", (x_pos-150, y_pos-63, 300, 35))
+        color_sfx = "red" if (self.get_sound_mixer().mute_sfx) else "green"
+        pygame.draw.rect(self.get_display(), color_sfx, (x_pos-150, y_pos-63, int(self.get_sound_mixer().sfx_volume * 300), 35))
+
+        self.text("MUSIC Volume:", x_pos - 110, y_pos + 20, 18, "white")
         volume = "X" if (self.get_sound_mixer().mute_music) else int(self.get_sound_mixer().music_volume * 100)
-        self.text(str(volume), x_pos + 105, y_pos + 10, 18, "yellow")
+        self.text(str(volume), x_pos + 85, y_pos + 20, 18, "yellow")
+
+        pygame.draw.rect(self.get_display(), "gray", (x_pos-150, y_pos+62, 300, 35))
+        color_music = "red" if (self.get_sound_mixer().mute_music) else "green"
+        pygame.draw.rect(self.get_display(), color_music, (x_pos-150, y_pos+62, int(self.get_sound_mixer().music_volume * 300), 35))
+
 
 
     def back(self) -> None:
