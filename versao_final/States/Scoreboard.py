@@ -27,7 +27,7 @@ class Scoreboard(State):
         x_pos = self.display_width//2
         y_pos = self.display_height//2
 
-        self.text("-=-=HIGHSCORE BOARD=-=-", x_pos-450, y_pos-270, 40, 'white')
+        self.text("-=-=SCOREBOARD=-=-", x_pos-300, y_pos-270, 40, 'white')
 
         name1 = self.get_all_profiles()[0].name if (len(self.get_all_profiles()) >= 1) else "<None>"
         self.text("1. %s" % (name1), x_pos-350, y_pos-125, 40, 'yellow')

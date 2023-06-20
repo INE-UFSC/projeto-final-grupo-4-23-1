@@ -67,7 +67,7 @@ class Credits(State):
 
         self.text("-=-=CREDITS=-=-", self.x_pos - 300, 20, 40, 'white')
 
-        self.text("Creaters", self.x_pos-490, self.y_pos-200, 40, "white")
+        self.text("Creators", self.x_pos-490, self.y_pos-200, 40, "white")
         self.text("-Artur R. Soda", self.x_pos-545, self.y_pos - 125, 30, 'yellow')
         self.text("-Breno S. Pereira", self.x_pos - 545, self.y_pos, 30, 'yellow')
         self.text("-Leonardo Pfeng", self.x_pos - 545, self.y_pos + 125, 30, 'yellow')
