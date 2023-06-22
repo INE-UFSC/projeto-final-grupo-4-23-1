@@ -1,7 +1,8 @@
 import pygame
 from States.State import State
 import os
-from Utility.Utils.utils import*
+from Utility.Utils.utils import get_assets_path
+from Utility.Utils.fade import Fade
 from Entities.Button.Button import Button
 class Introduction(State):
     def __init__(self, owner):
