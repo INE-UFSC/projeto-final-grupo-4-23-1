@@ -12,12 +12,8 @@ class Introduction(State):
         self.__fade.fill_black()
         self.__fade.alpha = 255
         
-        self.__company_intro_text = 'ABLP Company'
-        self.__association_intro_text = 'IN ASSOCIATION WITH UFSC'
-        self.__present_intro_text = 'PRESENT'
-        self.__game_name_intro_text = 'ASTEROID-PLUS'
         
-        self.__intros = [self.__company_intro_text, self.__association_intro_text, self.__present_intro_text, self.__game_name_intro_text]
+        self.__intros = ['ABLP Company', 'IN ASSOCIATION WITH UFSC', 'PRESENT', 'ASTEROID-PLUS']
         self.__current_intro = self.intros[0]
         self.__intros_completed = 0
         self.__intro_ended = False
@@ -94,24 +90,8 @@ class Introduction(State):
         return self.__intro_quant
     
     @property
-    def company_intro_text(self):
-        return self.__company_intro_text
-    
-    @property
-    def association_intro_text(self):
-        return self.__association_intro_text
-    
-    @property
     def intro_ended(self):
         return self.__intro_ended
-    
-    @property
-    def present_intro_text(self):
-        return self.__present_intro_text
-    
-    @property
-    def game_name_intro_text(self):
-        return self.__game_name_intro_text
     
     @property
     def intros_completed(self) -> int:
