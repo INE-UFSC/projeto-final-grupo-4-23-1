@@ -1,6 +1,6 @@
 import pygame
 from os import path
-from Profiles.ProfileManager import ProfileManager
+from Profiles.ProfileManager import ProfileDAO
 from Profiles.Profile import Profile
 from abc import ABC, abstractmethod
 
@@ -61,29 +61,29 @@ class State(ABC):
     #True -> perfil existe
     #False -> perfil não existe
     def verify_profile_existence(self, name: str) -> bool:
-        return ProfileManager().verify_profile_existence(name)
+        return ProfileDAO().verify_profile_existence(name)
 
     #retorna um perfil pelo nome
     #retorna o perfil se existir
     # se o perfil NAO existir retorna FALSE
     def get_profile(self, name: str) -> Profile:
-        return ProfileManager().get_profile(name)
+        return ProfileDAO().get_profile(name)
 
     #retora uma lista ORDENADA de todos os perfils
     def get_all_profiles(self) -> list[Profile]:
-        return ProfileManager().get_all_profiles()
+        return ProfileDAO().get_all_profiles()
 
     #remove um perfil pelo nome
     #True -> removido com sucesso
     #False -> perfil não existe
     def remove_profile(self, profile: str) -> bool:
-        return ProfileManager().remove_profile(profile)
+        return ProfileDAO().remove_profile(profile)
 
     #salva um perfil ja existente
     #True -> salvado com sucesso
     #False -> Perfil não existe
     def save_profile(self, profile: Profile) -> bool:
-        return ProfileManager().save_profile(profile)
+        return ProfileDAO().save_profile(profile)
 
     #cria um novo perfil
     #Dá erro se o perfil já existir
@@ -95,7 +95,7 @@ class State(ABC):
                        ship_life: int,
                        ship_cooldown: int,
                        ship_qtd_bullet: int) -> None:
-        return ProfileManager().create_profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
+        return ProfileDAO().create_profile(name, credit, max_score, ship_damage, ship_vel_max, ship_life, ship_cooldown, ship_qtd_bullet)
     
 
     #metodo geral para colocar texto
@@ -120,7 +120,6 @@ class State(ABC):
     def handle_update(self):
         pass
 
-  
 
     @property
     def display_width(self):

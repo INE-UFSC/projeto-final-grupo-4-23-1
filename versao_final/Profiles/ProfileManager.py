@@ -5,7 +5,7 @@ import pickle
 
 DataBase = path.dirname(__file__) + "//DataBase//Profiles.pkl"
 
-class ProfileManager:
+class ProfileDAO:
     def __init__(self):
         #lista com todos os perfils
         self.__all_profiles = list()
