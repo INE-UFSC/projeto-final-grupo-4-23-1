@@ -74,8 +74,8 @@ class Credits(State):
         self.text("-Pedro A. Fontoura", self.x_pos - 545, self.y_pos + 250, 30, 'yellow')
 
         self.text("Musics", self.x_pos+200, self.y_pos-200, 40, "white")
-        self.text("-Megamen 3 Theme", self.x_pos+120, self.y_pos-125, 25, "yellow")
-        self.text("-Sky Shark NES Tile Music", self.x_pos+120, self.y_pos, 25, "yellow")
+        self.text("-Megaman 3 Theme", self.x_pos+120, self.y_pos-125, 25, "yellow")
+        self.text("-Sky Shark NES Title Music", self.x_pos+120, self.y_pos, 25, "yellow")
         self.text("-Lufia2: Boss battle theme", self.x_pos+120, self.y_pos+125, 25, "yellow")
         self.text("-S.M.W.: Game Over music", self.x_pos+120, self.y_pos+250, 25, "yellow")
 
