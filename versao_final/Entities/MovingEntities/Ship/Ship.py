@@ -5,7 +5,10 @@ from math import cos, sin, radians
 from os import path
 from time import time
 
-pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
+def get_folder_versao_top(file_name, ups):
+    return [file_name := path.dirname(file_name) for _ in range(ups + 1)][-1]
+
+pasta = get_folder_versao_top(__file__, 3)
 
 class Ship(MovingEntity):
     def __init__(self, game,
