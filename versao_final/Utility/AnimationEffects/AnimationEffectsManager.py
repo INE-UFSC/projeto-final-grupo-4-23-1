@@ -16,8 +16,8 @@ class AnimationEffectsManager:
         self.__smoke_imgs_list =          self.load_list_imgs(smoke_assets_dir)
         self.__laser_imgs_list =          self.load_list_imgs(laser_assets_dir)
 
-    def add_explosion_effect(self, game, position: tuple, scale: tuple, looping: bool) -> AnimationEffect:
-        return AnimationEffect(game, position, scale, 8, looping, self.__explosion_imgs_list)
+    def add_explosion_effect(self, game, position: tuple, scale: tuple, looping: bool, speed: int) -> AnimationEffect:
+        return AnimationEffect(game, position, scale, speed, looping, self.__explosion_imgs_list)
 
     def add_boss_explosion_effect(self, game, position: tuple, scale: tuple, looping: bool) -> AnimationEffect:
         return AnimationEffect(game, position, scale, 10, looping, self.__boss_explosion_imgs_list)

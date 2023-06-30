@@ -20,6 +20,12 @@ class BasicEnemy(MovingEntity):
     def hit(self) -> None:
         self.__life -= 1
         if (self.life <= 0):
+            self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
+                                                                            position=(self.x,self.y),
+                                                                            scale=(45, 45),
+                                                                            looping=False,
+                                                                            speed=4)
+
             self.kill()
 
     def shoot(self) -> None:

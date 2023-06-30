@@ -22,7 +22,18 @@ class Asteroid(MovingEntity):
                 self.game.all_sprites.add(asteroid)
                 self.game.asteroid_group.add(asteroid)
 
+        self.add_explosion()
+
         self.kill()
+
+    def add_explosion(self):
+        lst_scale = [(35, 35), (60, 60), (90, 90)]
+        self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
+                                                                        position=(self.x,self.y),
+                                                                        scale=lst_scale[self.size],
+                                                                        looping=False,
+                                                                        speed=4)
+
     
     def ld_image(self):
         n = randint(0,6)

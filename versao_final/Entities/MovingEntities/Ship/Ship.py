@@ -233,7 +233,8 @@ class Ship(MovingEntity):
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
                                                                            scale=(50, 50),
-                                                                           looping=False)
+                                                                           looping=False,
+                                                                           speed=8)
             self.__life -= 1
             self.game.get_game_data().set_ship_life(self.life)
 
