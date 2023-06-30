@@ -24,7 +24,9 @@ class BasicEnemy(MovingEntity):
                                                                             position=(self.x,self.y),
                                                                             scale=(45, 45),
                                                                             looping=False,
-                                                                            speed=4)
+                                                                            speed=5)
+
+            self.game.get_sound_mixer().play_basic_enemy_explosion_sfx()
 
             self.kill()
 

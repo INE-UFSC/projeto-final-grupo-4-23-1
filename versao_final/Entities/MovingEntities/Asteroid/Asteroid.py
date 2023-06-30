@@ -34,6 +34,8 @@ class Asteroid(MovingEntity):
                                                                         looping=False,
                                                                         speed=4)
 
+        self.game.get_sound_mixer().play_asteroid_explosion_sfx()
+
     
     def ld_image(self):
         n = randint(0,6)
