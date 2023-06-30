@@ -1,11 +1,12 @@
 import pygame
+from Utility.Utils.utils import *
 from Entities.MovingEntities.MovingEntity import MovingEntity
 from Entities.MovingEntities.Bullet.Bullet import Bullet
 from math import cos, sin, radians
 from os import path
 from time import time
 
-pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
+pasta = get_folder_versao_top(__file__, 3)
 
 class Ship(MovingEntity):
     def __init__(self, game,
@@ -15,6 +16,7 @@ class Ship(MovingEntity):
                  life: int,
                  damage: int,
                  qtd_bullet: int) -> None:
+        
 
         #tempo do ultimo tiro
         self.__last_shoot = 0
