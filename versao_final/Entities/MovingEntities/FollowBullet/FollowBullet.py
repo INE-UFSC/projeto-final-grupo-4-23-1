@@ -1,10 +1,11 @@
 import pygame
 from os import path
+from Utility.Utils.utils import *
 from Entities.MovingEntities.MovingEntity import MovingEntity
 from math import atan2, pi, cos, sin, radians
 from time import time
 
-pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
+pasta = get_folder_versao_top(__file__, 3)
 
 class FollowBullet(MovingEntity):
     def __init__(self, game,
@@ -67,7 +68,8 @@ class FollowBullet(MovingEntity):
             self.game.get_animation_effects_manager().add_explosion_effect(game=self.game,
                                                                            position=(self.x,self.y),
                                                                            scale=(50,50),
-                                                                           looping=False)
+                                                                           looping=False,
+                                                                           speed=7)
             self.kill()
 
     def add_smoke_effect(self):
