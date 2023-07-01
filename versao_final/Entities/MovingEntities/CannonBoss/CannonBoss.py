@@ -1,4 +1,5 @@
 import pygame
+from Utility.Utils.utils import *
 from Entities.MovingEntities.MovingEntity import MovingEntity
 from Utility.AnimationEffects.AnimationEffect import AnimationEffect
 from random import randint
@@ -6,7 +7,7 @@ from time import time
 from os import path
 from math import atan2, pi, cos, sin, radians
 
-pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
+pasta = get_folder_versao_top(__file__, 3)
 
 class CannonBoss(MovingEntity):
     def __init__(self, game, life: int, position: tuple = None) -> None:

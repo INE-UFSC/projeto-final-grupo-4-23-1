@@ -1,11 +1,12 @@
 import pygame
+from Utility.Utils.utils import *
 from Entities.MovingEntities.MovingEntity import MovingEntity
 from Entities.MovingEntities.FollowBullet.FollowBullet import FollowBullet
 from random import randint
 from time import time
 from os import path
 
-pasta = path.dirname(path.dirname(path.dirname(path.dirname(__file__))))
+pasta = get_folder_versao_top(__file__, 3)
 
 class FollowBoss(MovingEntity):
     def __init__(self, game, life: int, position: tuple = None) -> None:
